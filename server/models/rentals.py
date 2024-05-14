@@ -7,6 +7,8 @@ from config import db
 class Rental(db.Model, SerializerMixin):
     __tablename__ = 'rentals'
 
+    serialize_rules = ('-user.rentals','-instrument', '-review',)
+
     id=db.Column(db.Integer, primary_key=True)
 
     user_id=db.Column(db.Integer, db.ForeignKey('users.id'))
