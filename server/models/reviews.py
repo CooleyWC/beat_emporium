@@ -13,5 +13,9 @@ class Review(db.Model, SerializerMixin):
     rental_id=db.Column(db.Integer, db.ForeignKey('rentals.id'))
     
     created_at=db.Column(db.DateTime)
+
+    users = db.relationship('User', back_populates='reviews')
+    rental = db.relationship('Rental', back_populates='reviews')
+    instruments = db.relationship('Instrument', back_populates='reviews')
     
 
