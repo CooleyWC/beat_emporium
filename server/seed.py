@@ -4,7 +4,7 @@ from models.users import User
 from models.rentals import Rental
 from models.reviews import Review
 from models.instruments import Instrument
-from datetime import datetime
+from datetime import datetime, date
 
 if __name__ == "__main__":
   with app.app_context():
@@ -38,9 +38,9 @@ if __name__ == "__main__":
 
     print('adding rentals...')
 
-    rental_1 = Rental(user_id=1, instrument_id=1, review_id=1, created_at=datetime(2024,3,1,10,10,10), start_date=datetime.date(2024, 4, 14), return_date=datetime.date(2024, 5, 10))
-    rental_2 = Rental(user_id=2, instrument_id=2, review_id=2, created_at=datetime(2024,5,10,11,1,0), start_date=datetime.date(2024, 5, 14), return_date=datetime.date(2024, 6, 1))
-    rental_3 = Rental(user_id=3, instrument_id=3, created_at=datetime(2024,6,3,11,5,0), start_date=datetime.date(2024, 6, 27), return_date=datetime.date(2024, 7, 1))
+    rental_1 = Rental(user_id=1, instrument_id=1, created_at=datetime(2024,3,1,10,10,10), start_date=date(2024, 4, 14), return_date=date(2024, 5, 10))
+    rental_2 = Rental(user_id=2, instrument_id=2, created_at=datetime(2024,5,10,11,1,0), start_date=date(2024, 5, 14), return_date=date(2024, 6, 1))
+    rental_3 = Rental(user_id=3, instrument_id=3, created_at=datetime(2024,6,3,11,5,0), start_date=date(2024, 6, 27), return_date=date(2024, 7, 1))
 
     db.session.add_all([rental_1, rental_2, rental_3])
     db.session.commit()
