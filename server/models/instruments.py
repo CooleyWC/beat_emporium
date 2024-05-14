@@ -18,3 +18,8 @@ class Instrument(db.Model, SerializerMixin):
     for_rent=db.Column(db.Boolean)
     rent_price=db.Column(db.Float)
     sale_price=db.Column(db.Float)
+    in_stock=db.Column(db.Boolean)
+
+    reviews = db.relationship('Review', back_populates='instruments', cascade='all, delete-orphan')
+    rentals = db.relationship('Rental', back_populates='instruments', cascade='all, delete-orphan')
+    users = db.relationship('User', secondary='rentals', back_populates='instruments')
