@@ -7,7 +7,8 @@ from config import db, bcrypt
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
-    serialize_rules = ('-_password_hash','-rentals.user', '-reviews.users', '-instruments.users',)
+    serialize_rules = ('-_password_hash','-rentals.user', '-reviews.user', '-instruments.users', '-instruments.reviews',)
+    # serialize_rules = ('-_password_hash','-rentals.user', '-reviews.users', '-instruments.users',)
 
     id=db.Column(db.Integer, primary_key=True)
     first_name=db.Column(db.String, nullable=False)
@@ -18,8 +19,12 @@ class User(db.Model, SerializerMixin):
     _password_hash = db.Column(db.String, nullable=False)
 
     rentals = db.relationship('Rental', back_populates='user', cascade='all, delete-orphan')
-    reviews = db.relationship('Review', back_populates='users')
+    reviews = db.relationship('Review', back_populates='user')
     instruments = db.relationship('Instrument', secondary='rentals', back_populates='users')
+
+    # rentals = db.relationship('Rental', back_populates='user', cascade='all, delete-orphan')
+    # reviews = db.relationship('Review', back_populates='users')
+    # instruments = db.relationship('Instrument', secondary='rentals', back_populates='users')
 
     @hybrid_property
     def password_hash(self):
