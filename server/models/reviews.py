@@ -6,8 +6,8 @@ from config import db
 class Review(db.Model, SerializerMixin):
     __tablename__ = 'reviews'
 
-    serialize_rules = ('-user.reviews', '-user.instruments', '-user.rentals', '-rentals', '-instruments.reviews',)
-    # serialize_rules = ('-users', '-rentals', '-instruments',)
+    serialize_rules = ('-user.reviews', '-user.instruments', '-user.rentals', '-user.id', '-rentals', '-instrument.reviews', '-instrument.id',)
+
 
     id=db.Column(db.Integer, primary_key=True)
 
@@ -16,13 +16,12 @@ class Review(db.Model, SerializerMixin):
     rental_id=db.Column(db.Integer, db.ForeignKey('rentals.id'))
     
     created_at=db.Column(db.DateTime)
+    content=db.Column(db.String, default='')
 
     user = db.relationship('User', back_populates='reviews')
     rentals = db.relationship('Rental', back_populates='review')
-    instruments = db.relationship('Instrument', back_populates='reviews')
+    instrument = db.relationship('Instrument', back_populates='reviews')
 
-    # users = db.relationship('User', back_populates='reviews')
-    # rentals = db.relationship('Rental', back_populates='review')
-    # instruments = db.relationship('Instrument', back_populates='reviews')
+
     
 
