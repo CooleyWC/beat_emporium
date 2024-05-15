@@ -8,6 +8,8 @@ from models.instruments import Instrument
 
 from resources.users import Users
 from resources.signup import Signup
+from resources.check_session import CheckSession
+from resources.login import Login
   
 
 
@@ -32,6 +34,8 @@ from resources.signup import Signup
 
 api.add_resource(Users, '/api/users')
 api.add_resource(Signup, '/api/signup')
+api.add_resource(CheckSession, '/api/check_session')
+api.add_resource(Login, '/api/login')
 # api.add_resource(Rentals, '/api/rentals')
 # api.add_resource(Instruments, '/api/instruments')
 # api.add_resource(Reviews, '/api/reviews')
