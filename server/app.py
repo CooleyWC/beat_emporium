@@ -7,6 +7,7 @@ from models.reviews import Review
 from models.instruments import Instrument
 
 from resources.users import Users
+from resources.signup import Signup
   
 
 
@@ -30,6 +31,7 @@ from resources.users import Users
 #     return reviews, 200
 
 api.add_resource(Users, '/api/users')
+api.add_resource(Signup, '/api/signup')
 # api.add_resource(Rentals, '/api/rentals')
 # api.add_resource(Instruments, '/api/instruments')
 # api.add_resource(Reviews, '/api/reviews')
