@@ -1,8 +1,8 @@
 """new migration
 
-Revision ID: f0f92bbb7002
-Revises: c2e5742d4fd7
-Create Date: 2024-05-13 14:31:42.829810
+Revision ID: 92fc61adde42
+Revises: 
+Create Date: 2024-05-14 21:46:05.820862
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'f0f92bbb7002'
-down_revision = 'c2e5742d4fd7'
+revision = '92fc61adde42'
+down_revision = None
 branch_labels = None
 depends_on = None
 
@@ -30,13 +30,16 @@ def upgrade():
     sa.Column('for_rent', sa.Boolean(), nullable=True),
     sa.Column('rent_price', sa.Float(), nullable=True),
     sa.Column('sale_price', sa.Float(), nullable=True),
+    sa.Column('in_stock', sa.Boolean(), nullable=True),
     sa.PrimaryKeyConstraint('id', name=op.f('pk_instruments'))
     )
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('username', sa.String(), nullable=False),
+    sa.Column('first_name', sa.String(), nullable=False),
+    sa.Column('last_name', sa.String(), nullable=False),
     sa.Column('email', sa.String(), nullable=False),
     sa.Column('location', sa.String(), nullable=True),
+    sa.Column('_password_hash', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id', name=op.f('pk_users'))
     )
     op.create_table('rentals',
@@ -44,9 +47,8 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('instrument_id', sa.Integer(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
-    sa.Column('start_date', sa.Date(), nullable=True),
-    sa.Column('return_date', sa.Date(), nullable=True),
-    sa.Column('in_stock', sa.Boolean(), nullable=True),
+    sa.Column('start_date', sa.DateTime(), nullable=True),
+    sa.Column('return_date', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['instrument_id'], ['instruments.id'], name=op.f('fk_rentals_instrument_id_instruments')),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], name=op.f('fk_rentals_user_id_users')),
     sa.PrimaryKeyConstraint('id', name=op.f('pk_rentals'))
@@ -57,6 +59,7 @@ def upgrade():
     sa.Column('instrument_id', sa.Integer(), nullable=True),
     sa.Column('rental_id', sa.Integer(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
+    sa.Column('content', sa.String(), nullable=True),
     sa.ForeignKeyConstraint(['instrument_id'], ['instruments.id'], name=op.f('fk_reviews_instrument_id_instruments')),
     sa.ForeignKeyConstraint(['rental_id'], ['rentals.id'], name=op.f('fk_reviews_rental_id_rentals')),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], name=op.f('fk_reviews_user_id_users')),
