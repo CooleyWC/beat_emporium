@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import {Outlet} from 'react-router-dom'
+import Header from './Header'
 
 
 
@@ -8,7 +9,7 @@ function App() {
 
   return (
     <>
-      <h1>Beat Emporium</h1>
+      <Header />
       <Outlet />
     </>
   )
