@@ -1,13 +1,13 @@
 import React from 'react';
-import {Typography} from '@mui/material'
+import {Box, Typography} from '@mui/material'
 
 function Login() {
 
     return (
-        <div>
-            <Typography sx={{fontSize: '100px', backgroundColor: 'black'}}>Login</Typography>
+        <Box sx={{marginTop: '100px'}}>
+            <Typography sx={{fontSize: '100px'}}>Login</Typography>
 
-        </div>
+        </Box>
     );
 }
 
