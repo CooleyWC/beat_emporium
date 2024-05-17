@@ -43,7 +43,7 @@ function Login() {
             } else {
                 login(userData)
                 console.log(`success: ${userData}`)
-                // navigate('/dashboard')
+                navigate('/dashboard')
             }
         } catch (error) {
             console.error('error loggin in')

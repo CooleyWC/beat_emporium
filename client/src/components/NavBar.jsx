@@ -99,10 +99,6 @@ function NavBar() {
                                 horizontal: 'left',
                             }}
                             keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
                             open={Boolean(anchorElNav)}
                             onClose={handleCloseNavMenu}
                             sx={{display: {xs: 'block', md: 'none'},}}
@@ -123,7 +119,7 @@ function NavBar() {
                                         <MenuItem
                                             key={page}
                                             component={NavLink}
-                                            to='/'
+                                            to={route}
                                         >
                                             {page}
                                         </MenuItem>
