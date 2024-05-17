@@ -9,6 +9,7 @@ import { useAuth } from './context/AuthProvider';
 function App() {
 
   const {user, login, logout, update} = useAuth();
+  const [allInstruments, setAllInstruments] = useState([])
 
   useEffect(()=>{
     checkUser()
@@ -27,6 +28,16 @@ function App() {
       console.error('Error - try logging in again', error.message)
     }
   }
+
+  useEffect(()=>{
+    fetch('/api/instruments')
+    .then(res=>res.json())
+    .then(instrumentsData=>{
+      setAllInstruments(instrumentsData)
+    })
+  }, [])
+
+  console.log(allInstruments)
 
   return (
     <>
