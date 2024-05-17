@@ -1,10 +1,11 @@
 import React from 'react';
+import {Box, Typography} from '@mui/material'
 
-function Dashboard(props) {
+function Dashboard() {
     return (
-        <div>
-            <h1>Dashboard</h1>
-        </div>
+        <Box sx={{marginTop: '100px'}}>
+            <Typography>Dashboard</Typography>
+        </Box>
     );
 }
 
