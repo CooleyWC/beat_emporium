@@ -7,6 +7,10 @@ function Instruments() {
 
     const {allInstruments} = useOutletContext();
 
+    if(allInstruments===null || !allInstruments){
+        return <p>loading...</p>
+    }
+
     const instrumentCards = 
         <Grid container>
             {allInstruments.map((instrument)=>(
