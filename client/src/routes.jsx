@@ -4,6 +4,7 @@ import ErrorPage from "./components/pages/ErrorPage";
 import Login from "./components/forms/Login";
 import Dashboard from "./components/pages/Dashboard";
 import Instruments from "./components/pages/Instruments";
+import Signup from "./components/forms/Signup";
 
 const routes = [
     {
@@ -18,6 +19,10 @@ const routes = [
             {
                 path: '/login',
                 element: <Login />,
+            },
+            {
+                path: '/signup',
+                element: <Signup />,
             },
             {
                 path: '/dashboard',
