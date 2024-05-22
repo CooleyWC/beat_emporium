@@ -5,12 +5,12 @@ from flask import Flask, jsonify, request, make_response, redirect
 
 import stripe
 
-# stripe_keys = {
-#   'secret_key': os.environ['STRIPE_SECRET_KEY'],
-#   'publishable_key': os.environ['STRIPE_PUBLISHABLE_KEY']
-# }
+stripe_keys = {
+  'secret_key': os.environ['STRIPE_SECRET_KEY'],
+  'publishable_key': os.environ['STRIPE_PUBLISHABLE_KEY']
+}
 
-# stripe.api_key = stripe_keys['secret_key']
+stripe.api_key = stripe_keys['secret_key']
 
 PAYMENT_RESULT_URL = 'http://127.0.0.1:5173/payment_result'
 
@@ -26,9 +26,6 @@ from resources.login import Login
 from resources.logout import Logout
 from resources.instruments import Instruments
 
-
-stripe.api_key='sk_test_51PIh6FRooiRlSIbzviMkDs1fMyieH5UvWyCWn55K2s5EDNqV1h4XZM3cLQfrQ9kRl1wVmgx61xf90hsNHruWSJ5800vwJQNLPk'
-  
 @app.route('/create_checkout_session', methods=['POST'])
 def create_checkout_session():
   session = stripe.checkout.Session.create(
