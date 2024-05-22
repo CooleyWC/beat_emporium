@@ -10,28 +10,65 @@ const stripePromise = loadStripe('pk_test_51PIh6FRooiRlSIbzyMN3RxjtLClLzzjm4d0L2
 
 const PaymentPage = () =>{
 
-    const fetchClientSecret = useCallback(() => {
-        // Add headers, body, and items - checkout wds 9:34
-        return fetch("/create_checkout_session", {
-          method: "POST",
+  const fetchClientSecret = useCallback(() => {
+     
+      return fetch("/create_checkout_session", {
+        method: "POST",
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          items: [
+          {id: 1, quantity: 1},
+          {id: 2, quantity: 2},
+          ]
         })
-          .then((res) => res.json())
-          .then((data) => data.clientSecret);
-      }, []);
-    
-      const options = {fetchClientSecret};
-    
-      return (
-        <Box sx={{marginTop: '100px'}} id="checkout">
-          <EmbeddedCheckoutProvider
-            stripe={stripePromise}
-            options={options}
-          >
-            <EmbeddedCheckout />
-          </EmbeddedCheckoutProvider>
-        </Box>
-      )
+      })
+        .then((res) => res.json())
+        .then((data) => data.clientSecret);
+    }, []);
+  
+    const options = {fetchClientSecret};
+  
+    return (
+      <Box sx={{marginTop: '100px'}} id="checkout">
+        <EmbeddedCheckoutProvider
+          stripe={stripePromise}
+          options={options}
+        >
+          <EmbeddedCheckout />
+        </EmbeddedCheckoutProvider>
+      </Box>
+    )
 
 }
 
 export default PaymentPage
+
+// const PaymentPage = () =>{
+
+//     const fetchClientSecret = useCallback(() => {
+       
+//         return fetch("/create_checkout_session", {
+//           method: "POST",
+//         })
+//           .then((res) => res.json())
+//           .then((data) => data.clientSecret);
+//       }, []);
+    
+//       const options = {fetchClientSecret};
+    
+//       return (
+//         <Box sx={{marginTop: '100px'}} id="checkout">
+//           <EmbeddedCheckoutProvider
+//             stripe={stripePromise}
+//             options={options}
+//           >
+//             <EmbeddedCheckout />
+//           </EmbeddedCheckoutProvider>
+//         </Box>
+//       )
+
+// }
+
+// export default PaymentPage

@@ -28,27 +28,39 @@ from resources.instruments import Instruments
 
 @app.route('/create_checkout_session', methods=['POST'])
 def create_checkout_session():
-  session = stripe.checkout.Session.create(
-    # payment_method_types=['card'],
-    # line_items=[{
-    #   'price': 'price_1PJ5TLRooiRlSIbzuzlarJPB',
-    #   'quantity': 1,
-    # }],
+  data = request.get_json()['items']
+  requested_ids = [item['id'] for item in data]
 
-    line_items = [{
+  all_instruments = [instrument.to_dict() for instrument in Instrument.query.all()]
+
+  # for loop matching the ids to the query
+  requested_instruments = []
+  for instrument in all_instruments:
+    if instrument['id'] in requested_ids:
+      requested_instruments.append(instrument)
+
+  line_items_list = []
+  for instrument in requested_instruments:
+    print(f'instrument: {instrument}')
+    line_item_obj = {
       'price_data': {
         'currency': 'usd',
         'product_data': {
-          'name': 'T-shirt',
+          'name': instrument['name'],
         },
-        'unit_amount': 2000,
+        'unit_amount': int(instrument['rent_price']*100),
       },
       'quantity': 1,
-    }],
+    }
+    line_items_list.append(line_item_obj)
+
+  session = stripe.checkout.Session.create(
+    line_items=line_items_list,
     mode = 'payment',
     ui_mode = 'embedded',
     return_url = PAYMENT_RESULT_URL + '?session_id={CHECKOUT_SESSION_ID}',
-  )
+    )
+
   return jsonify(clientSecret=session.client_secret)
 
 @app.route('/session_status', methods=['GET'])
