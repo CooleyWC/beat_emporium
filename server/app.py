@@ -29,6 +29,12 @@ from resources.instruments import Instruments
 @app.route('/create_checkout_session', methods=['POST'])
 def create_checkout_session():
   session = stripe.checkout.Session.create(
+    # payment_method_types=['card'],
+    # line_items=[{
+    #   'price': 'price_1PJ5TLRooiRlSIbzuzlarJPB',
+    #   'quantity': 1,
+    # }],
+
     line_items = [{
       'price_data': {
         'currency': 'usd',

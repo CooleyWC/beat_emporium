@@ -11,7 +11,7 @@ const stripePromise = loadStripe('pk_test_51PIh6FRooiRlSIbzyMN3RxjtLClLzzjm4d0L2
 const PaymentPage = () =>{
 
     const fetchClientSecret = useCallback(() => {
-        // Create a Checkout Session
+        // Add headers, body, and items - checkout wds 9:34
         return fetch("/create_checkout_session", {
           method: "POST",
         })
