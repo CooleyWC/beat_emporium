@@ -5,6 +5,8 @@ import Login from "./components/forms/Login";
 import Dashboard from "./components/pages/Dashboard";
 import Instruments from "./components/pages/Instruments";
 import Signup from "./components/forms/Signup";
+import PaymentPage from "./components/pages/PaymentPage";
+import PaymentResult from "./components/pages/PaymentResult";
 
 const routes = [
     {
@@ -31,6 +33,14 @@ const routes = [
             {
                 path: '/instruments',
                 element: <Instruments />,
+            },
+            {
+                path: '/payment_page',
+                element: <PaymentPage />,
+            },
+            {
+                path: '/payment_result',
+                element: <PaymentResult />
             }
         ],
     },

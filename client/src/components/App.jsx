@@ -37,7 +37,7 @@ function App() {
     })
   }, [])
 
-  console.log(allInstruments)
+  // console.log(allInstruments)
 
   return (
     <>

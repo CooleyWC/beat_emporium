@@ -11,6 +11,14 @@ export default defineConfig({
       changeOrigin: true,
       // rewrite: (path) => path.replace(/^\/api/, ''),
     },
+    '/create_checkout_session': {
+      target: 'http://localhost:5555',
+      changeOrigin: true,
+    },
+    '/session_status': {
+      target: 'http://localhost:5555',
+      changeOrigin: true,
+    }
    },
   }
 })
