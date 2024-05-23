@@ -7,6 +7,7 @@ import Instruments from "./components/pages/Instruments";
 import Signup from "./components/forms/Signup";
 import PaymentPage from "./components/pages/PaymentPage";
 import PaymentResult from "./components/pages/PaymentResult";
+import ShoppingCart from "./components/pages/ShoppingCart";
 
 const routes = [
     {
@@ -37,6 +38,10 @@ const routes = [
             {
                 path: '/payment_page',
                 element: <PaymentPage />,
+            },
+            {
+                path: '/shopping_cart',
+                element: <ShoppingCart />,
             },
             {
                 path: '/payment_result',
