@@ -4,8 +4,6 @@ import Header from './Header'
 import { useAuth } from './context/AuthProvider';
 
 
-
-
 function App() {
 
   const {user, login, logout, update} = useAuth();
@@ -40,6 +38,8 @@ function App() {
   // console.log(allInstruments)
 
   const handleCartItems = (instrumentObj)=>{
+    // add the incoming instuments to state
+    // send the state down to shopping cart and dashboard
     console.log('from handleCartItems')
     console.log(instrumentObj)
   }
