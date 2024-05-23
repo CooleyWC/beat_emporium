@@ -26,6 +26,7 @@ function Instruments() {
                         reviews={instrument.reviews}
                         sale_price={instrument.sale_price}
                         size={instrument.size}
+                        instrumentObj={instrument}
                     />
                 </Grid>
             ))}

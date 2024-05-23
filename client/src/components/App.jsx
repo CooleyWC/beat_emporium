@@ -39,10 +39,15 @@ function App() {
 
   // console.log(allInstruments)
 
+  const handleCartItems = (instrumentObj)=>{
+    console.log('from handleCartItems')
+    console.log(instrumentObj)
+  }
+
   return (
     <>
       <Header />
-      <Outlet context={{allInstruments}}/>
+      <Outlet context={{allInstruments, handleCartItems}}/>
     </>
   )
 }

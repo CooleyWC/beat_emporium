@@ -1,7 +1,22 @@
 import React from 'react';
-import {Card, CardContent, Typography, CardMedia} from '@mui/material' 
+import {Card, CardContent, Typography, CardMedia, Button} from '@mui/material'
+import { useAuth } from '../context/AuthProvider';
+import { useOutletContext } from 'react-router-dom';
 
-function InstrumentCard({name, description, for_rent, image, model, rent_price, reviews, sale_price, size}) {
+
+function InstrumentCard({name, description, for_rent, image, model, 
+    rent_price, reviews, sale_price, size, instrumentObj}) {
+
+    const {user} = useAuth()
+    const{handleCartItems} = useOutletContext();
+
+    const handleAdd = ()=>{
+        if(!user){
+            alert('You must be logged in to add this to your cart')
+        }
+        handleCartItems(instrumentObj)
+    }
+
     return (
         <Card sx={{maxWidth: '400px', minHeight: '600px', maxHeight: '600px'}}>
             <CardMedia 
@@ -9,7 +24,6 @@ function InstrumentCard({name, description, for_rent, image, model, rent_price, 
                 image={image}
                 sx={{height: '200px'}}
             />
-
             <CardContent>
                 <Typography>
                     {name}
@@ -27,20 +41,10 @@ function InstrumentCard({name, description, for_rent, image, model, rent_price, 
                     {rent_price}
                 </Typography>
             </CardContent>
+            <Button onClick={handleAdd}>Add To Cart</Button>
         </Card>
     );
 }
 
 export default InstrumentCard;
 
-
-// key={instrument.id}
-//                         name={instrument.name}
-//                         description={instrument.description}
-//                         for_rent={instrument.for_rent}
-//                         image={instrument.image}
-//                         model={instrument.modal}
-//                         rent_price={instrument.rent_price}
-//                         reviews={instrument.reviews}
-//                         sale_price={instrument.sale_price}
-//                         size={instrument.size}

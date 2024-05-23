@@ -3,6 +3,7 @@ import {Box, Typography, Stack} from '@mui/material'
 import UserProfileCard from '../cards/UserProfileCard';
 import { useAuth } from '../context/AuthProvider';
 import RentalCard from '../cards/RentalCard';
+import ShoppingCart from '../pages/ShoppingCart'
 
 
 function Dashboard() {
@@ -48,6 +49,9 @@ function Dashboard() {
         <Stack>
             {userRentalsMap}
         </Stack>
+        <Box>
+            <ShoppingCart />
+        </Box>
         </>
     );
 }
