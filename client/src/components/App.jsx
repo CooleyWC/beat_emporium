@@ -50,11 +50,18 @@ function App() {
       }
   }
 
+  const handleRemoveCartItems = (obj)=>{
+    const updatedItemsAfterDelete = cartItems.filter((item)=>{
+      return item.id !== obj.id
+    })
+    setCartItems(updatedItemsAfterDelete)
+  }
+
 
   return (
     <>
       <Header />
-      <Outlet context={{allInstruments, handleCartItems, cartItems}}/>
+      <Outlet context={{allInstruments, handleCartItems, cartItems, handleRemoveCartItems}}/>
     </>
   )
 }
