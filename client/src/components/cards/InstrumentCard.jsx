@@ -8,7 +8,11 @@ function InstrumentCard({name, description, for_rent, image, model,
     rent_price, reviews, sale_price, size, instrumentObj}) {
 
     const {user} = useAuth()
-    const{handleCartItems} = useOutletContext();
+    const{handleCartItems, cartItems} = useOutletContext();
+
+    const checkIfItemInCart = cartItems.find((item)=>{
+        return item.id === instrumentObj.id
+    })
 
     const handleAdd = ()=>{
         if(!user){
@@ -17,6 +21,10 @@ function InstrumentCard({name, description, for_rent, image, model,
         }
         
         handleCartItems(instrumentObj)
+    }
+
+    const handleRemove = ()=>{
+        console.log('deleted')
     }
 
     return (
@@ -43,7 +51,7 @@ function InstrumentCard({name, description, for_rent, image, model,
                     {rent_price}
                 </Typography>
             </CardContent>
-            <Button onClick={handleAdd}>Add To Cart</Button>
+            {checkIfItemInCart ? <Button onClick={handleRemove}>Remove From Cart</Button>: <Button onClick={handleAdd}>Add To Cart</Button>}
         </Card>
     );
 }
