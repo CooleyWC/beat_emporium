@@ -9,6 +9,8 @@ function App() {
   const {user, login, logout, update} = useAuth();
   const [allInstruments, setAllInstruments] = useState([])
 
+  const [cartItems, setCartItems] = useState([])
+
   useEffect(()=>{
     checkUser()
   }, [])
@@ -40,14 +42,26 @@ function App() {
   const handleCartItems = (instrumentObj)=>{
     // add the incoming instuments to state
     // send the state down to shopping cart and dashboard
-    console.log('from handleCartItems')
-    console.log(instrumentObj)
+    const itemsToAdd = cartItems.find((item)=>{
+      return item.id === instrumentObj.id
+    })
+
+    if(itemsToAdd === undefined || itemsToAdd === null){
+      setCartItems([...cartItems, instrumentObj])} else {
+        console.log('this item is already in your cart')
+      }
   }
+
+  // console.log(cartItems)
+
+  // const handleCheckout = ()=>{
+
+  // }
 
   return (
     <>
       <Header />
-      <Outlet context={{allInstruments, handleCartItems}}/>
+      <Outlet context={{allInstruments, handleCartItems, cartItems}}/>
     </>
   )
 }
