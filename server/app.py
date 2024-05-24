@@ -33,13 +33,14 @@ def create_checkout_session():
 
   all_instruments = [instrument.to_dict() for instrument in Instrument.query.all()]
 
-  # for loop matching the ids to the query
   requested_instruments = []
+
   for instrument in all_instruments:
     if instrument['id'] in requested_ids:
       requested_instruments.append(instrument)
 
   line_items_list = []
+  
   for instrument in requested_instruments:
     print(f'instrument: {instrument}')
     line_item_obj = {
