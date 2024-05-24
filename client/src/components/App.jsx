@@ -37,11 +37,9 @@ function App() {
     })
   }, [])
 
-  // console.log(allInstruments)
 
   const handleCartItems = (instrumentObj)=>{
-    // add the incoming instuments to state
-    // send the state down to shopping cart and dashboard
+
     const itemsToAdd = cartItems.find((item)=>{
       return item.id === instrumentObj.id
     })
@@ -52,11 +50,6 @@ function App() {
       }
   }
 
-  // console.log(cartItems)
-
-  // const handleCheckout = ()=>{
-
-  // }
 
   return (
     <>

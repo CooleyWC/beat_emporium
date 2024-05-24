@@ -5,9 +5,7 @@ import { useNavigate } from 'react-router-dom';
 function ShoppingCart() {
 
     const {cartItems} = useOutletContext()
-
     let navigate = useNavigate()
-    // console.log(`from shopping cart: ${cartItems}`)
 
     // make this a card and them import it
     const itemsToDisplay = cartItems.map((item)=>{
@@ -20,6 +18,10 @@ function ShoppingCart() {
     })
 
     const handleCheckoutClick = ()=>{
+        if(cartItems.length == 0){
+            console.log('you dont have any items in your cart')
+            return
+        }
         navigate('/payment_page')
     }
 
