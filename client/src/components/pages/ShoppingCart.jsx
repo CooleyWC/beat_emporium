@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 function ShoppingCart() {
 
-    const {cartItems} = useOutletContext()
+    const {cartItems, handleRemoveCartItems} = useOutletContext()
     let navigate = useNavigate()
 
     // make this a card and them import it
@@ -13,6 +13,7 @@ function ShoppingCart() {
             <div key={item.id}>
                 {item.id}
                 {item.name}
+                <button onClick={()=>handleRemoveCartItems(item)}>Remove From Cart</button>
             </div>
         )
     })

@@ -8,7 +8,7 @@ function InstrumentCard({name, description, for_rent, image, model,
     rent_price, reviews, sale_price, size, instrumentObj}) {
 
     const {user} = useAuth()
-    const{handleCartItems, cartItems} = useOutletContext();
+    const{handleCartItems, cartItems, handleRemoveCartItems} = useOutletContext();
 
     const checkIfItemInCart = cartItems.find((item)=>{
         return item.id === instrumentObj.id
@@ -24,7 +24,7 @@ function InstrumentCard({name, description, for_rent, image, model,
     }
 
     const handleRemove = ()=>{
-        console.log('deleted')
+        handleRemoveCartItems(instrumentObj)
     }
 
     return (
