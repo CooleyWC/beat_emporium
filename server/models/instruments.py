@@ -6,7 +6,7 @@ from config import db
 class Instrument(db.Model, SerializerMixin):
     __tablename__ = 'instruments'
 
-    serialize_rules = ('-users', '-rentals','-reviews.instrument',)
+    serialize_rules = ('-users', '-rentals.instrument','-reviews.instrument',)
 
     id=db.Column(db.Integer, primary_key=True)
     name=db.Column(db.String, nullable=False)

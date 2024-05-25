@@ -5,7 +5,7 @@ import { useOutletContext } from 'react-router-dom';
 
 
 function InstrumentCard({name, description, for_rent, image, model, 
-    rent_price, reviews, sale_price, size, instrumentObj}) {
+    rent_price, reviews, sale_price, size, instrumentObj, currentRentals}) {
 
     const {user} = useAuth()
     const{handleCartItems, cartItems, handleRemoveCartItems} = useOutletContext();
@@ -26,6 +26,15 @@ function InstrumentCard({name, description, for_rent, image, model,
     const handleRemove = ()=>{
         handleRemoveCartItems(instrumentObj)
     }
+
+    const rentalDates = currentRentals.map((rental)=>{
+        return (
+            {"start": rental.start_date, "end": rental.return_date}
+        )
+    })
+
+    console.log(name)
+    console.log(rentalDates)
 
     return (
         <Card sx={{maxWidth: '400px', minHeight: '600px', maxHeight: '600px'}}>
