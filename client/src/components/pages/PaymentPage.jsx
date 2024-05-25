@@ -12,7 +12,22 @@ const stripePromise = loadStripe('pk_test_51PIh6FRooiRlSIbzyMN3RxjtLClLzzjm4d0L2
 const PaymentPage = () =>{
 
   const {cartItems} = useOutletContext()
-  console.log(`from payment page: ${cartItems}`)
+
+  if(!cartItems || cartItems.length == 0){
+    return (
+      <div style={{marginTop: '100px'}}>
+        <p>...loading cart items</p>
+      </div>
+    )
+  }
+  
+  const cartIds = cartItems.map((item)=>{
+    return (
+      {"id": item.id}
+    )
+  })
+
+  console.log(cartIds)
 
   const fetchClientSecret = useCallback(() => {
      
@@ -22,10 +37,11 @@ const PaymentPage = () =>{
           'Content-type': 'application/json',
         },
         body: JSON.stringify({
-          items: [
-          {id: 1, quantity: 1},
-          {id: 2, quantity: 2},
-          ]
+          items: cartIds
+          // items: [
+          // {id: 1, quantity: 1},
+          // {id: 2, quantity: 2},
+          // ]
         })
       })
         .then((res) => res.json())
