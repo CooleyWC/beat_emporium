@@ -67,6 +67,7 @@ function Login() {
                     <Grid item sx={{marginTop: '10px'}}>
                         <FormControl>
                             <TextField
+                                fullWidth
                                 id='email'
                                 name='email'
                                 label='Email'
@@ -82,9 +83,11 @@ function Login() {
                     <Grid item sx={{marginTop: '10px'}}>
                         <FormControl>
                             <TextField
+                                fullWidth
                                 id='password'
                                 name='password'
                                 label='Password'
+                                type='password'
                                 value={formik.values.password}
                                 onChange={formik.handleChange}
                                 error={formik.touched.password && Boolean(formik.errors.password)}
