@@ -4,6 +4,8 @@ import {AppBar, Container, Typography, Toolbar, IconButton, Button, Box, Menu, M
 import MenuIcon from '@mui/icons-material/Menu';
 import { useAuth } from './context/AuthProvider';
 import {useState} from 'react'
+// find a way to replace the 'payment page' text with the icon
+// import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const isUser = [
     {
@@ -117,7 +119,8 @@ function NavBar() {
                                     >
                                         {page}
                                     </MenuItem>
-                                )))
+                                ))
+                                )
                                 : (
                                     noUser.map(({page, route})=>(
                                         <MenuItem
@@ -137,6 +140,7 @@ function NavBar() {
                                         >
                                             Logout
                                         </MenuItem>
+                                        
                                     )}
                         </Menu>
                     </Box>
