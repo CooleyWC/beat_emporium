@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import {Box, Typography, Grid, FormControl, TextField, Button, Alert} from '@mui/material';
+import Link from '@mui/material/Link';
 import {useFormik} from 'formik';
 import * as yup from 'yup';
 import {useAuth} from '../context/AuthProvider';
 import {useNavigate} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 
 function Login() {
@@ -101,7 +103,12 @@ function Login() {
                     </Grid>
                 </Grid>
             </form>
-
+            <Link 
+                component={NavLink}
+                to='/Signup'
+            >
+            <Typography>Don't have an account? Sign Up</Typography>
+            </Link>
         </Box>
     );
 }
