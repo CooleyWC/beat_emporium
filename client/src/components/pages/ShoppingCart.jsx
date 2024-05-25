@@ -1,20 +1,24 @@
 import React from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import CartCard from '../cards/CartCard';
 
 function ShoppingCart() {
 
     const {cartItems, handleRemoveCartItems} = useOutletContext()
     let navigate = useNavigate()
 
-    // make this a card and them import it
     const itemsToDisplay = cartItems.map((item)=>{
+        
         return (
-            <div key={item.id}>
-                {item.id}
-                {item.name}
-                <button onClick={()=>handleRemoveCartItems(item)}>Remove From Cart</button>
-            </div>
+            
+            <CartCard 
+                key={item.id}
+                itemObj={item}
+                name={item.name}
+                image={item.image}
+                handleRemoveCartItems={handleRemoveCartItems}
+            />
         )
     })
 
