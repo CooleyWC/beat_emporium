@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {Card, CardContent, Typography, CardMedia, Button} from '@mui/material'
 import { useAuth } from '../context/AuthProvider';
 import { useOutletContext } from 'react-router-dom';
-// new below
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -17,6 +16,7 @@ function InstrumentCard({name, description, for_rent, image, model,
     const [open, setOpen] = useState(false);
     const [dateInput, setDateInput] = useState('')
     const [selection, setSelection] = useState('')
+    // console.log(selection)
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -33,6 +33,7 @@ function InstrumentCard({name, description, for_rent, image, model,
         return item.id === instrumentObj.id
     })
 
+    // try this with an async funtion rather than 2 separate functions
     const handleAdd = ()=>{
         if(!user){
             alert('You must be logged in to add this to your cart')
@@ -41,11 +42,15 @@ function InstrumentCard({name, description, for_rent, image, model,
 
         handleClickOpen()
         
-        handleCartItems(instrumentObj)
+      
     }
+
+    
 
     const handleRemove = ()=>{
         handleRemoveCartItems(instrumentObj)
+        setSelection('')
+        setDateInput('')
     }
 
     const rentalDates = currentRentals.map((rental)=>{
@@ -53,8 +58,6 @@ function InstrumentCard({name, description, for_rent, image, model,
             {"start": rental.start_date, "end": rental.return_date}
         )
     })
-
-    console.log(selection)
 
     return (
         <>
@@ -91,6 +94,8 @@ function InstrumentCard({name, description, for_rent, image, model,
                 onSubmit: (e)=>{
                     e.preventDefault()
                     setSelection(dateInput)
+                    // is this best practice?
+                    handleCartItems(instrumentObj)
                     handleClose()
                 }
             }}
@@ -108,7 +113,11 @@ function InstrumentCard({name, description, for_rent, image, model,
             />
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose}>Cancel</Button>
+                <Button onClick={()=>{
+                    handleClose
+                    setSelection('')
+                    setDateInput('')
+                    }}>Cancel</Button>
                 <Button type='submit'>Complete Add To Cart</Button>
             </DialogActions>
 

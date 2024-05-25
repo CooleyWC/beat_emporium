@@ -39,6 +39,7 @@ function App() {
 
 
   const handleCartItems = (instrumentObj)=>{
+    console.log('added')
 
     const itemsToAdd = cartItems.find((item)=>{
       return item.id === instrumentObj.id
