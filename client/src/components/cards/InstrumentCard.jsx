@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Card, CardContent, Typography, CardMedia, Button} from '@mui/material'
+import {Card, CardContent, Typography, CardMedia, Button, FormControl} from '@mui/material'
 import { useAuth } from '../context/AuthProvider';
 import { useOutletContext } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
@@ -8,6 +8,10 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 
 
 function InstrumentCard({name, description, for_rent, image, model, 
@@ -41,8 +45,6 @@ function InstrumentCard({name, description, for_rent, image, model,
         }
 
         handleClickOpen()
-        
-      
     }
 
     
@@ -86,6 +88,8 @@ function InstrumentCard({name, description, for_rent, image, model,
             </CardContent>
             {checkIfItemInCart ? <Button onClick={handleRemove}>Remove From Cart</Button>: <Button onClick={handleAdd}>Add To Cart</Button>}
         </Card>
+        {/* trying out date picker here */}
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Dialog
             open={open}
             onClose={handleClose}
@@ -103,6 +107,14 @@ function InstrumentCard({name, description, for_rent, image, model,
             <DialogTitle>Select Dates</DialogTitle>
             <DialogContent>
             <DialogContentText>Select your rental duration for: {name}</DialogContentText>
+
+            <FormControl>
+                <DatePicker
+                    value={selection}
+                    onChange={(newDate)=>setSelection(newDate)}
+                
+                />
+{/*                    
             <TextField
                 id='date-select'
                 label='Select Date'
@@ -110,11 +122,12 @@ function InstrumentCard({name, description, for_rent, image, model,
                 variant='standard'
                 value={dateInput}
                 onChange={(e)=>setDateInput(e.target.value)}
-            />
+            /> */}
+            </FormControl>
             </DialogContent>
             <DialogActions>
                 <Button onClick={()=>{
-                    handleClose
+                    handleClose()
                     setSelection('')
                     setDateInput('')
                     }}>Cancel</Button>
@@ -122,6 +135,7 @@ function InstrumentCard({name, description, for_rent, image, model,
             </DialogActions>
 
         </Dialog>
+        </LocalizationProvider>
         </>
     );
 }
