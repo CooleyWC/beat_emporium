@@ -17,10 +17,13 @@ import dayjs from 'dayjs';
 function InstrumentCard({name, description, for_rent, image, model, 
     rent_price, reviews, sale_price, size, instrumentObj, currentRentals}) {
 
+    const today = dayjs()
+    const tomorrow = dayjs().add(1, 'day')
+
     const [open, setOpen] = useState(false);
-    const [dateInput, setDateInput] = useState('')
+    const [startInput, setStartInput] = useState(today)
+    const [endInput, setEndInput] = useState(tomorrow)
     const [selection, setSelection] = useState('')
-    // console.log(selection)
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -37,7 +40,6 @@ function InstrumentCard({name, description, for_rent, image, model,
         return item.id === instrumentObj.id
     })
 
-    // try this with an async funtion rather than 2 separate functions
     const handleAdd = ()=>{
         if(!user){
             alert('You must be logged in to add this to your cart')
@@ -47,12 +49,11 @@ function InstrumentCard({name, description, for_rent, image, model,
         handleClickOpen()
     }
 
-    
-
     const handleRemove = ()=>{
         handleRemoveCartItems(instrumentObj)
         setSelection('')
-        setDateInput('')
+        setStartInput(today)
+        setEndInput(tomorrow)
     }
 
     const rentalDates = currentRentals.map((rental)=>{
@@ -88,7 +89,7 @@ function InstrumentCard({name, description, for_rent, image, model,
             </CardContent>
             {checkIfItemInCart ? <Button onClick={handleRemove}>Remove From Cart</Button>: <Button onClick={handleAdd}>Add To Cart</Button>}
         </Card>
-        {/* trying out date picker here */}
+
         <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Dialog
             open={open}
@@ -98,38 +99,38 @@ function InstrumentCard({name, description, for_rent, image, model,
                 onSubmit: (e)=>{
                     e.preventDefault()
                     setSelection(dateInput)
-                    // is this best practice?
                     handleCartItems(instrumentObj)
                     handleClose()
                 }
             }}
         >
-            <DialogTitle>Select Dates</DialogTitle>
+            <DialogTitle>Select Your Rental Time Frame</DialogTitle>
             <DialogContent>
-            <DialogContentText>Select your rental duration for: {name}</DialogContentText>
+            <DialogContentText sx={{marginBottom: '20px'}}>* default is one day</DialogContentText>
+            <DialogContentText sx={{marginBottom: '20px'}}>{`${name}, ${model}`}</DialogContentText>
 
             <FormControl>
                 <DatePicker
-                    value={selection}
-                    onChange={(newDate)=>setSelection(newDate)}
-                
+                    disablePast
+                    label='Rental Start Date'
+                    value={startInput}
+                    onChange={(newDate)=>setStartInput(newDate)}
                 />
-{/*                    
-            <TextField
-                id='date-select'
-                label='Select Date'
-                fullWidth
-                variant='standard'
-                value={dateInput}
-                onChange={(e)=>setDateInput(e.target.value)}
-            /> */}
+            </FormControl>
+            <FormControl>
+                <DatePicker 
+                    disablePast
+                    label='Rental Return Date'
+                    value={endInput}
+                    onChange={(newDate)=>setEndInput(newDate)}
+                />
             </FormControl>
             </DialogContent>
             <DialogActions>
                 <Button onClick={()=>{
                     handleClose()
-                    setSelection('')
-                    setDateInput('')
+                    setStartInput(today)
+                    setEndInput(tomorrow)
                     }}>Cancel</Button>
                 <Button type='submit'>Complete Add To Cart</Button>
             </DialogActions>

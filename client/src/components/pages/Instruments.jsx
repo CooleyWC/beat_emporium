@@ -21,7 +21,7 @@ function Instruments() {
                         description={instrument.description}
                         for_rent={instrument.for_rent}
                         image={instrument.image}
-                        model={instrument.modal}
+                        model={instrument.model}
                         rent_price={instrument.rent_price}
                         reviews={instrument.reviews}
                         sale_price={instrument.sale_price}
