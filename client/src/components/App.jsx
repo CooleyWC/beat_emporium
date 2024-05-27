@@ -37,16 +37,16 @@ function App() {
     })
   }, [])
 
-
-  const handleCartItems = (instrumentObj)=>{
+  // this now adds the start and end dates to the instrumentobj selection
+  const handleCartItems = (instrumentObjWithDates)=>{
     console.log('added')
 
     const itemsToAdd = cartItems.find((item)=>{
-      return item.id === instrumentObj.id
+      return item.id === instrumentObjWithDates.id
     })
 
     if(itemsToAdd === undefined || itemsToAdd === null){
-      setCartItems([...cartItems, instrumentObj])} else {
+      setCartItems([...cartItems, instrumentObjWithDates])} else {
         console.log('this item is already in your cart')
       }
   }
