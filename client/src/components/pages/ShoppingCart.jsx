@@ -8,6 +8,8 @@ function ShoppingCart() {
     const {cartItems, handleRemoveCartItems} = useOutletContext()
     let navigate = useNavigate()
 
+    console.log(cartItems)
+
     const itemsToDisplay = cartItems.map((item)=>{
         
         return (
@@ -33,6 +35,7 @@ function ShoppingCart() {
     return (
         <div style={{marginTop: '100px'}}>
             <h1>Shopping Cart</h1>
+            {/* why is this getting an error after adding start and end date to new isntrument obj */}
             <div>{itemsToDisplay}</div>
             <button onClick={handleCheckoutClick}>Checkout</button>
         </div>

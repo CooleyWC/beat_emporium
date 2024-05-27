@@ -14,8 +14,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 
 
-function InstrumentCard({name, description, for_rent, image, model, 
-    rent_price, reviews, sale_price, size, instrumentObj, currentRentals}) {
+function InstrumentCard({brand, color, name, description, for_rent, image, model, 
+    rent_price, reviews, sale_price, size, instrumentObj, currentRentals, in_stock}) {
 
     const today = dayjs()
     const tomorrow = dayjs().add(1, 'day')
@@ -23,7 +23,8 @@ function InstrumentCard({name, description, for_rent, image, model,
     const [open, setOpen] = useState(false);
     const [startInput, setStartInput] = useState(today)
     const [endInput, setEndInput] = useState(tomorrow)
-    const [selection, setSelection] = useState('')
+    const [selection, setSelection] = useState([])
+
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -98,8 +99,28 @@ function InstrumentCard({name, description, for_rent, image, model,
                 component: 'form',
                 onSubmit: (e)=>{
                     e.preventDefault()
-                    setSelection(dateInput)
-                    handleCartItems(instrumentObj)
+                    // build out object with the start and end dates
+                    const instrumentWithDates = {
+                        "id": instrumentObj.id,
+                        "brand": brand,
+                        "color": color,
+                        "description": description,
+                        "for_rent": for_rent,
+                        "image": image,
+                        "in_stock": in_stock,
+                        "model": model,
+                        "name": name,
+                        "rent_price": rent_price,
+                        "reviews": reviews,
+                        "rentals": currentRentals,
+                        "sale_price": sale_price,
+                        "size": size,
+                        "start_date": startInput,
+                        "end_date": endInput
+                    }
+                    console.log(`newObj: ${instrumentWithDates}, ${instrumentWithDates.start_date}`)
+                    setSelection([startInput, endInput])
+                    handleCartItems(instrumentWithDates)
                     handleClose()
                 }
             }}
@@ -109,6 +130,8 @@ function InstrumentCard({name, description, for_rent, image, model,
             <DialogContentText sx={{marginBottom: '20px'}}>* default is one day</DialogContentText>
             <DialogContentText sx={{marginBottom: '20px'}}>{`${name}, ${model}`}</DialogContentText>
 
+
+            {/* review https://mui.com/x/react-date-pickers/validation/ - use the shouldDisableDate to incorporate unavailable dates */}
             <FormControl>
                 <DatePicker
                     disablePast
@@ -131,6 +154,7 @@ function InstrumentCard({name, description, for_rent, image, model,
                     handleClose()
                     setStartInput(today)
                     setEndInput(tomorrow)
+                    // setSelection([startInput, endInput])
                     }}>Cancel</Button>
                 <Button type='submit'>Complete Add To Cart</Button>
             </DialogActions>

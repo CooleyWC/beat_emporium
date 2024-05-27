@@ -16,6 +16,8 @@ function Instruments() {
             {allInstruments.map((instrument)=>(
                 <Grid item key={instrument.id} xs={12} sm={6} md={3} lg={3}>
                     <InstrumentCard 
+                        brand={instrument.brand}
+                        color={instrument.color}
                         key={instrument.id}
                         name={instrument.name}
                         description={instrument.description}
@@ -28,6 +30,7 @@ function Instruments() {
                         size={instrument.size}
                         currentRentals={instrument.rentals}
                         instrumentObj={instrument}
+                        in_stock={instrument.in_stock}
                     />
                 </Grid>
             ))}
