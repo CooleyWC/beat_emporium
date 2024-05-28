@@ -29,6 +29,9 @@ from resources.instruments import Instruments
 @app.route('/create_checkout_session', methods=['POST'])
 def create_checkout_session():
   data = request.get_json()['items']
+  # for use of creating rental post
+  rental_data = request.get_json()['rentalsArr']
+  print(f'rental data: ${rental_data}')
   requested_ids = [item['id'] for item in data]
 
   all_instruments = [instrument.to_dict() for instrument in Instrument.query.all()]
@@ -42,7 +45,7 @@ def create_checkout_session():
   line_items_list = []
   
   for instrument in requested_instruments:
-    print(f'instrument: {instrument}')
+
     line_item_obj = {
       'price_data': {
         'currency': 'usd',
@@ -62,7 +65,8 @@ def create_checkout_session():
     return_url = PAYMENT_RESULT_URL + '?session_id={CHECKOUT_SESSION_ID}',
     )
 
-  return jsonify(clientSecret=session.client_secret)
+  # added rental data
+  return jsonify(clientSecret=session.client_secret, rental_data=rental_data)
 
 @app.route('/session_status', methods=['GET'])
 def session_status():

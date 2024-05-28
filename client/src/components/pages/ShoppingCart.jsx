@@ -8,7 +8,7 @@ function ShoppingCart() {
     const {cartItems, handleRemoveCartItems} = useOutletContext()
     let navigate = useNavigate()
 
-    console.log(cartItems)
+    // console.log('cart items from shopping cart', cartItems)
 
     const itemsToDisplay = cartItems.map((item)=>{
         

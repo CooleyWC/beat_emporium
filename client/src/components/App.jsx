@@ -11,6 +11,8 @@ function App() {
 
   const [cartItems, setCartItems] = useState([])
 
+  // console.log('cart items from app', cartItems)
+
   useEffect(()=>{
     checkUser()
   }, [])
@@ -58,11 +60,15 @@ function App() {
     setCartItems(updatedItemsAfterDelete)
   }
 
+  const rentalPost = (obj)=>{
+    console.log('from app', obj)
+  }
+
 
   return (
     <>
       <Header />
-      <Outlet context={{allInstruments, handleCartItems, cartItems, handleRemoveCartItems}}/>
+      <Outlet context={{allInstruments, handleCartItems, cartItems, handleRemoveCartItems, rentalPost}}/>
     </>
   )
 }
