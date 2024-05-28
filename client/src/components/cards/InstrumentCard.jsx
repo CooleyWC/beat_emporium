@@ -37,6 +37,8 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
     const {user} = useAuth()
     const{handleCartItems, cartItems, handleRemoveCartItems} = useOutletContext();
 
+    console.log('cart items from instrument card', cartItems)
+
     const checkIfItemInCart = cartItems.find((item)=>{
         return item.id === instrumentObj.id
     })
@@ -57,11 +59,28 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
         setEndInput(tomorrow)
     }
 
+    // this is for blocking out datepicker dates
     const rentalDates = currentRentals.map((rental)=>{
         return (
             {"start": rental.start_date, "end": rental.return_date}
         )
     })
+
+    console.log(`rental dates: ${rentalDates[0].start}`)
+
+    const disableDateFunc = (date)=>{
+        // return boolean for the start dates
+        for(date of rentalDates){
+            console.log(`disabledate: ${date.end}`)
+        if(date.start_date === typeof(Date)){
+            return true
+        }
+
+        if(date.return_date === typeof(Date)){
+            return true
+        }
+    }
+}
 
     return (
         <>
@@ -118,7 +137,7 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
                         "start_date": startInput,
                         "end_date": endInput
                     }
-                    console.log(`newObj: ${instrumentWithDates}, ${instrumentWithDates.start_date}`)
+                    // console.log(`newObj: ${instrumentWithDates}, ${instrumentWithDates.start_date}`)
                     setSelection([startInput, endInput])
                     handleCartItems(instrumentWithDates)
                     handleClose()
@@ -134,6 +153,7 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
             {/* review https://mui.com/x/react-date-pickers/validation/ - use the shouldDisableDate to incorporate unavailable dates */}
             <FormControl>
                 <DatePicker
+                    shouldDisableDate={disableDateFunc}
                     disablePast
                     label='Rental Start Date'
                     value={startInput}
@@ -142,6 +162,7 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
             </FormControl>
             <FormControl>
                 <DatePicker 
+                    shouldDisableDate={disableDateFunc}
                     disablePast
                     label='Rental Return Date'
                     value={endInput}
