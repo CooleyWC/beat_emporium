@@ -11,10 +11,15 @@ function PaymentResult() {
     const [status, setStatus] = useState(null);
     const [customerEmail, setCustomerEmail] = useState('');
 
-    const {cartItems, rentalPost} = useOutletContext();
+    const {cartItems, rentalPost, oldCart} = useOutletContext();
     const {user} = useOutletContext();
 
-    console.log('cart items from payment result', cartItems)
+    // console.log('cart items from payment result', cartItems)
+    // console.log(`old cart from payresult: ${oldCart.current}`)
+
+    const cartItemsToPost = oldCart.current
+
+    // console.log('cart items to post', cartItemsToPost)
 
     useEffect(()=>{
         const queryString = window.location.search;

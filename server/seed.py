@@ -18,14 +18,16 @@ if __name__ == "__main__":
     fake = Faker()
 
     print('adding users')
-    user_1 = User(first_name=fake.first_name(), last_name=fake.last_name(), email=fake.email(), location=fake.city())
+    user_1 = User(first_name=fake.first_name(), last_name=fake.last_name(), email=fake.email(), location=fake.city(), admin=False)
     user_1.password_hash='paradiddle'
-    user_2 = User(first_name=fake.first_name(), last_name=fake.last_name(), email=fake.email(), location=fake.city())
+    user_2 = User(first_name=fake.first_name(), last_name=fake.last_name(), email=fake.email(), location=fake.city(), admin=False)
     user_2.password_hash='paradiddle'
-    user_3 = User(first_name=fake.first_name(), last_name=fake.last_name(), email=fake.email(), location=fake.city())
+    user_3 = User(first_name=fake.first_name(), last_name=fake.last_name(), email=fake.email(), location=fake.city(), admin=False)
     user_3.password_hash='paradiddle'
+    user_4 = User(first_name='will', last_name='cool', email='will@gmail.com', location=fake.city(), admin=True)
+    user_4.password_hash='paradiddle'
 
-    db.session.add_all([user_1, user_2, user_3])
+    db.session.add_all([user_1, user_2, user_3, user_4])
     db.session.commit()
 
     print('adding instruments...')
@@ -40,8 +42,8 @@ if __name__ == "__main__":
 
     print('adding rentals...')
 
-    rental_1 = Rental(user_id=1, instrument_id=1, created_at=datetime(2024,3,1,10,10,10), start_date=date(2024, 4, 14), return_date=date(2024, 5, 10))
-    rental_2 = Rental(user_id=2, instrument_id=2, created_at=datetime(2024,5,10,11,1,0), start_date=date(2024, 5, 14), return_date=date(2024, 6, 1))
+    rental_1 = Rental(user_id=1, instrument_id=1, created_at=datetime(2024,3,1,10,10,10), start_date=date(2024, 7, 14), return_date=date(2024, 7, 20))
+    rental_2 = Rental(user_id=2, instrument_id=2, created_at=datetime(2024,5,10,11,1,0), start_date=date(2024, 7, 14), return_date=date(2024, 7, 22))
     rental_3 = Rental(user_id=3, instrument_id=3, created_at=datetime(2024,6,3,11,5,0), start_date=date(2024, 6, 27), return_date=date(2024, 7, 1))
     rental_4 = Rental(user_id=2, instrument_id=4, created_at=datetime(2024,5,11,10,1,0), start_date=date(2024, 6, 14), return_date=date(2024, 7, 1))
 

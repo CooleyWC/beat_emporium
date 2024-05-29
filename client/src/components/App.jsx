@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import {Outlet} from 'react-router-dom'
 import Header from './Header'
 import { useAuth } from './context/AuthProvider';
@@ -11,7 +11,16 @@ function App() {
 
   const [cartItems, setCartItems] = useState([])
 
-  // console.log('cart items from app', cartItems)
+  // this should hold the cartItems after the payment result
+  const oldCart = useRef([])
+
+  useEffect(()=>{
+    oldCart.current = cartItems
+  }, [cartItems])
+
+  // console.log(`app cart items: ${cartItems}`)
+  // console.log(`old cart: ${oldCart.current}`)
+
 
   useEffect(()=>{
     checkUser()
@@ -68,7 +77,7 @@ function App() {
   return (
     <>
       <Header />
-      <Outlet context={{allInstruments, handleCartItems, cartItems, handleRemoveCartItems, rentalPost}}/>
+      <Outlet context={{allInstruments, handleCartItems, cartItems, handleRemoveCartItems, rentalPost, oldCart}}/>
     </>
   )
 }

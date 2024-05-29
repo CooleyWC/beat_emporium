@@ -37,7 +37,7 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
     const {user} = useAuth()
     const{handleCartItems, cartItems, handleRemoveCartItems} = useOutletContext();
 
-    console.log('cart items from instrument card', cartItems)
+    // console.log('cart items from instrument card', cartItems)
 
     const checkIfItemInCart = cartItems.find((item)=>{
         return item.id === instrumentObj.id
@@ -69,17 +69,19 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
     console.log(`rental dates: ${rentalDates[0].start}`)
 
     const disableDateFunc = (date)=>{
-        // return boolean for the start dates
+        // console.log(date)
         for(date of rentalDates){
-            console.log(`disabledate: ${date.end}`)
-        if(date.start_date === typeof(Date)){
-            return true
-        }
+            // console.log(`disabledate for loop: ${date.start}`)
+            if(date.start_date === typeof(Date)){
+                // console.log('start type of date is true')
+                return true
+            }
 
-        if(date.return_date === typeof(Date)){
-            return true
+            if(date.return_date === typeof(Date)){
+                // console.log('end date type of is true')
+                return true
+            }
         }
-    }
 }
 
     return (
