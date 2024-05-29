@@ -15,6 +15,7 @@ class User(db.Model, SerializerMixin):
     last_name=db.Column(db.String, nullable=False)
     email=db.Column(db.String, nullable=False)
     location=db.Column(db.String)
+    admin=db.Column(db.String, default=False)
 
     _password_hash = db.Column(db.String, nullable=False)
 
