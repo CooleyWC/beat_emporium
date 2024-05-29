@@ -24,7 +24,7 @@ if __name__ == "__main__":
     user_2.password_hash='paradiddle'
     user_3 = User(first_name=fake.first_name(), last_name=fake.last_name(), email=fake.email(), location=fake.city(), admin=False)
     user_3.password_hash='paradiddle'
-    user_4 = User(first_name='will', last_name='cool', email='will@gmail.com', location=fake.city(), admin=True)
+    user_4 = User(first_name='will', last_name='cool', email='will@gmail.com', location='chicago', admin=True)
     user_4.password_hash='paradiddle'
 
     db.session.add_all([user_1, user_2, user_3, user_4])

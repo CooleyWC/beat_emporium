@@ -3,7 +3,8 @@ import {Box, Typography, Stack} from '@mui/material'
 import UserProfileCard from '../cards/UserProfileCard';
 import { useAuth } from '../context/AuthProvider';
 import RentalCard from '../cards/RentalCard';
-import ShoppingCart from '../pages/ShoppingCart'
+import ShoppingCart from '../pages/ShoppingCart';
+import Admin from './Admin';
 
 
 function Dashboard() {
@@ -51,6 +52,9 @@ function Dashboard() {
         </Stack>
         <Box>
             <ShoppingCart />
+        </Box>
+        <Box>
+        {user.admin == '1' && <Admin />}
         </Box>
         </>
     );
