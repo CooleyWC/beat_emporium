@@ -11,6 +11,8 @@ function App() {
 
   const [cartItems, setCartItems] = useState([])
 
+  console.log(user)
+
   // this should hold the cartItems after the payment result
   const oldCart = useRef([])
 

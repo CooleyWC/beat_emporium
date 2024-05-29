@@ -2,6 +2,7 @@ import React from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import CartCard from '../cards/CartCard';
+import {Box, Typography, Button} from '@mui/material'
 
 function ShoppingCart() {
 
@@ -33,12 +34,22 @@ function ShoppingCart() {
     }
 
     return (
-        <div style={{marginTop: '100px'}}>
-            <h1>Shopping Cart</h1>
-            {/* why is this getting an error after adding start and end date to new isntrument obj */}
-            <div>{itemsToDisplay}</div>
-            <button onClick={handleCheckoutClick}>Checkout</button>
-        </div>
+     
+        <Box style={{marginTop: '100px'}}>
+          
+            <Typography>Shopping Cart</Typography>
+        
+            {cartItems.length == 0 ? <Typography>No items in cart</Typography> :(
+                <>
+                <Box>{itemsToDisplay}</Box>
+                <Button variant='contained' onClick={handleCheckoutClick}>Checkout</Button>
+                </>
+            )}
+            {/* <Box>{itemsToDisplay}</Box>
+            <Button variant='contained' onClick={handleCheckoutClick}>Checkout</Button> */}
+       
+        </Box>
+   
     );
 }
 
