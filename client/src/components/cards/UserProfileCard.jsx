@@ -20,9 +20,3 @@ function UserProfileCard({first_name, last_name, email, location}) {
 }
 
 export default UserProfileCard;
-
-// key={user.id}
-//                 first_name={user.first_name}
-//                 last_name={user.lase_name}
-//                 email={user.email}
-//                 location={user.location}

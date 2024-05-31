@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Card, CardContent, Typography, CardMedia, Button, FormControl} from '@mui/material'
 import { useAuth } from '../context/AuthProvider';
+import {useCart} from '../context/CartProvider'
 import { useOutletContext } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -35,9 +36,7 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
     };
 
     const {user} = useAuth()
-    const{handleCartItems, cartItems, handleRemoveCartItems} = useOutletContext();
-
-    // console.log('cart items from instrument card', cartItems)
+    const {cartItems, handleCartItems, handleRemoveCartItems} = useCart()
 
     const checkIfItemInCart = cartItems.find((item)=>{
         return item.id === instrumentObj.id
@@ -60,29 +59,45 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
     }
 
     // this is for blocking out datepicker dates
-    const rentalDates = currentRentals.map((rental)=>{
-        return (
-            {"start": rental.start_date, "end": rental.return_date}
-        )
-    })
+    // const rentalDates = currentRentals.map((rental)=>{
+    //     return (
 
-    console.log(`rental dates: ${rentalDates[0].start}`)
+    //         {'rental1': [date1,date2,]}
+
+    //         {"start": rental.start_date, "end": rental.return_date}
+    //     )
+    // })
+
+    // console.log(`rental dates: ${rentalDates[0].start}`)
 
     const disableDateFunc = (date)=>{
-        // console.log(date)
-        for(date of rentalDates){
-            // console.log(`disabledate for loop: ${date.start}`)
-            if(date.start_date === typeof(Date)){
-                // console.log('start type of date is true')
-                return true
-            }
 
-            if(date.return_date === typeof(Date)){
-                // console.log('end date type of is true')
-                return true
-            }
-        }
-}
+        
+
+        // console.log(date)
+
+        // for loop 
+        const day = date.day()
+
+        // return day !== date
+
+        const dateOfMonth = date.date()
+        const month = date.month()
+        // console.log(`day: ${day}, dateofmonth: ${dateOfMonth}, month: ${month}`)
+
+        // for(date of rentalDates){
+        //     // console.log(`disabledate for loop: ${date.start}`)
+        //     if(date.start_date === typeof(Date)){
+        //         // console.log('start type of date is true')
+        //         return true
+        //     }
+
+        //     if(date.return_date === typeof(Date)){
+        //         // console.log('end date type of is true')
+        //         return true
+        //     }
+        // }
+    }   
 
     return (
         <>
@@ -151,8 +166,6 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
             <DialogContentText sx={{marginBottom: '20px'}}>* default is one day</DialogContentText>
             <DialogContentText sx={{marginBottom: '20px'}}>{`${name}, ${model}`}</DialogContentText>
 
-
-            {/* review https://mui.com/x/react-date-pickers/validation/ - use the shouldDisableDate to incorporate unavailable dates */}
             <FormControl>
                 <DatePicker
                     shouldDisableDate={disableDateFunc}

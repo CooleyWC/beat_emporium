@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, NavLink} from 'react-router-dom';
+import {Link, NavLink, Outlet} from 'react-router-dom';
 import {AppBar, Container, Typography, Toolbar, IconButton, Button, Box, Menu, MenuItem} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useAuth } from './context/AuthProvider';
@@ -66,6 +66,7 @@ function NavBar() {
     }
 
     return (
+        <>
         <AppBar position='fixed'>
             <Container maxWidth='xl'>
                 <Toolbar disableGutters>
@@ -228,6 +229,10 @@ function NavBar() {
                 </Toolbar>
             </Container>
         </AppBar>
+        <main>
+            <Outlet />
+        </main>
+        </>
     );
 }
 

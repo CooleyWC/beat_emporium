@@ -1,32 +1,22 @@
 import React, {useState} from 'react';
 import {Box, Typography} from '@mui/material'
 import { useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
 import { useAuth } from '../context/AuthProvider';
-
-
+import {useCart} from '../context/CartProvider'
 
 function PaymentResult() {
 
     const [status, setStatus] = useState(null);
     const [customerEmail, setCustomerEmail] = useState('');
 
-    const {cartItems, rentalPost, oldCart} = useOutletContext();
-    const {user} = useOutletContext();
+    const {cartItems} = useCart()
+    const {user} = useAuth();
 
-    // console.log('cart items from payment result', cartItems)
-    // console.log(`old cart from payresult: ${oldCart.current}`)
-
-    const cartItemsToPost = oldCart.current
-
-    // console.log('cart items to post', cartItemsToPost)
 
     useEffect(()=>{
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const sessionId = urlParams.get('session_id')
-        // add headers/body to the fetch below that can hold the rentalObjArr
-
         fetch(`/session_status?session_id=${sessionId}`)
         .then((res)=>res.json())
         .then((data)=>{
@@ -48,7 +38,7 @@ function PaymentResult() {
     //     })
     //   })
 
-    // console.log('from pyament result',rentalObjArr)
+    // console.log('from payment result',rentalObjArr)
 
     // const addRental = (rentalObjArr)=>{
     //     rentalPost(rentalObjArr)
