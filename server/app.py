@@ -25,6 +25,7 @@ from resources.check_session import CheckSession
 from resources.login import Login
 from resources.logout import Logout
 from resources.instruments import Instruments
+from resources.rentals import Rentals
 
 @app.route('/create_checkout_session', methods=['POST'])
 def create_checkout_session():
@@ -81,6 +82,7 @@ api.add_resource(CheckSession, '/api/check_session')
 api.add_resource(Login, '/api/login')
 api.add_resource(Logout, '/api/logout')
 api.add_resource(Instruments, '/api/instruments')
+api.add_resource(Rentals, '/api/rentals')
 
 if __name__ == "__main__":
   app.run(port=5555, debug=True)

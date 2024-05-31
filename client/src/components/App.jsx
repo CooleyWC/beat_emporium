@@ -20,7 +20,7 @@ function App(){
 
   const [allInstruments, setAllInstruments] = useState([])
 
-  console.log(`user from app: ${user}`)
+  // console.log(`user from app: ${user}`)
 
   useEffect(()=>{
     checkUser()
