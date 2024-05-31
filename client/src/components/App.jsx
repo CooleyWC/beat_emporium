@@ -15,10 +15,12 @@ import Instruments from './pages/Instruments'
 
 function App(){
 
-  const {login} = useAuth()
+  const {login, user} = useAuth()
   const {cartItems} = useCart()
 
   const [allInstruments, setAllInstruments] = useState([])
+
+  console.log(`user from app: ${user}`)
 
   useEffect(()=>{
     checkUser()
@@ -46,6 +48,24 @@ function App(){
     })
   }, [])
 
+  if(!user){
+    return <p>loading....</p>
+  }
+  
+  const rentalObjArr = cartItems.map((instrument)=>{
+    return({
+      "user_id": user.id,
+      "instrument_id": instrument.id,
+      "created_at": new Date(),
+      "start_date": instrument.start_date.$d,
+      "return_date": instrument.end_date.$d
+    })
+  })
+
+  const newRentalPost = ()=>{
+        console.log(`rentalPost from app: ${rentalObjArr}`)
+      }
+
 
 
   return(
@@ -60,7 +80,7 @@ function App(){
           <Route path='/signup' element={<Signup />}/>
           <Route path='/dashboard' element={<Dashboard />}/>
           <Route path='/payment_page' element={<PaymentPage />}/>
-          <Route path='/payment_result' element={<PaymentResult />}/>
+          <Route path='/payment_result' element={<PaymentResult newRentalPost={newRentalPost} user={user}/>}/>
         </Route>
       </Routes>
     </Router>
