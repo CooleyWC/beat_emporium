@@ -1,7 +1,11 @@
 import React from 'react';
 import {Box, Typography} from '@mui/material'
+import {useCart} from '../context/CartProvider'
 
 function Home() {
+
+    const {cartItems} = useCart()
+    console.log('home', cartItems)
 
 
     return (

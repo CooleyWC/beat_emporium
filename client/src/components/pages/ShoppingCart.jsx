@@ -1,12 +1,13 @@
 import React from 'react';
-import { useOutletContext } from 'react-router-dom';
+// import { useOutletContext } from 'react-router-dom';
+import {useCart} from '../context/CartProvider'
 import { useNavigate } from 'react-router-dom';
 import CartCard from '../cards/CartCard';
 import {Box, Typography, Button} from '@mui/material'
 
 function ShoppingCart() {
 
-    const {cartItems, handleRemoveCartItems} = useOutletContext()
+    const {cartItems, handleRemoveCartItems} = useCart()
     let navigate = useNavigate()
 
     // console.log('cart items from shopping cart', cartItems)
