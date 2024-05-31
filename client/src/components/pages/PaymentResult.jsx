@@ -3,14 +3,17 @@ import {Box, Typography} from '@mui/material'
 import { useEffect } from 'react';
 import { useAuth } from '../context/AuthProvider';
 import {useCart} from '../context/CartProvider'
+import { useNavigate } from 'react-router-dom';
 
-function PaymentResult() {
+function PaymentResult({newRentalPost}) {
 
     const [status, setStatus] = useState(null);
     const [customerEmail, setCustomerEmail] = useState('');
 
-    const {cartItems} = useCart()
-    const {user} = useAuth();
+    let navigate = useNavigate()
+
+    // const {cartItems} = useCart()
+    // const {user} = useAuth();
 
 
     useEffect(()=>{
@@ -22,10 +25,15 @@ function PaymentResult() {
         .then((data)=>{
             setStatus(data.status);
             setCustomerEmail(data.customer_email)
-           
-            // addRental()
+
         });
     }, [])
+
+    const handleDashClick = ()=>{
+        navigate('/dashboard')
+    }
+
+    // console.log(`user from payment result: ${user}`)
 
 
     // const rentalObjArr = cartItems.map((instrument)=>{
@@ -41,7 +49,7 @@ function PaymentResult() {
     // console.log('from payment result',rentalObjArr)
 
     // const addRental = (rentalObjArr)=>{
-    //     rentalPost(rentalObjArr)
+    //     newRentalPost(rentalObjArr)
     // }
 
 
@@ -62,6 +70,7 @@ function PaymentResult() {
     }
 
     if (status === 'complete'){
+        newRentalPost()
         // addRental()
 
         // addRental function here
@@ -70,6 +79,7 @@ function PaymentResult() {
         return (
             <section id='success' style={{marginTop: '200px'}}>
                 <p>{`we appreciate your business - check your email: ${customerEmail} for receipt`}</p>
+                <button onClick={handleDashClick}>Back To Dashboard</button>
             </section>
         )
     }
