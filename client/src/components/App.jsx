@@ -48,22 +48,22 @@ function App(){
     })
   }, [])
 
-  if(!user){
-    return <p>loading....</p>
-  }
-  
-  const rentalObjArr = cartItems.map((instrument)=>{
-    return({
-      "user_id": user.id,
-      "instrument_id": instrument.id,
-      "created_at": new Date(),
-      "start_date": instrument.start_date.$d,
-      "return_date": instrument.end_date.$d
+  let rentalsToPost = []
+  if(cartItems && user){
+    const rentalObjArr = cartItems.map((instrument)=>{
+      return({
+        "user_id": user.id,
+        "instrument_id": instrument.id,
+        "created_at": new Date(),
+        "start_date": instrument.start_date.$d,
+        "return_date": instrument.end_date.$d
+      })
     })
-  })
+    rentalsToPost=rentalObjArr
+  }
 
   const newRentalPost = ()=>{
-        console.log(`rentalPost from app: ${rentalObjArr}`)
+        console.log(`rentalPost from app: ${rentalsToPost}`)
       }
 
 
