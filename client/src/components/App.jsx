@@ -48,28 +48,47 @@ function App(){
     })
   }, [])
 
-  let rentalsToPost = []
-  if(cartItems && user){
-    const rentalObjArr = cartItems.map((instrument)=>{
-      return({
-        "user_id": user.id,
-        "instrument_id": instrument.id,
-        "created_at": new Date(),
-        "start_date": instrument.start_date.$d,
-        "return_date": instrument.end_date.$d
+
+  const stageRentals = ()=>{
+    if(cartItems && user){
+      const rentalObjArr = cartItems.map((instrument)=>{
+        console.log(`instrument from rental map: ${instrument}`)
+        return({
+          "user_id": user.id,
+          "instrument_id": instrument.id,
+          "created_at": new Date(),
+          "start_date": instrument.start_date,
+          "return_date": instrument.end_date
+        })
       })
-    })
-    rentalsToPost=rentalObjArr
+      newRentalPost(rentalObjArr)
+    } else {
+      console.log('there was a problem creating rentalObjArr - the rental post will fail')
+    }
   }
 
-  const newRentalPost = ()=>{
-        console.log(`rentalPost from app: ${rentalsToPost}`)
+  const newRentalPost = (arr)=>{
+        console.log(`rentalPost from inside the post: ${arr}`)
+        fetch('/api/rentals', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify(arr)
+        })
+        .then((res)=>{
+          if(res.ok){
+            res.json()
+            .then(data=>console.log(data))
+          } else {
+            res.json()
+            .then(error=>console.log(error))
+          }
+        })
       }
 
-
-
   return(
-    // <RouterProvider router={router}/>
+
     <Router>
       <Routes>
         <Route path='/' errorElement={<ErrorPage />} element={<NavBar />}>
@@ -80,8 +99,9 @@ function App(){
           <Route path='/signup' element={<Signup />}/>
           <Route path='/dashboard' element={<Dashboard />}/>
           <Route path='/payment_page' element={<PaymentPage />}/>
-          <Route path='/payment_result' element={<PaymentResult newRentalPost={newRentalPost} user={user}/>}/>
+          <Route path='/payment_result' element={<PaymentResult user={user} stageRentals={stageRentals}/>}/>
         </Route>
+    
       </Routes>
     </Router>
   )
