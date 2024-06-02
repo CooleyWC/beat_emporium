@@ -1,22 +1,42 @@
-import React, {useState} from 'react';
-import {Box, Typography} from '@mui/material'
+import React, {useCallback, useState} from 'react';
+
 import { useEffect } from 'react';
-import { useAuth } from '../context/AuthProvider';
-import {useCart} from '../context/CartProvider'
+
 import { useNavigate } from 'react-router-dom';
 
-function PaymentResult({newRentalPost}) {
+function PaymentResult({newRentalPost, stageRentals}) {
 
     const [status, setStatus] = useState(null);
     const [customerEmail, setCustomerEmail] = useState('');
 
+    // new
+    const [data, setData] = useState(null)
+
     let navigate = useNavigate()
 
-    // const {cartItems} = useCart()
-    // const {user} = useAuth();
+    // const stripeSeshStatus = useCallback(()=>{
+    //     const queryString = window.location.search;
+    //     const urlParams = new URLSearchParams(queryString);
+    //     const sessionId = urlParams.get('session_id')
+    //     fetch(`/session_status?session_id=${sessionId}`)
+    //     .then((res)=>res.json())
+    //     .then((data)=>{
+    //         setStatus(data.status);
+    //         setCustomerEmail(data.customer_email)
+    // })
+    // }, [status])
 
+    // stripeSeshStatus()
 
     useEffect(()=>{
+        if(status==='complete'){
+            console.log('status', status)
+            stageRentals()
+        } 
+    }, [status])
+
+    useEffect(()=>{
+        
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const sessionId = urlParams.get('session_id')
@@ -33,24 +53,7 @@ function PaymentResult({newRentalPost}) {
         navigate('/dashboard')
     }
 
-    // console.log(`user from payment result: ${user}`)
-
-
-    // const rentalObjArr = cartItems.map((instrument)=>{
-    //     return({
-    //       "user_id": user.id,
-    //       "instrument_id": instrument.id,
-    //       "created_at": new Date(),
-    //       "start_date": instrument.start_date.$d,
-    //       "return_date": instrument.end_date.$d
-    //     })
-    //   })
-
-    // console.log('from payment result',rentalObjArr)
-
-    // const addRental = (rentalObjArr)=>{
-    //     newRentalPost(rentalObjArr)
-    // }
+    // console.log(`status = ${status}`)
 
 
     if (status === null){
@@ -70,11 +73,7 @@ function PaymentResult({newRentalPost}) {
     }
 
     if (status === 'complete'){
-        newRentalPost()
-        // addRental()
-
-        // addRental function here
-        // in the .then, clear out the cartItems
+        // newRentalPost()
 
         return (
             <section id='success' style={{marginTop: '200px'}}>
@@ -83,8 +82,6 @@ function PaymentResult({newRentalPost}) {
             </section>
         )
     }
-
-    
 
     return null
 }

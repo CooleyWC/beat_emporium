@@ -30,9 +30,7 @@ from resources.rentals import Rentals
 @app.route('/create_checkout_session', methods=['POST'])
 def create_checkout_session():
   data = request.get_json()['items']
-  # for use of creating rental post
-  rental_data = request.get_json()['rentalsArr']
-  print(f'rental data: ${rental_data}')
+
   requested_ids = [item['id'] for item in data]
 
   all_instruments = [instrument.to_dict() for instrument in Instrument.query.all()]
@@ -67,10 +65,11 @@ def create_checkout_session():
     )
 
   # added rental data
-  return jsonify(clientSecret=session.client_secret, rental_data=rental_data)
+  return jsonify(clientSecret=session.client_secret)
 
 @app.route('/session_status', methods=['GET'])
 def session_status():
+  print('session status ran')
   session = stripe.checkout.Session.retrieve(request.args.get('session_id'))
 
   return jsonify(status=session.status, customer_email=session.customer_details.email)

@@ -12,7 +12,7 @@ function Dashboard() {
 
     const {user} = useAuth()
     const {cartItems} = useCart()
-    console.log(cartItems)
+    // console.log(cartItems)
 
     if(user===null || !user){
         return <p>loading...</p>
