@@ -24,6 +24,6 @@ class Rental(db.Model, SerializerMixin):
     review = db.relationship('Review', back_populates='rentals', cascade='all, delete-orphan')
 
     def __repr__(self):
-        user=self.user.username if self.user else None
+        user=self.user.first_name if self.user else None
         instrument=self.instrument.name if self.instrument else None
-        return f'<Rental {user}: {instrument}'
+        return f'<Rental user: {user}, instrument: {instrument}'
