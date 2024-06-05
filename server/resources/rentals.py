@@ -47,12 +47,9 @@ class Rentals(Resource):
         start_str = str(start_date_obj)
         start_arr = start_str.split(' ')
         start_result = start_arr[0]
-        # date_list.append(start_result)
-        # start_date_obj += timedelta(days=1)
 
         instrument_id = rental['instrument_id']
 
-        # if rental['instrument_id'] == stored_rental_dict[instrument_id] and start_result not in stored_rental_dict[instrument_id]:
         for key, value in stored_rental_dict.items():
           if start_result != value and key==instrument_id:
         
@@ -63,9 +60,6 @@ class Rentals(Resource):
           date_list.append(start_result)
           start_date_obj += timedelta(days=1)
           stored_rental_dict[rental['instrument_id']] = date_list
-   
-      # this is rewriting the list for the key in stored_rentals_dict
-      # stored_rental_dict[rental['instrument_id']] = date_list
     
     # new rentals
     incoming_rentals = [rental for rental in data]
@@ -84,7 +78,6 @@ class Rentals(Resource):
       
       date_format = '%Y-%m-%d %H:%M:%S'
 
-      # might not need to do this step
       start_date_obj = datetime.strptime(start_str, date_format)
       end_date_obj = datetime.strptime(end_str, date_format)
 
@@ -94,22 +87,25 @@ class Rentals(Resource):
         for key in stored_rental_dict:
           
           if rental['instrument_id'] == key:
-            # sub_value_arr = []
             
             for value in stored_rental_dict[key]:
              
               start_str = str(start_date_obj)
               start_arr = start_str.split(' ')
               start_result = start_arr[0]
+
               if value == start_result:
-                # print(f'match: key={key}, \nlist we are looking at={stored_rental_dict[key]}, \nvalue={value}, \nstart={start_result} ')
+                print(f'match: key={key}, \nlist we are looking at={stored_rental_dict[key]}, \nvalue={value}, \nstart={start_result} ')
                 sub_value_arr.append(start_result)
                 print(sub_value_arr)
+                start_date_obj += timedelta(days=1)
             error_dict[key] = sub_value_arr
 
-        start_date_obj += timedelta(days=1)
+    # check if any dates exist in error_dict
+    # if there are, return the dates with an error message
+    # else run the rest of the post
 
-    breakpoint()
+    
 
     # data=request.get_json()
   #   rentals_return = []
@@ -154,13 +150,3 @@ class Rentals(Resource):
   #   return rentals_return, 200
 
   # print('another error')
-
-
-
-  # psuedocode:
-    # query the db and get the rentals that match the instrument id
-    # get the start and end dates for matching instrument rentals
-    # maybe also eliminate rentals before today - use datetime
-    # for loop through each start and end date pair and create a list of reserved dates
-    # after that loop finishes, loop through the data - start and end date pair and check each date against the previous list
-    # if any date matches, return an error before attempting to complete the post

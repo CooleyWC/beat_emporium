@@ -27,10 +27,12 @@ function PaymentResult({newRentalPost, stageRentals}) {
     // }, [status])
 
     // stripeSeshStatus()
+    console.log('payment result rendered')
 
     useEffect(()=>{
         if(status==='complete'){
-            console.log('status', status)
+
+            console.log('stage rentals called here')
             stageRentals()
         } 
     }, [status])
