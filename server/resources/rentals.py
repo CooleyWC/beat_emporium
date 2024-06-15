@@ -82,30 +82,39 @@ class Rentals(Resource):
       end_date_obj = datetime.strptime(end_str, date_format)
 
       sub_value_arr = []
+   
       while start_date_obj <= end_date_obj:
         
         for key in stored_rental_dict:
           
           if rental['instrument_id'] == key:
+
+            start_str = str(start_date_obj)
+            start_arr = start_str.split(' ')
+            start_result = start_arr[0]
             
             for value in stored_rental_dict[key]:
-             
-              start_str = str(start_date_obj)
-              start_arr = start_str.split(' ')
-              start_result = start_arr[0]
-
+  
               if value == start_result:
                 print(f'match: key={key}, \nlist we are looking at={stored_rental_dict[key]}, \nvalue={value}, \nstart={start_result} ')
                 sub_value_arr.append(start_result)
-                print(sub_value_arr)
-                start_date_obj += timedelta(days=1)
+                print(f'sub val arr: {sub_value_arr}')
+            
+              start_date_obj += timedelta(days=1)
+          
             error_dict[key] = sub_value_arr
-
-    # check if any dates exist in error_dict
-    # if there are, return the dates with an error message
-    # else run the rest of the post
-
+         
+    result = None
     
+    for value in error_dict.values():
+      if len(value) == 0:
+        result = 'No conflicts'
+ 
+      else:
+        result = value
+        error = {"error": "there or conflicts with the rental dates you entered"}
+   
+        return error, 422
 
     # data=request.get_json()
   #   rentals_return = []
