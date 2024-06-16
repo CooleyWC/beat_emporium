@@ -56,9 +56,9 @@ function Dashboard() {
         <Box>
             <ShoppingCart />
         </Box>
-        {/* <Box>
+        <Box>
         {user.admin == '1' && <Admin />}
-        </Box> */}
+        </Box>
         </>
     );
 }
