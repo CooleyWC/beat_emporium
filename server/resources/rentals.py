@@ -43,10 +43,11 @@ class Rentals(Resource):
       end_date_obj = datetime.strptime(end_attr, date_format)
 
       while start_date_obj <= end_date_obj:
-
+        # print('sr-start_date_obj', start_date_obj)
         start_str = str(start_date_obj)
         start_arr = start_str.split(' ')
         start_result = start_arr[0]
+        # print('sr-start_result', start_result)
 
         instrument_id = rental['instrument_id']
 
@@ -61,6 +62,7 @@ class Rentals(Resource):
           start_date_obj += timedelta(days=1)
           stored_rental_dict[rental['instrument_id']] = date_list
     
+
     # new rentals
     incoming_rentals = [rental for rental in data]
 
@@ -84,26 +86,21 @@ class Rentals(Resource):
       sub_value_arr = []
    
       while start_date_obj <= end_date_obj:
+        start_str = str(start_date_obj)
+        start_arr = start_str.split(' ')
+        start_result = start_arr[0]
         
         for key in stored_rental_dict:
-          
           if rental['instrument_id'] == key:
-
-            start_str = str(start_date_obj)
-            start_arr = start_str.split(' ')
-            start_result = start_arr[0]
-            
             for value in stored_rental_dict[key]:
-  
+           
               if value == start_result:
                 print(f'match: key={key}, \nlist we are looking at={stored_rental_dict[key]}, \nvalue={value}, \nstart={start_result} ')
                 sub_value_arr.append(start_result)
-                print(f'sub val arr: {sub_value_arr}')
             
-              start_date_obj += timedelta(days=1)
-          
+            start_date_obj += timedelta(days=1)
             error_dict[key] = sub_value_arr
-         
+   
     result = None
     
     for value in error_dict.values():
@@ -112,7 +109,7 @@ class Rentals(Resource):
  
       else:
         result = value
-        error = {"error": "there or conflicts with the rental dates you entered"}
+        error = {"error": "there or conflicts with the rental dates you entered", "conflicting_dates": error_dict}
    
         return error, 422
 
