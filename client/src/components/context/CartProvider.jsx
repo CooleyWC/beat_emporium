@@ -20,7 +20,11 @@ export const CartProvider = ({children})=>{
         localStorage.setItem("cartItems", JSON.stringify(cartItems))
     }, [cartItems])
 
-    const emptyCart = () => setCartItems([])
+    // new
+    const emptyCart = () => {
+      setCartItems([])
+      localStorage.clear()
+    }
 
     const handleCartItems = (instrumentObjWithDates)=>{
         console.log('added', instrumentObjWithDates)
