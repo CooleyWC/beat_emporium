@@ -24,11 +24,12 @@ class Rentals(Resource):
     
     instrument_ids = [instrument['instrument_id'] for instrument in data]
     matching_instrument_rentals = [rental.to_dict() for rental in Rental.query.all() if rental.instrument_id in instrument_ids]
+    # maybe end_date instead of start_date below
     matching_rentals = [rental for rental in matching_instrument_rentals if rental['start_date'] > todays_date_str]
     
     stored_rental_dict = {}
     error_dict = {}
-
+    
     # stored rentals
     for rental in matching_rentals:
 
@@ -65,7 +66,7 @@ class Rentals(Resource):
 
     # new rentals
     incoming_rentals = [rental for rental in data]
-
+    
     for rental in incoming_rentals:
       date_list = []
       
@@ -84,23 +85,28 @@ class Rentals(Resource):
       end_date_obj = datetime.strptime(end_str, date_format)
 
       sub_value_arr = []
-   
-      while start_date_obj <= end_date_obj:
-        start_str = str(start_date_obj)
-        start_arr = start_str.split(' ')
-        start_result = start_arr[0]
+     
+      if len(stored_rental_dict) != 0:
         
-        for key in stored_rental_dict:
-          if rental['instrument_id'] == key:
-            for value in stored_rental_dict[key]:
-           
-              if value == start_result:
-                print(f'match: key={key}, \nlist we are looking at={stored_rental_dict[key]}, \nvalue={value}, \nstart={start_result} ')
-                sub_value_arr.append(start_result)
+        while start_date_obj <= end_date_obj:
+          start_str = str(start_date_obj)
+          start_arr = start_str.split(' ')
+          start_result = start_arr[0]
+      
+          for key in stored_rental_dict:
+          
+            if rental['instrument_id'] != stored_rental_dict[key]:
+              break
+            if rental['instrument_id'] == key:
+              for value in stored_rental_dict[key]:
+             
+                if value == start_result:
+                  print(f'match: key={key}, \nlist we are looking at={stored_rental_dict[key]}, \nvalue={value}, \nstart={start_result} ')
+                  sub_value_arr.append(start_result)
             
-            start_date_obj += timedelta(days=1)
-            error_dict[key] = sub_value_arr
-   
+              start_date_obj += timedelta(days=1)
+              error_dict[key] = sub_value_arr
+
     result = None
     
     for value in error_dict.values():
@@ -112,47 +118,47 @@ class Rentals(Resource):
         error = {"error": "there or conflicts with the rental dates you entered", "conflicting_dates": error_dict}
    
         return error, 422
-
+  
     # data=request.get_json()
-  #   rentals_return = []
-
-  #   for rental in data:
+    rentals_return = []
     
-  #     try:
-  #       start_obj = ''
-  #       return_obj = ''
-  #       created_obj = ''
+    for rental in data:
+    
+      try:
+        start_obj = ''
+        return_obj = ''
+        created_obj = ''
 
-  #       for attr in rental:
+        for attr in rental:
 
-  #         if attr == 'start_date':
-  #           start_str = parser.parse(rental.get(attr))
-  #           start_obj=start_str
+          if attr == 'start_date':
+            start_str = parser.parse(rental.get(attr))
+            start_obj=start_str
 
-  #         # change these to ifs not elifs
-  #         elif attr == 'return_date':
-  #           return_str = parser.parse(rental.get(attr))
-  #           return_obj=return_str
+          # change these to ifs not elifs
+          elif attr == 'return_date':
+            return_str = parser.parse(rental.get(attr))
+            return_obj=return_str
             
-  #         elif attr == 'created_at':
-  #           created_str=parser.parse(rental.get(attr))
-  #           created_obj=created_str
+          elif attr == 'created_at':
+            created_str=parser.parse(rental.get(attr))
+            created_obj=created_str
         
-  #       rental_to_save = Rental(
-  #         user_id = rental.get('user_id'),
-  #         instrument_id = rental.get('instrument_id'),
-  #         created_at = created_obj,
-  #         start_date = start_obj,
-  #         return_date = return_obj,
-  #       )
+        rental_to_save = Rental(
+          user_id = rental.get('user_id'),
+          instrument_id = rental.get('instrument_id'),
+          created_at = created_obj,
+          start_date = start_obj,
+          return_date = return_obj,
+        )
 
-  #       db.session.add(rental_to_save)
-  #       db.session.commit()
+        db.session.add(rental_to_save)
+        db.session.commit()
 
-  #       rentals_return.append(rental_to_save.to_dict())
-  #     except:
-  #       error = {'error': 'there was a problem creating the rental(s)'}
-  #       return error, 422
-  #   return rentals_return, 200
+        rentals_return.append(rental_to_save.to_dict())
+      except:
+        error = {'error': 'there was a problem creating the rental(s)'}
+        return error, 422
+    return rentals_return, 200
 
-  # print('another error')
+  print('another error')
