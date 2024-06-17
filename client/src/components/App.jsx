@@ -16,7 +16,7 @@ import Instruments from './pages/Instruments'
 function App(){
 
   const {login, user} = useAuth()
-  const {cartItems} = useCart()
+  const {cartItems, emptyCart} = useCart()
 
   const [allInstruments, setAllInstruments] = useState([])
 
@@ -79,13 +79,22 @@ function App(){
         .then((res)=>{
           if(res.ok){
             res.json()
-            .then(data=>console.log(data))
+            .then(data=>{
+              handleNewRental(data)
+              emptyCart()
+           
+            })
           } else {
             res.json()
             .then(error=>console.log(error))
           }
         })
       }
+  
+  const handleNewRental = (data) =>{
+    console.log('from handleNewRental', data)
+    
+  }
 
   return(
 

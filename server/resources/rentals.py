@@ -66,7 +66,7 @@ class Rentals(Resource):
 
     # new rentals
     incoming_rentals = [rental for rental in data]
-    
+   
     for rental in incoming_rentals:
       date_list = []
       
@@ -85,28 +85,26 @@ class Rentals(Resource):
       end_date_obj = datetime.strptime(end_str, date_format)
 
       sub_value_arr = []
-     
+   
       if len(stored_rental_dict) != 0:
         
         while start_date_obj <= end_date_obj:
           start_str = str(start_date_obj)
           start_arr = start_str.split(' ')
           start_result = start_arr[0]
-      
-          for key in stored_rental_dict:
           
-            if rental['instrument_id'] != stored_rental_dict[key]:
-              break
+          for key in stored_rental_dict:
             if rental['instrument_id'] == key:
+           
               for value in stored_rental_dict[key]:
              
                 if value == start_result:
                   print(f'match: key={key}, \nlist we are looking at={stored_rental_dict[key]}, \nvalue={value}, \nstart={start_result} ')
                   sub_value_arr.append(start_result)
-            
+             
               start_date_obj += timedelta(days=1)
               error_dict[key] = sub_value_arr
-
+  
     result = None
     
     for value in error_dict.values():
