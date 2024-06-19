@@ -19,6 +19,8 @@ function ShoppingCart() {
                 itemObj={item}
                 name={item.name}
                 image={item.image}
+                startDate={item.start_date}
+                returnDate={item.end_date}
                 handleRemoveCartItems={handleRemoveCartItems}
             />
         )

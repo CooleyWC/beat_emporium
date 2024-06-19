@@ -84,22 +84,22 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
         
     })
 
-    console.log(rentalDates)
+    // console.log(rentalDates)
 
     const disableDateFunc = (date)=>{
         // console.log(rentalDates)
   
         const muiDate = date.toISOString().split('T')
         const muiDateStr = muiDate[0]
-        console.log('muiDate', muiDateStr)
+        // console.log('muiDate', muiDateStr)
 
         for(let dateObj of rentalDates){
             const arrayOfDates = dateObj.dateArr
             for(let dateToCheck of arrayOfDates){
                 const dateCheck = dateToCheck.toISOString().split('T')
-                console.log('predatecheck', dateCheck)
+                // console.log('predatecheck', dateCheck)
                 const dateCheckStr = dateCheck[0]
-                console.log('dateCheck', dateCheckStr)
+                // console.log('dateCheck', dateCheckStr)
                 if(muiDateStr === dateCheckStr){
                     return true
                 } else {

@@ -1,19 +1,31 @@
 import React from 'react';
 import {Card, CardContent, Typography, CardMedia, Button} from '@mui/material'
 
-function CartCard({name, itemObj, image, handleRemoveCartItems}) {
+function CartCard({name, itemObj, image, handleRemoveCartItems, startDate, returnDate}) {
 
-    // const rentalDates = currentRentals.map((rental)=>{
-    //     return (
-    //         {"start": rental.start_date, "end": rental.return_date}
-    //     )
-    // })
+    const startDateObj = new Date(startDate)
+    const returnDateObj = new Date(returnDate)
 
-    // console.log(name)
-    // console.log(rentalDates)
+    const startStr = startDateObj.toLocaleString().split(',')
+    const startString = startStr[0]
+
+    const returnStr = returnDateObj.toLocaleString().split(',')
+    const returnString = returnStr[0]
+
+    let startDateCopy = startDateObj
+    let returnDateCopy = returnDateObj
+    let loop = new Date(startDateCopy)
+
+    let totalRentalDays = 0
+
+    while(loop <= returnDateCopy){
+        totalRentalDays +=1
+        let newDate = loop.setDate(loop.getDate()+1)
+        loop = new Date(newDate)
+    }
 
     return (
-        <Card>
+        <Card sx={{display: 'flex', justifyContent: 'space-around'}}>
             <CardMedia 
                 component='img'
                 image={image}
@@ -21,6 +33,9 @@ function CartCard({name, itemObj, image, handleRemoveCartItems}) {
             />
             <CardContent>
                 <Typography>{name}</Typography>
+                <Typography>Start Date: {startString}</Typography>
+                <Typography>Return Date: {returnString}</Typography>
+                <Typography>Total Rental Days: {totalRentalDays} </Typography>
 
             </CardContent>
             <Button onClick={()=>handleRemoveCartItems(itemObj)}>Remove From Cart</Button>
