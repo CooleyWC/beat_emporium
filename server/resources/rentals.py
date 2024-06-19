@@ -29,7 +29,7 @@ class Rentals(Resource):
     
     stored_rental_dict = {}
     error_dict = {}
-    
+
     # stored rentals
     for rental in matching_rentals:
 
@@ -37,13 +37,18 @@ class Rentals(Resource):
 
       start_attr = rental['start_date']
       end_attr = rental['return_date']
-
+      # print('start_attr', start_attr)
+      # print('end_attr', end_attr)
+      
       date_format = '%Y-%m-%d %H:%M:%S'
 
       start_date_obj = datetime.strptime(start_attr, date_format)
       end_date_obj = datetime.strptime(end_attr, date_format)
-
+    
+      # print(start_date_obj)
+      # print(end_date_obj)
       while start_date_obj <= end_date_obj:
+        # print('stored_rental_dict', stored_rental_dict)
         # print('sr-start_date_obj', start_date_obj)
         start_str = str(start_date_obj)
         start_arr = start_str.split(' ')
@@ -51,7 +56,7 @@ class Rentals(Resource):
         # print('sr-start_result', start_result)
 
         instrument_id = rental['instrument_id']
-
+      
         for key, value in stored_rental_dict.items():
           if start_result != value and key==instrument_id:
         
@@ -63,7 +68,7 @@ class Rentals(Resource):
           start_date_obj += timedelta(days=1)
           stored_rental_dict[rental['instrument_id']] = date_list
     
-
+  
     # new rentals
     incoming_rentals = [rental for rental in data]
    
@@ -85,7 +90,7 @@ class Rentals(Resource):
       end_date_obj = datetime.strptime(end_str, date_format)
 
       sub_value_arr = []
-   
+      
       if len(stored_rental_dict) != 0:
         
         while start_date_obj <= end_date_obj:
@@ -159,4 +164,4 @@ class Rentals(Resource):
         return error, 422
     return rentals_return, 200
 
-  print('another error')
+  # print('another error')

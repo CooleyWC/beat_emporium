@@ -59,30 +59,66 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
     }
 
     // this is for blocking out datepicker dates
-    // const rentalDates = currentRentals.map((rental)=>{
-    //     return (
+    const rentalDates = currentRentals.map((rental)=>{
+        const dateArr = []
+        const dateObj = {}
 
-    //         {'rental1': [date1,date2,]}
+        const rentalStartArr = rental.start_date.split(' ')
+        const startStr = rentalStartArr[0]
 
-    //         {"start": rental.start_date, "end": rental.return_date}
-    //     )
-    // })
+        const rentalEndArr = rental.return_date.split(' ')
+        const endStr = rentalEndArr[0]
 
-    // console.log(`rental dates: ${rentalDates[0].start}`)
+        const start = new Date(startStr)
+        const end = new Date(endStr)
+
+        let loop = new Date(start)
+
+        while (loop<=end){
+            dateArr.push(loop)
+            let newDate = loop.setDate(loop.getDate()+1)
+            loop = new Date(newDate)
+        }
+        
+        return ({dateArr})
+        
+    })
+
+    console.log(rentalDates)
 
     const disableDateFunc = (date)=>{
+        // console.log(rentalDates)
+  
+        const muiDate = date.toISOString().split('T')
+        const muiDateStr = muiDate[0]
+        console.log('muiDate', muiDateStr)
 
-        
+        for(let dateObj of rentalDates){
+            const arrayOfDates = dateObj.dateArr
+            for(let dateToCheck of arrayOfDates){
+                const dateCheck = dateToCheck.toISOString().split('T')
+                console.log('predatecheck', dateCheck)
+                const dateCheckStr = dateCheck[0]
+                console.log('dateCheck', dateCheckStr)
+                if(muiDateStr === dateCheckStr){
+                    return true
+                } else {
+                    return false
+                }
+            }
+        }
+    }
 
+    // const disableDateFunc = (date)=>{
         // console.log(date)
 
         // for loop 
-        const day = date.day()
+        // const day = date.day()
 
         // return day !== date
 
-        const dateOfMonth = date.date()
-        const month = date.month()
+        // const dateOfMonth = date.date()
+        // const month = date.month()
         // console.log(`day: ${day}, dateofmonth: ${dateOfMonth}, month: ${month}`)
 
         // for(date of rentalDates){
@@ -97,7 +133,7 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
         //         return true
         //     }
         // }
-    }   
+    // }   
 
     return (
         <>
