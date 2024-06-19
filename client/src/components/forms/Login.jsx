@@ -103,12 +103,14 @@ function Login() {
                     </Grid>
                 </Grid>
             </form>
+            <Box sx={{marginTop: '10px', display: 'flex', justifyContent: 'center'}}>
             <Link 
                 component={NavLink}
                 to='/Signup'
             >
             <Typography>Don't have an account? Sign Up</Typography>
             </Link>
+            </Box>
         </Box>
     );
 }
