@@ -36,7 +36,7 @@ function Dashboard() {
     return (
         <>
         <Box sx={{marginTop: '100px'}}>
-            <Typography>Dashboard</Typography>
+            <Typography sx={{fontSize: '20px'}}>Dashboard</Typography>
         </Box>
         <Box>
             <UserProfileCard 
@@ -48,11 +48,13 @@ function Dashboard() {
             />
         </Box>
         <Box>
-            <Typography>Rentals go here</Typography>
+            <Typography sx={{fontSize: '20px'}}>Your Rentals</Typography>
         </Box>
-        <Stack>
+        <Box sx={{width: '100%', borderRadius: '7px'}}>
+        <Stack spacing={1}>
             {userRentalsMap}
         </Stack>
+        </Box>
         <Box>
             <ShoppingCart />
         </Box>
