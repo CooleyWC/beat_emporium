@@ -1,9 +1,11 @@
 import { Button, Container, Box, FormControl, Typography, Grid, TextField, getFormLabelUtilityClasses } from '@mui/material';
+import Link from '@mui/material/Link';
 import React from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useAuth } from '../context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 
 
@@ -161,6 +163,14 @@ function Signup() {
                     </Grid>
                 </Grid>
             </form>
+            <Box sx={{marginTop: '10px', display: 'flex', justifyContent: 'center'}}>
+            <Link 
+                component={NavLink}
+                to='/Login'
+            >
+            <Typography>Already have an account? Log In</Typography>
+            </Link>
+            </Box>
         </Box>
     );
 }
