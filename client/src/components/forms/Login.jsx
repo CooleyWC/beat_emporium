@@ -44,7 +44,7 @@ function Login() {
                 return
             } else {
                 login(userData)
-                console.log(`success: ${userData}`)
+                // console.log(`success: ${userData}`)
                 navigate('/dashboard')
             }
         } catch (error) {
