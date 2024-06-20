@@ -15,7 +15,7 @@ import Instruments from './pages/Instruments'
 
 function App(){
 
-  const {login, user} = useAuth()
+  const {login, user, update} = useAuth()
   const {cartItems, emptyCart} = useCart()
 
   const [allInstruments, setAllInstruments] = useState([])
@@ -68,7 +68,7 @@ function App(){
   }
 
   const newRentalPost = (arr)=>{
-        console.log(`rentalPost from inside the post: ${arr}`)
+        // console.log(`rentalPost from inside the post: ${arr}`)
         fetch('/api/rentals', {
           method: 'POST',
           headers: {
@@ -91,11 +91,16 @@ function App(){
         })
       }
   
-  const handleNewRental = (data) =>{
-    console.log('from handleNewRental', data)
-    
-  }
+  const handleNewRental = (newRentalArr) =>{
 
+    for(let rental of newRentalArr){
+      update(prevUserData=>({
+        ...prevUserData, rentals: [...prevUserData.rentals, rental]
+      }))
+    }
+    }
+
+    
   return(
 
     <Router>
