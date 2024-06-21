@@ -45,7 +45,7 @@ if __name__ == "__main__":
     rental_1 = Rental(user_id=1, instrument_id=1, created_at=datetime(2024,3,1,10,10,10), start_date=date(2024, 7, 14), return_date=date(2024, 7, 20))
     rental_2 = Rental(user_id=2, instrument_id=2, created_at=datetime(2024,5,10,11,1,0), start_date=date(2024, 7, 14), return_date=date(2024, 7, 22))
     rental_3 = Rental(user_id=3, instrument_id=3, created_at=datetime(2024,6,3,11,5,0), start_date=date(2024, 6, 27), return_date=date(2024, 7, 1))
-    rental_4 = Rental(user_id=2, instrument_id=4, created_at=datetime(2024,5,11,10,1,0), start_date=date(2024, 6, 14), return_date=date(2024, 7, 1))
+    rental_4 = Rental(user_id=2, instrument_id=4, created_at=datetime(2024,5,11,10,1,0), start_date=date(2024, 6, 14), return_date=date(2024, 7, 23))
 
     db.session.add_all([rental_1, rental_2, rental_3, rental_4])
     db.session.commit()

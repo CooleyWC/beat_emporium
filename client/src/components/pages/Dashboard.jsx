@@ -19,7 +19,7 @@ function Dashboard() {
     }
 
     const userRentals = user.rentals
-    console.log('dashboard', userRentals)
+    // console.log('dashboard', userRentals)
 
     const userRentalsMap = userRentals.map((rental)=>{
         return (

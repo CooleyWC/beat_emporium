@@ -84,56 +84,25 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
         
     })
 
-    // console.log(rentalDates)
-
     const disableDateFunc = (date)=>{
-        // console.log(rentalDates)
-  
-        const muiDate = date.toISOString().split('T')
-        const muiDateStr = muiDate[0]
-        // console.log('muiDate', muiDateStr)
 
+        const testDate = new Date(date)
+        const muiDate = testDate.toLocaleString().split(',')
+        const muiDateStr = muiDate[0]
+    
         for(let dateObj of rentalDates){
             const arrayOfDates = dateObj.dateArr
+            
             for(let dateToCheck of arrayOfDates){
-                const dateCheck = dateToCheck.toISOString().split('T')
-                // console.log('predatecheck', dateCheck)
+                const dateCheck = dateToCheck.toLocaleString().split(',')
                 const dateCheckStr = dateCheck[0]
-                // console.log('dateCheck', dateCheckStr)
                 if(muiDateStr === dateCheckStr){
                     return true
-                } else {
-                    return false
                 }
             }
         }
+        return false
     }
-
-    // const disableDateFunc = (date)=>{
-        // console.log(date)
-
-        // for loop 
-        // const day = date.day()
-
-        // return day !== date
-
-        // const dateOfMonth = date.date()
-        // const month = date.month()
-        // console.log(`day: ${day}, dateofmonth: ${dateOfMonth}, month: ${month}`)
-
-        // for(date of rentalDates){
-        //     // console.log(`disabledate for loop: ${date.start}`)
-        //     if(date.start_date === typeof(Date)){
-        //         // console.log('start type of date is true')
-        //         return true
-        //     }
-
-        //     if(date.return_date === typeof(Date)){
-        //         // console.log('end date type of is true')
-        //         return true
-        //     }
-        // }
-    // }   
 
     return (
         <>
