@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Card, CardContent, Typography, CardMedia, Button, FormControl} from '@mui/material'
 import { useAuth } from '../context/AuthProvider';
 import {useCart} from '../context/CartProvider'
@@ -15,14 +15,23 @@ import dayjs from 'dayjs';
 
 function InstrumentCard({brand, color, name, description, for_rent, image, model, 
     rent_price, reviews, sale_price, size, instrumentObj, currentRentals, in_stock}) {
-
+    
     const today = dayjs()
     const tomorrow = dayjs().add(1, 'day')
 
     const [open, setOpen] = useState(false);
+    const [revOpen, setRevOpen] = useState(false);
+
     const [startInput, setStartInput] = useState(today)
     const [endInput, setEndInput] = useState(tomorrow)
     const [dateError, setDateError] = useState(null)
+    const [hasReviews, setHasReviews] = useState(false)
+
+    useEffect(()=>{
+        if(reviews.length>0){
+            setHasReviews(true)
+        }
+    }, [])
     
     const handleClickOpen = () => {
         setOpen(true);
@@ -30,6 +39,14 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
       
     const handleClose = () => {
         setOpen(false);
+    };
+    // new
+    const handleRevOpen = () => {
+        setRevOpen(true);
+    };
+      
+    const handleRevClose = () => {
+        setRevOpen(false);
     };
 
     const {user} = useAuth()
@@ -99,6 +116,12 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
         return false
     }
 
+    const handleReviewClick = ()=>{
+        handleRevOpen()
+    }
+
+    
+
     return (
         <>
         <Card sx={{maxWidth: '400px', minHeight: '600px', maxHeight: '600px'}}>
@@ -123,10 +146,14 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
                 <Typography>
                     {rent_price}
                 </Typography>
+                <Typography>
+                    {hasReviews &&<Button onClick={handleReviewClick}>See Reviews</Button>}
+                </Typography>
+                {checkIfItemInCart ? <Button onClick={handleRemove}>Remove From Cart</Button>: <Button onClick={handleAdd}>Add To Cart</Button>}
             </CardContent>
-            {checkIfItemInCart ? <Button onClick={handleRemove}>Remove From Cart</Button>: <Button onClick={handleAdd}>Add To Cart</Button>}
+            {/* {checkIfItemInCart ? <Button onClick={handleRemove}>Remove From Cart</Button>: <Button onClick={handleAdd}>Add To Cart</Button>} */}
         </Card>
-
+        {/* DatePicker Dialog */}
         <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Dialog
             open={open}
@@ -198,6 +225,29 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
             </DialogActions>
         </Dialog>
         </LocalizationProvider>
+        {/* Review Dialog*/}
+        <Dialog 
+            fullWidth
+            open={revOpen}
+            onClose={handleRevClose}
+        >
+        <DialogTitle>Reviews</DialogTitle>
+        <DialogContent>
+            <DialogContentText>{`${name}, ${model}`}</DialogContentText>
+            
+            {hasReviews && (
+                reviews.map((review)=>{
+                    return(
+                        <Typography
+                            key={review.id}
+                            >{review.content}</Typography>
+                    )
+                })
+            )}
+          
+        </DialogContent>
+
+        </Dialog>
         </>
     );
 }
