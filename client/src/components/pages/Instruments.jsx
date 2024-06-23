@@ -7,12 +7,9 @@ import { useLoaderData } from 'react-router-dom';
 
 function Instruments({allInstruments}) {
     
-
     if(allInstruments===null || !allInstruments){
         return <p>loading...</p>
     }
-
-
 
     const instrumentCards = 
         <Grid container>
