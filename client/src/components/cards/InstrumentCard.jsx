@@ -2,8 +2,6 @@ import React, {useState} from 'react';
 import {Card, CardContent, Typography, CardMedia, Button, FormControl} from '@mui/material'
 import { useAuth } from '../context/AuthProvider';
 import {useCart} from '../context/CartProvider'
-import { useOutletContext } from 'react-router-dom';
-import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -24,9 +22,8 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
     const [open, setOpen] = useState(false);
     const [startInput, setStartInput] = useState(today)
     const [endInput, setEndInput] = useState(tomorrow)
-    const [selection, setSelection] = useState([])
-
-
+    const [dateError, setDateError] = useState(null)
+    
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -53,7 +50,6 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
 
     const handleRemove = ()=>{
         handleRemoveCartItems(instrumentObj)
-        setSelection('')
         setStartInput(today)
         setEndInput(tomorrow)
     }
@@ -61,7 +57,6 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
     // this is for blocking out datepicker dates
     const rentalDates = currentRentals.map((rental)=>{
         const dateArr = []
-        const dateObj = {}
 
         const rentalStartArr = rental.start_date.split(' ')
         const startStr = rentalStartArr[0]
@@ -140,7 +135,6 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
                 component: 'form',
                 onSubmit: (e)=>{
                     e.preventDefault()
-                    // build out object with the start and end dates
                     const instrumentWithDates = {
                         "id": instrumentObj.id,
                         "brand": brand,
@@ -159,8 +153,6 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
                         "start_date": startInput,
                         "end_date": endInput
                     }
-                    // console.log(`newObj: ${instrumentWithDates}, ${instrumentWithDates.start_date}`)
-                    setSelection([startInput, endInput])
                     handleCartItems(instrumentWithDates)
                     handleClose()
                 }
@@ -178,6 +170,7 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
                     label='Rental Start Date'
                     value={startInput}
                     onChange={(newDate)=>setStartInput(newDate)}
+                    onError={(newError)=>setDateError(newError)}
                 />
             </FormControl>
             <FormControl>
@@ -187,6 +180,7 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
                     label='Rental Return Date'
                     value={endInput}
                     onChange={(newDate)=>setEndInput(newDate)}
+                    onError={(newError)=>setDateError(newError)}
                 />
             </FormControl>
             </DialogContent>
@@ -195,11 +189,13 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
                     handleClose()
                     setStartInput(today)
                     setEndInput(tomorrow)
-                    // setSelection([startInput, endInput])
                     }}>Cancel</Button>
-                <Button type='submit'>Complete Add To Cart</Button>
+                {dateError === null ? 
+                (<Button type='submit'>Complete Add To Cart</Button>)
+                :
+                (<Typography sx={{color: 'red'}}>Sorry, looks like this instrument is already booked for that day, please make another selection.</Typography>)
+                }
             </DialogActions>
-
         </Dialog>
         </LocalizationProvider>
         </>
