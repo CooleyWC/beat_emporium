@@ -8,7 +8,7 @@ import Admin from './Admin';
 import {useCart} from '../context/CartProvider'
 
 
-function Dashboard({handleRentalDelete}) {
+function Dashboard({handleRentalDelete, handleReviewIntent}) {
 
     const {user} = useAuth()
     const {cartItems} = useCart()
@@ -34,6 +34,15 @@ function Dashboard({handleRentalDelete}) {
         })
     }
 
+    const reviewIntent = (rentalId, instrumentId)=>{
+        const reviewIntentObj = {
+            user_id: user.id,
+            rental_id: rentalId,
+            instrument_id: instrumentId
+        }
+        handleReviewIntent(reviewIntentObj)
+    }
+
     const userRentalsMap = userRentals.map((rental)=>{
         return (
             <RentalCard 
@@ -41,9 +50,11 @@ function Dashboard({handleRentalDelete}) {
                 rentalId={rental.id}
                 created_at={rental.created_at}
                 instrument={rental.instrument.name}
+                instrument_id={rental.instrument.id}
                 return_date={rental.return_date}
                 start_date={rental.start_date}
                 onDeleteRental={handleDelete}
+                onReviewIntent={reviewIntent}
             />
         )
     })

@@ -24,7 +24,7 @@ if __name__ == "__main__":
     user_2.password_hash='paradiddle'
     user_3 = User(first_name=fake.first_name(), last_name=fake.last_name(), email=fake.email(), location=fake.city(), admin=False)
     user_3.password_hash='paradiddle'
-    user_4 = User(first_name='will', last_name='cool', email='will@gmail.com', location='chicago', admin=True)
+    user_4 = User(first_name='will', last_name='coole', email='will@gmail.com', location='ftw', admin=True)
     user_4.password_hash='paradiddle'
 
     db.session.add_all([user_1, user_2, user_3, user_4])
@@ -46,8 +46,11 @@ if __name__ == "__main__":
     rental_2 = Rental(user_id=2, instrument_id=2, created_at=datetime(2024,5,10,11,1,0), start_date=date(2024, 7, 14), return_date=date(2024, 7, 22))
     rental_3 = Rental(user_id=3, instrument_id=3, created_at=datetime(2024,6,3,11,5,0), start_date=date(2024, 6, 27), return_date=date(2024, 7, 1))
     rental_4 = Rental(user_id=2, instrument_id=4, created_at=datetime(2024,5,11,10,1,0), start_date=date(2024, 6, 14), return_date=date(2024, 7, 23))
+    rental_5 = Rental(user_id=4, instrument_id=1, created_at=datetime(2023,5,11,10,1,0), start_date=date(2023, 6, 14), return_date=date(2023, 7, 23))
+    rental_6 = Rental(user_id=4, instrument_id=2, created_at=datetime(2024,1,11,10,1,0), start_date=date(2024, 1, 14), return_date=date(2024, 1, 25))
 
-    db.session.add_all([rental_1, rental_2, rental_3, rental_4])
+
+    db.session.add_all([rental_1, rental_2, rental_3, rental_4, rental_5, rental_6])
     db.session.commit()
 
     print('adding reviews')
@@ -55,8 +58,9 @@ if __name__ == "__main__":
     review_1 = Review(user_id=1, instrument_id=1, rental_id=1, created_at=datetime(2024,8,10,10,10,0), content=fake.paragraph(nb_sentences=5))
     review_2 = Review(user_id=2, instrument_id=2, rental_id=2, created_at=datetime(2024,8,10,10,10,0), content=fake.paragraph(nb_sentences=5))
     review_3 = Review(user_id=2, instrument_id=4, rental_id=4, created_at=datetime(2024,9,10,10,10,0), content=fake.paragraph(nb_sentences=5))
+    review_4 = Review(user_id=4, instrument_id=1, rental_id=5, created_at=datetime(2023,9,10,10,10,0), content=fake.paragraph(nb_sentences=5))
 
 
-    db.session.add_all([review_1, review_2, review_3])
+    db.session.add_all([review_1, review_2, review_3, review_4])
     db.session.commit()
 
