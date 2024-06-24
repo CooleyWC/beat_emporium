@@ -99,6 +99,21 @@ function App(){
       }))
     }
     }
+  
+  
+  const handleRentalDelete = (id) =>{
+    console.log('from app-delete', id)
+
+    const userRentals = user.rentals
+
+    const rentalsAfterDelete = userRentals.filter((rental)=>{
+      return rental.id !== id
+    })
+
+    update(prevUserData=>({
+      ...prevUserData, rentals: [...rentalsAfterDelete]
+    }))
+  }
 
     
   return(
@@ -111,7 +126,7 @@ function App(){
           <Route path='*' element={<ErrorPage/>}/>
           <Route path='/login' element={<Login />}/>
           <Route path='/signup' element={<Signup />}/>
-          <Route path='/dashboard' element={<Dashboard />}/>
+          <Route path='/dashboard' element={<Dashboard handleRentalDelete={handleRentalDelete}/>}/>
           <Route path='/payment_page' element={<PaymentPage />}/>
           <Route path='/payment_result' element={<PaymentResult user={user} stageRentals={stageRentals}/>}/>
         </Route>
