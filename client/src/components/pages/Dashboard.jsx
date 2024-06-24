@@ -8,7 +8,7 @@ import Admin from './Admin';
 import {useCart} from '../context/CartProvider'
 
 
-function Dashboard() {
+function Dashboard({handleRentalDelete}) {
 
     const {user} = useAuth()
     const {cartItems} = useCart()
@@ -21,17 +21,34 @@ function Dashboard() {
     const userRentals = user.rentals
     // console.log('dashboard', userRentals)
 
+    const handleDelete = (id)=>{
+        console.log('from dashboard delete', id)
+        // delete api
+        fetch(`/api/rental_by_id/${id}`, {
+            method: 'DELETE'
+        })
+        .then((res)=>{
+            if(res.ok){
+                handleRentalDelete(id)
+            }
+        })
+    }
+
     const userRentalsMap = userRentals.map((rental)=>{
         return (
             <RentalCard 
                 key={rental.id}
+                rentalId={rental.id}
                 created_at={rental.created_at}
                 instrument={rental.instrument.name}
                 return_date={rental.return_date}
                 start_date={rental.start_date}
+                onDeleteRental={handleDelete}
             />
         )
     })
+
+    
 
     return (
         <>

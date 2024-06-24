@@ -27,7 +27,7 @@ function PaymentResult({newRentalPost, stageRentals}) {
     // }, [status])
 
     // stripeSeshStatus()
-    console.log('payment result rendered')
+    // console.log('payment result rendered')
 
     useEffect(()=>{
         if(status==='complete'){
@@ -55,9 +55,6 @@ function PaymentResult({newRentalPost, stageRentals}) {
         navigate('/dashboard')
     }
 
-    // console.log(`status = ${status}`)
-
-
     if (status === null){
         return (
             <section id='loading' style={{marginTop: '200px'}}>
@@ -75,8 +72,6 @@ function PaymentResult({newRentalPost, stageRentals}) {
     }
 
     if (status === 'complete'){
-        // newRentalPost()
-
         return (
             <section id='success' style={{marginTop: '200px'}}>
                 <p>{`we appreciate your business - check your email: ${customerEmail} for receipt`}</p>
