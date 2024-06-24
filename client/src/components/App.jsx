@@ -115,6 +115,10 @@ function App(){
     }))
   }
 
+  const handleReviewIntent = (obj)=>{
+    console.log('hi', obj)
+  }
+
     
   return(
 
@@ -126,7 +130,7 @@ function App(){
           <Route path='*' element={<ErrorPage/>}/>
           <Route path='/login' element={<Login />}/>
           <Route path='/signup' element={<Signup />}/>
-          <Route path='/dashboard' element={<Dashboard handleRentalDelete={handleRentalDelete}/>}/>
+          <Route path='/dashboard' element={<Dashboard handleRentalDelete={handleRentalDelete} handleReviewIntent={handleReviewIntent}/>}/>
           <Route path='/payment_page' element={<PaymentPage />}/>
           <Route path='/payment_result' element={<PaymentResult user={user} stageRentals={stageRentals}/>}/>
         </Route>

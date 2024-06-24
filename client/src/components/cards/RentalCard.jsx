@@ -1,7 +1,11 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Paper, Typography, Box, Grid, Button } from '@mui/material';
 
-function RentalCard({created_at, instrument, return_date, start_date, rentalId, onDeleteRental}) {
+function RentalCard({created_at, instrument, instrument_id, return_date, start_date, rentalId, onDeleteRental, onReviewIntent}) {
+
+    const todayDate = new Date()
+
+    const [complete, setComplete] = useState(false)
 
     const startObj = new Date(start_date)
     const startStr = startObj.toLocaleString().split(',')
@@ -15,20 +19,26 @@ function RentalCard({created_at, instrument, return_date, start_date, rentalId, 
     const returnStr = returnObj.toLocaleString().split(',')
     const returnDisplay = returnStr[0]
 
+    useEffect(()=>{
+        if(todayDate > returnObj){
+            setComplete(true)
+        }
+    }, [])
+
     const typeStyle = {
         paddingLeft: '10px',
     }
 
     const paperStyle = {
-        backgroundColor: '#e5e5e5'
+        completed: {
+            backgroundColor: complete ? "#dee2e6": "#caf0f8"
+        }
+        // backgroundColor: '#e5e5e5'
     }
 
-    const handleRentalDelete = (id)=>{
-        console.log('i was clicked', id)
-    }
 
     return (
-        <Paper sx={paperStyle}>
+        <Paper sx={paperStyle.completed}>
             <Box sx={typeStyle}>
                 <Typography>Receipt Date: {receiptDisplay}</Typography>
             </Box>
@@ -42,7 +52,11 @@ function RentalCard({created_at, instrument, return_date, start_date, rentalId, 
                 <Typography>Rental Return Date: {returnDisplay}</Typography>
             </Box>
             <Box>
+                {complete ? 
+                (<Button onClick={()=>onReviewIntent(rentalId, instrument_id)}>Review this Instrument</Button>)
+                :
                 <Button onClick={()=>onDeleteRental(rentalId)}>Cancel</Button>
+                }
             </Box>
         </Paper>
     );
