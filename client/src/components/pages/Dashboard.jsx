@@ -5,14 +5,16 @@ import { useAuth } from '../context/AuthProvider';
 import RentalCard from '../cards/RentalCard';
 import ShoppingCart from '../pages/ShoppingCart';
 import Admin from './Admin';
-import {useCart} from '../context/CartProvider'
+import {useReview} from '../context/ReviewProvider'
+import {useNavigate} from 'react-router-dom';
 
 
 function Dashboard({handleRentalDelete, handleReviewIntent}) {
 
-    const {user} = useAuth()
-    const {cartItems} = useCart()
-    // console.log(cartItems)
+    let navigate = useNavigate();
+
+    const {user} = useAuth();
+    const {handleReviewData} = useReview();
 
     if(user===null || !user){
         return <p>loading...</p>
@@ -34,22 +36,28 @@ function Dashboard({handleRentalDelete, handleReviewIntent}) {
         })
     }
 
-    const reviewIntent = (rentalId, instrumentId)=>{
+    const reviewIntent = (rentalObj, instrumentObj)=>{
         const reviewIntentObj = {
-            user_id: user.id,
-            rental_id: rentalId,
-            instrument_id: instrumentId
+            userId: user.id,
+            rentalId: rentalObj.id,
+            rentalStartDate: rentalObj.start_date,
+            rentalReturnDate: rentalObj.return_date,
+            instrumentId: instrumentObj.id,
+            instrumentName: instrumentObj.name,
         }
-        handleReviewIntent(reviewIntentObj)
+        handleReviewData(reviewIntentObj)
+        navigate('/review_form')
     }
 
     const userRentalsMap = userRentals.map((rental)=>{
         return (
             <RentalCard 
                 key={rental.id}
+                rentalObj={rental}
+                instrumentObj={rental.instrument}
                 rentalId={rental.id}
                 created_at={rental.created_at}
-                instrument={rental.instrument.name}
+                instrumentName={rental.instrument.name}
                 instrument_id={rental.instrument.id}
                 return_date={rental.return_date}
                 start_date={rental.start_date}

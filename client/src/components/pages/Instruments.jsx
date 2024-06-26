@@ -3,12 +3,14 @@ import {Box, Typography, Grid} from '@mui/material';
 // import { useOutletContext } from 'react-router-dom';
 import InstrumentCard from '../cards/InstrumentCard';
 
-import { useLoaderData } from 'react-router-dom';
-
-function Instruments({allInstruments}) {
+function Instruments({allInstruments, allReviews}) {
     
     if(allInstruments===null || !allInstruments){
-        return <p>loading...</p>
+        return <p>loading instruments...</p>
+    }
+
+    if(allReviews===null || !allReviews){
+        return <p>loading reviews...</p>
     }
 
     const instrumentCards = 
@@ -31,6 +33,7 @@ function Instruments({allInstruments}) {
                         currentRentals={instrument.rentals}
                         instrumentObj={instrument}
                         in_stock={instrument.in_stock}
+                        allInstrumentReviews={allReviews}
                     />
                 </Grid>
             ))}

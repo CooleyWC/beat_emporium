@@ -144,6 +144,7 @@ class Rentals(Resource):
             return_obj=return_str
             
           elif attr == 'created_at':
+        
             created_str=parser.parse(rental.get(attr))
             created_obj=created_str
         

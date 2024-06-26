@@ -14,7 +14,8 @@ import dayjs from 'dayjs';
 
 
 function InstrumentCard({brand, color, name, description, for_rent, image, model, 
-    rent_price, reviews, sale_price, size, instrumentObj, currentRentals, in_stock}) {
+    rent_price, reviews, sale_price, size, instrumentObj, currentRentals, in_stock, allInstrumentReviews}) {
+   
     
     const today = dayjs()
     const tomorrow = dayjs().add(1, 'day')
@@ -40,7 +41,7 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
     const handleClose = () => {
         setOpen(false);
     };
-    // new
+
     const handleRevOpen = () => {
         setRevOpen(true);
     };
@@ -120,8 +121,6 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
         handleRevOpen()
     }
 
-    
-
     return (
         <>
         <Card sx={{maxWidth: '400px', minHeight: '600px', maxHeight: '600px'}}>
@@ -151,7 +150,6 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
                 </Typography>
                 {checkIfItemInCart ? <Button onClick={handleRemove}>Remove From Cart</Button>: <Button onClick={handleAdd}>Add To Cart</Button>}
             </CardContent>
-            {/* {checkIfItemInCart ? <Button onClick={handleRemove}>Remove From Cart</Button>: <Button onClick={handleAdd}>Add To Cart</Button>} */}
         </Card>
         {/* DatePicker Dialog */}
         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -236,12 +234,14 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
             <DialogContentText>{`${name}, ${model}`}</DialogContentText>
             
             {hasReviews && (
-                reviews.map((review)=>{
+                allInstrumentReviews.map((review)=>{
+                    if(review.instrument_id ===instrumentObj.id){
                     return(
                         <Typography
                             key={review.id}
                             >{review.content}</Typography>
                     )
+                    }
                 })
             )}
           

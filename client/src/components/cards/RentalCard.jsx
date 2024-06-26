@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Paper, Typography, Box, Grid, Button } from '@mui/material';
 
-function RentalCard({created_at, instrument, instrument_id, return_date, start_date, rentalId, onDeleteRental, onReviewIntent}) {
+function RentalCard({created_at, instrumentName, instrument_id, return_date, start_date, rentalId, onDeleteRental, onReviewIntent, rentalObj, instrumentObj}) {
 
     const todayDate = new Date()
 
@@ -33,9 +33,7 @@ function RentalCard({created_at, instrument, instrument_id, return_date, start_d
         completed: {
             backgroundColor: complete ? "#dee2e6": "#caf0f8"
         }
-        // backgroundColor: '#e5e5e5'
     }
-
 
     return (
         <Paper sx={paperStyle.completed}>
@@ -43,7 +41,7 @@ function RentalCard({created_at, instrument, instrument_id, return_date, start_d
                 <Typography>Receipt Date: {receiptDisplay}</Typography>
             </Box>
             <Box sx={typeStyle}>
-                <Typography>Instrument: {instrument}</Typography>
+                <Typography>Instrument: {instrumentName}</Typography>
             </Box>
             <Box sx={typeStyle}>
                 <Typography>Rental Start Date: {startDisplay}</Typography>
@@ -53,7 +51,7 @@ function RentalCard({created_at, instrument, instrument_id, return_date, start_d
             </Box>
             <Box>
                 {complete ? 
-                (<Button onClick={()=>onReviewIntent(rentalId, instrument_id)}>Review this Instrument</Button>)
+                (<Button onClick={()=>onReviewIntent(rentalObj, instrumentObj)}>Review this Instrument</Button>)
                 :
                 <Button onClick={()=>onDeleteRental(rentalId)}>Cancel</Button>
                 }
