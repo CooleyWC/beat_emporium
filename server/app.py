@@ -27,6 +27,8 @@ from resources.logout import Logout
 from resources.instruments import Instruments
 from resources.rentals import Rentals
 from resources.rental_by_id import RentalByID
+from resources.reviews import Reviews
+
 
 @app.route('/create_checkout_session', methods=['POST'])
 def create_checkout_session():
@@ -84,6 +86,7 @@ api.add_resource(Logout, '/api/logout')
 api.add_resource(Instruments, '/api/instruments')
 api.add_resource(Rentals, '/api/rentals')
 api.add_resource(RentalByID, '/api/rental_by_id/<int:id>')
+api.add_resource(Reviews, '/api/reviews')
 
 if __name__ == "__main__":
   app.run(port=5555, debug=True)

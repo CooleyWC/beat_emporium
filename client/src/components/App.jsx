@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom'
 import {useCart} from './context/CartProvider'
 import Login from './forms/Login'
 import ErrorPage from './pages/ErrorPage'
@@ -9,6 +9,7 @@ import Home from './pages/Home'
 import PaymentPage from './pages/PaymentPage'
 import PaymentResult from './pages/PaymentResult'
 import NavBar from './NavBar'
+import Review from './forms/Review'
 import { useAuth } from './context/AuthProvider'
 import Instruments from './pages/Instruments'
 
@@ -19,8 +20,7 @@ function App(){
   const {cartItems, emptyCart} = useCart()
 
   const [allInstruments, setAllInstruments] = useState([])
-
-  // console.log(`user from app: ${user}`)
+  const [allReviews, setAllReviews] = useState([])
 
   useEffect(()=>{
     checkUser()
@@ -45,6 +45,14 @@ function App(){
     .then(res=>res.json())
     .then(instrumentsData=>{
       setAllInstruments(instrumentsData)
+    })
+  }, [])
+
+  useEffect(()=>{
+    fetch('/api/reviews')
+    .then(res=>res.json())
+    .then(reviewsData=>{
+      setAllReviews(reviewsData)
     })
   }, [])
 
@@ -115,10 +123,10 @@ function App(){
     }))
   }
 
-  const handleReviewIntent = (obj)=>{
-    console.log('hi', obj)
-  }
+  const afterReviewPost = (newReview) =>{
 
+    setAllReviews([...allReviews, newReview])
+  } 
     
   return(
 
@@ -126,13 +134,14 @@ function App(){
       <Routes>
         <Route path='/' errorElement={<ErrorPage />} element={<NavBar />}>
           <Route index element={<Home />}/>
-          <Route path='instruments' element={<Instruments allInstruments={allInstruments}/>}/>
+          <Route path='instruments' element={<Instruments allInstruments={allInstruments} allReviews={allReviews}/>}/>
           <Route path='*' element={<ErrorPage/>}/>
           <Route path='/login' element={<Login />}/>
           <Route path='/signup' element={<Signup />}/>
-          <Route path='/dashboard' element={<Dashboard handleRentalDelete={handleRentalDelete} handleReviewIntent={handleReviewIntent}/>}/>
+          <Route path='/dashboard' element={<Dashboard handleRentalDelete={handleRentalDelete}/>}/>
           <Route path='/payment_page' element={<PaymentPage />}/>
           <Route path='/payment_result' element={<PaymentResult user={user} stageRentals={stageRentals}/>}/>
+          <Route path='/review_form' element={<Review afterReviewPost={afterReviewPost}/>}/>
         </Route>
     
       </Routes>

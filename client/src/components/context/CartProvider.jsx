@@ -7,8 +7,6 @@ export const useCart = ()=>{
     return useContext(CartContext)
 }
 
-// try using local storage here
-
 export const CartProvider = ({children})=>{
     const [cartItems, setCartItems] = useState(()=>{
         const saved = localStorage.getItem("cartItems");
@@ -23,7 +21,7 @@ export const CartProvider = ({children})=>{
     // new
     const emptyCart = () => {
       setCartItems([])
-      localStorage.clear()
+      // localStorage.clear()
     }
 
     const handleCartItems = (instrumentObjWithDates)=>{
