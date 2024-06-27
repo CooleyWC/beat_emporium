@@ -31,9 +31,6 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
     const [dateError, setDateError] = useState(null)
     const [hasReviews, setHasReviews] = useState(false)
 
-    console.log('startInput', startInput)
-    console.log('endInput', endInput)
-
     useEffect(()=>{
         if(reviews.length>0){
             setHasReviews(true)

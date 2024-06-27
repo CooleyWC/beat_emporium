@@ -16,10 +16,10 @@ const isUser = [
         page: 'Dashboard',
         route: '/dashboard',
     },
-    {
-        page: 'PaymentPage',
-        route: 'payment_page',
-    }
+    // {
+    //     page: 'PaymentPage',
+    //     route: 'payment_page',
+    // }
 ]
 
 const noUser = [
