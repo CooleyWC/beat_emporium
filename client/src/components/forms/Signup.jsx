@@ -1,6 +1,6 @@
-import { Button, Container, Box, FormControl, Typography, Grid, TextField, getFormLabelUtilityClasses } from '@mui/material';
+import { Button, Container, Box, FormControl, Typography, Grid, TextField, Alert} from '@mui/material';
 import Link from '@mui/material/Link';
-import React from 'react';
+import React, {useState} from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useAuth } from '../context/AuthProvider';
@@ -13,6 +13,7 @@ function Signup() {
 
     const {login} = useAuth()
     let navigate = useNavigate()
+    const [alertMessage, setAlertMessage] = useState(null)
 
     const signupSchema = yup.object({
         email: yup
@@ -54,7 +55,8 @@ function Signup() {
 
             const userData = await res.json()
             if(!res.ok){
-                console.log('error - signup failed', userData.message)
+                console.log('error - signup failed', userData.error)
+                setAlertMessage(userData.error)
                 return
             }
             console.log('signup success', userData)
@@ -80,6 +82,9 @@ function Signup() {
 
     return (
         <Box sx={{marginTop: '100px'}}>
+            {alertMessage && (
+                <Alert severity='error'>{alertMessage}</Alert>
+            )}
             <form onSubmit={formik.handleSubmit}>
                 <Grid container direction='column' justifyContent='center' alignItems='center'>
                     <Grid item>

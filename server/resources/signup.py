@@ -25,6 +25,6 @@ class Signup(Resource):
 
             return user.to_dict(), 201
         except:
-            error={"Error": "Invalid User Input"}
+            error={"error": "Invalid User Input"}
             return error, 422
         
