@@ -1,9 +1,11 @@
-import React from 'react';
-import {Box, Typography, Grid} from '@mui/material';
+import React, {useState} from 'react';
+import {Box, Typography, Grid, Alert} from '@mui/material';
 // import { useOutletContext } from 'react-router-dom';
 import InstrumentCard from '../cards/InstrumentCard';
 
 function Instruments({allInstruments, allReviews}) {
+
+    const [addAlert, setAddAlert] = useState(null)
     
     if(allInstruments===null || !allInstruments){
         return <p>loading instruments...</p>
@@ -11,6 +13,10 @@ function Instruments({allInstruments, allReviews}) {
 
     if(allReviews===null || !allReviews){
         return <p>loading reviews...</p>
+    }
+
+    const addBeforeLogin = () =>{
+        setAddAlert(true)
     }
 
     const instrumentCards = 
@@ -34,6 +40,7 @@ function Instruments({allInstruments, allReviews}) {
                         instrumentObj={instrument}
                         in_stock={instrument.in_stock}
                         allInstrumentReviews={allReviews}
+                        onAddBeforeUser={addBeforeLogin}
                     />
                 </Grid>
             ))}
@@ -42,6 +49,9 @@ function Instruments({allInstruments, allReviews}) {
     return (
         <>
         <Box sx={{marginTop: '100px'}}>
+            {addAlert && (
+                <Alert severity='error'>Please login to add items to your cart</Alert>
+            )}
             <Typography sx={{fontSize: '50px'}}>
                 Instruments
             </Typography>
