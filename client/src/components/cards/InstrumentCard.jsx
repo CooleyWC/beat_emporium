@@ -63,7 +63,6 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
     const handleAdd = ()=>{
         if(!user){
             onAddBeforeUser()
-            // alert('You must be logged in to add this to your cart')
             return
         }
         handleClickOpen()

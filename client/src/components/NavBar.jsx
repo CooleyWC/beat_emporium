@@ -67,7 +67,7 @@ function NavBar() {
 
     return (
         <>
-        <AppBar position='fixed'>
+        <AppBar position='fixed' sx={{backgroundColor: '#001d3d'}}>
             <Container maxWidth='xl'>
                 <Toolbar disableGutters>
                     <Typography
@@ -138,6 +138,7 @@ function NavBar() {
                                             onClick={handleLogoutClick}
                                             component={NavLink}
                                             to='/'
+                                            sx={{color: 'black'}}
                                         >
                                             Logout
                                         </MenuItem>
