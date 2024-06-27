@@ -11,14 +11,17 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
+// new
+import utc from 'dayjs/plugin/utc';
+
+dayjs.extend(utc);
 
 
 function InstrumentCard({brand, color, name, description, for_rent, image, model, 
     rent_price, reviews, sale_price, size, instrumentObj, currentRentals, in_stock, allInstrumentReviews}) {
    
-    
-    const today = dayjs()
-    const tomorrow = dayjs().add(1, 'day')
+    const today = dayjs().utc()
+    const tomorrow = dayjs().utc().add(1, 'day')
 
     const [open, setOpen] = useState(false);
     const [revOpen, setRevOpen] = useState(false);
@@ -27,6 +30,9 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
     const [endInput, setEndInput] = useState(tomorrow)
     const [dateError, setDateError] = useState(null)
     const [hasReviews, setHasReviews] = useState(false)
+
+    console.log('startInput', startInput)
+    console.log('endInput', endInput)
 
     useEffect(()=>{
         if(reviews.length>0){
@@ -62,7 +68,6 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
             alert('You must be logged in to add this to your cart')
             return
         }
-
         handleClickOpen()
     }
 
@@ -82,39 +87,35 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
         const rentalEndArr = rental.return_date.split(' ')
         const endStr = rentalEndArr[0]
 
-        const start = new Date(startStr)
-        const end = new Date(endStr)
+        const start = dayjs(startStr)
+        const end = dayjs(endStr)
 
-        let loop = new Date(start)
+        let loop = dayjs(start)
 
         while (loop<=end){
-            dateArr.push(loop)
-            let newDate = loop.setDate(loop.getDate()+1)
-            loop = new Date(newDate)
+            dateArr.push(loop.utc())
+            let newDate = loop.add(1, 'day')
+            loop = dayjs(newDate)
         }
-        
         return ({dateArr})
         
     })
 
     const disableDateFunc = (date)=>{
+     
+        const testDate = dayjs(date)
+        const muiDate = testDate.utc().format('MM/DD/YYYY')
 
-        const testDate = new Date(date)
-        const muiDate = testDate.toLocaleString().split(',')
-        const muiDateStr = muiDate[0]
-    
         for(let dateObj of rentalDates){
             const arrayOfDates = dateObj.dateArr
-            
+
             for(let dateToCheck of arrayOfDates){
-                const dateCheck = dateToCheck.toLocaleString().split(',')
-                const dateCheckStr = dateCheck[0]
-                if(muiDateStr === dateCheckStr){
+                const dateCheck = dateToCheck.utc().format('MM/DD/YYYY')
+                if(muiDate === dateCheck){
                     return true
                 }
             }
         }
-        return false
     }
 
     const handleReviewClick = ()=>{
@@ -160,6 +161,10 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
                 component: 'form',
                 onSubmit: (e)=>{
                     e.preventDefault()
+                    if(!startInput || !endInput){
+                        alert('Whoa! - you have to select both a start date and end date')
+                        return
+                    }
                     const instrumentWithDates = {
                         "id": instrumentObj.id,
                         "brand": brand,
@@ -175,8 +180,8 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
                         "rentals": currentRentals,
                         "sale_price": sale_price,
                         "size": size,
-                        "start_date": startInput,
-                        "end_date": endInput
+                        "start_date": startInput.utc().format(),
+                        "end_date": endInput.utc().format()
                     }
                     handleCartItems(instrumentWithDates)
                     handleClose()

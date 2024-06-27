@@ -25,7 +25,7 @@ export const CartProvider = ({children})=>{
     }
 
     const handleCartItems = (instrumentObjWithDates)=>{
-        // console.log('added', instrumentObjWithDates)
+        console.log('added', instrumentObjWithDates)
     
         const itemsToAdd = cartItems.find((item)=>{
           return item.id === instrumentObjWithDates.id
