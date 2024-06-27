@@ -71,12 +71,15 @@ class Rentals(Resource):
   
     # new rentals
     incoming_rentals = [rental for rental in data]
+    print(incoming_rentals)
    
     for rental in incoming_rentals:
       date_list = []
       
       start_attr = rental['start_date']
+      print('start_attr', start_attr)
       end_attr = rental['return_date']
+      print('return_attr', end_attr)
 
       split_start = start_attr.split('T')
       split_end = end_attr.split('T')
@@ -137,11 +140,13 @@ class Rentals(Resource):
           if attr == 'start_date':
             start_str = parser.parse(rental.get(attr))
             start_obj=start_str
+          
 
           # change these to ifs not elifs
           elif attr == 'return_date':
             return_str = parser.parse(rental.get(attr))
             return_obj=return_str
+        
             
           elif attr == 'created_at':
         

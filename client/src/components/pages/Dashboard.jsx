@@ -9,10 +9,9 @@ import {useReview} from '../context/ReviewProvider'
 import {useNavigate} from 'react-router-dom';
 
 
-function Dashboard({handleRentalDelete, handleReviewIntent}) {
+function Dashboard({handleRentalDelete}) {
 
     let navigate = useNavigate();
-
     const {user} = useAuth();
     const {handleReviewData} = useReview();
 
@@ -21,7 +20,6 @@ function Dashboard({handleRentalDelete, handleReviewIntent}) {
     }
 
     const userRentals = user.rentals
-    // console.log('dashboard', userRentals)
 
     const handleDelete = (id)=>{
         console.log('from dashboard delete', id)
@@ -67,8 +65,6 @@ function Dashboard({handleRentalDelete, handleReviewIntent}) {
         )
     })
 
-    
-
     return (
         <>
         <Box sx={{marginTop: '100px'}}>
@@ -102,69 +98,3 @@ function Dashboard({handleRentalDelete, handleReviewIntent}) {
 }
 
 export default Dashboard;
-
-
-
-// import React from 'react';
-// import {Box, Typography, Stack} from '@mui/material'
-// import UserProfileCard from '../cards/UserProfileCard';
-// import { useAuth } from '../context/AuthProvider';
-// import RentalCard from '../cards/RentalCard';
-// import ShoppingCart from '../pages/ShoppingCart';
-// import Admin from './Admin';
-
-
-// function Dashboard() {
-
-//     const {user} = useAuth()
-
-//     if(user===null || !user){
-//         return <p>loading...</p>
-//     }
-
-//     const userRentals = user.rentals
-//     // console.log(userRentals)
-
-//     const userRentalsMap = userRentals.map((rental)=>{
-//         return (
-//             <RentalCard 
-//                 key={rental.id}
-//                 created_at={rental.created_at}
-//                 instrument={rental.instrument.name}
-//                 return_date={rental.return_date}
-//                 start_date={rental.start_date}
-//             />
-//         )
-//     })
-
-//     return (
-//         <>
-//         <Box sx={{marginTop: '100px'}}>
-//             <Typography>Dashboard</Typography>
-//         </Box>
-//         <Box>
-//             <UserProfileCard 
-//                 key={user.id}
-//                 first_name={user.first_name}
-//                 last_name={user.last_name}
-//                 email={user.email}
-//                 location={user.location}
-//             />
-//         </Box>
-//         <Box>
-//             <Typography>Rentals go here</Typography>
-//         </Box>
-//         <Stack>
-//             {userRentalsMap}
-//         </Stack>
-//         <Box>
-//             <ShoppingCart />
-//         </Box>
-//         <Box>
-//         {user.admin == '1' && <Admin />}
-//         </Box>
-//         </>
-//     );
-// }
-
-// export default Dashboard;

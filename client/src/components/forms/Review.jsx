@@ -24,7 +24,6 @@ function Review({afterReviewPost}) {
     })
 
     const submitReview = async (values) =>{
-
         let nowDate = new Date().toISOString()
 
         const reviewPostObj={
@@ -34,7 +33,6 @@ function Review({afterReviewPost}) {
             created_at: nowDate,
             content: values.content
         }
-        console.log(reviewPostObj)
 
         try{
             const res = await fetch('/api/reviews', {
@@ -50,7 +48,6 @@ function Review({afterReviewPost}) {
                 console.log('error submitting review')
             } else {
                 afterReviewPost(revResData)
-                console.log('review added successfully', revResData)
                 navigate('/dashboard')
             }
         } catch {
