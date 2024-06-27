@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Card, CardContent, Typography, CardMedia, Button, FormControl} from '@mui/material'
+import {Card, CardContent, Typography, CardMedia, Button, FormControl, Alert} from '@mui/material'
 import { useAuth } from '../context/AuthProvider';
 import {useCart} from '../context/CartProvider'
 import Dialog from '@mui/material/Dialog';
@@ -18,7 +18,7 @@ dayjs.extend(utc);
 
 
 function InstrumentCard({brand, color, name, description, for_rent, image, model, 
-    rent_price, reviews, sale_price, size, instrumentObj, currentRentals, in_stock, allInstrumentReviews}) {
+    rent_price, reviews, sale_price, size, instrumentObj, currentRentals, in_stock, allInstrumentReviews, onAddBeforeUser}) {
    
     const today = dayjs().utc()
     const tomorrow = dayjs().utc().add(1, 'day')
@@ -62,7 +62,8 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
 
     const handleAdd = ()=>{
         if(!user){
-            alert('You must be logged in to add this to your cart')
+            onAddBeforeUser()
+            // alert('You must be logged in to add this to your cart')
             return
         }
         handleClickOpen()
