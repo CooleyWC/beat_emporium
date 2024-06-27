@@ -11,16 +11,16 @@ class Login(Resource):
             user=User.query.filter(User.email==email).first()
             password=request.get_json()['password']
             if not user:
-                error={"Error": "User does not exist - Please create an account."}
+                error={"error": "User does not exist - Please create an account."}
                 return error, 400
             if user.authenticate(password):
                 session['user_id'] = user.id
                 return user.to_dict(), 200
             else:
-                error={"Error": "Incorrect password"}
+                error={"error": "Incorrect password"}
                 return error, 401
         except:
-            error={"Error": "Error loggin in - Make sure to enter valid input"}
+            error={"error": "Error loggin in - Make sure to enter valid input"}
             return error, 401
         
 
