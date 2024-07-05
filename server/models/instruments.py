@@ -18,10 +18,19 @@ class Instrument(db.Model, SerializerMixin):
     image=db.Column(db.String, nullable=False)
 
     for_rent=db.Column(db.Boolean)
-    rent_price=db.Column(db.Float)
-    sale_price=db.Column(db.Float)
+    rent_price=db.Column(db.Integer, nullable=False)
+    sale_price=db.Column(db.Integer, nullable=False)
     in_stock=db.Column(db.Boolean)
 
     reviews = db.relationship('Review', back_populates='instrument', cascade='all, delete-orphan')
     rentals = db.relationship('Rental', back_populates='instrument', cascade='all, delete-orphan')
     users = db.relationship('User', secondary='rentals', back_populates='instruments')
+
+    @validates('name')
+    def validate_name(self, key, name):
+        if isinstance(name, str) and (2 <=len(name) <=25):
+            return name
+        else:
+            raise ValueError('name must be a string between 2 and 25 characters')
+
+    

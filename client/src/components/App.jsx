@@ -12,6 +12,7 @@ import NavBar from './NavBar'
 import Review from './forms/Review'
 import { useAuth } from './context/AuthProvider'
 import Instruments from './pages/Instruments'
+import InstrumentsPanel from './administration/InstrumentsPanel'
 
 
 function App(){
@@ -141,6 +142,7 @@ function App(){
           <Route path='/payment_page' element={<PaymentPage />}/>
           <Route path='/payment_result' element={<PaymentResult user={user} stageRentals={stageRentals}/>}/>
           <Route path='/review_form' element={<Review afterReviewPost={afterReviewPost}/>}/>
+          <Route path='/instruments_panel' element={<InstrumentsPanel allInstruments={allInstruments}/>}/>
         </Route>
     
       </Routes>
