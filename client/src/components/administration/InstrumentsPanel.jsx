@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthProvider'
 import AdminInstCard from '../cards/AdminInstCard';
 import NewInstrument from '../forms/NewInstrument';
 
-function InstrumentsPanel({allInstruments, afterInstrumentPost, afterInstrumentDelete}) {
+function InstrumentsPanel({allInstruments, afterInstrumentPost, afterInstrumentDelete, afterInstrumentUpdate}) {
 
     const [newInstrumentClick, setNewInstrumentClick] = useState(null)
 
@@ -35,6 +35,25 @@ function InstrumentsPanel({allInstruments, afterInstrumentPost, afterInstrumentD
         })
     }
 
+    const handleUpdateInstrument = async (id, updatedInstr) =>{
+        const res = await fetch(`/api/instrument_by_id/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(updatedInstr)
+        })
+
+        const instrData = await res.json()
+
+        if(!res.ok){
+            console.log('error', instrData.error)
+            afterInstrumentUpdate(instrData)
+        } else {
+            afterInstrumentUpdate(instrData)
+        }
+    }
+
     const adminInstrCards = allInstruments.map((instrument)=>{
         return (
             <AdminInstCard
@@ -54,6 +73,7 @@ function InstrumentsPanel({allInstruments, afterInstrumentPost, afterInstrumentD
                 instrumentObj={instrument}
                 in_stock={instrument.in_stock}
                 onDeleteInstr={handleDeleteInstrument}
+                onUpdateInstr={handleUpdateInstrument}
             />
         )
     })

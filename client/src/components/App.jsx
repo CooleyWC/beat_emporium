@@ -139,6 +139,19 @@ function App(){
 
     setAllInstruments(instrumentsAfterDelete)
   }
+
+  const afterInstrumentUpdate = (updatedInstr)=>{
+   
+    const updatedInstrumentsArr = allInstruments.map((instrument)=>{
+      if(instrument.id===updatedInstr.id){
+        return updatedInstr
+      } else {
+        return instrument
+      }
+    })
+
+    setAllInstruments(updatedInstrumentsArr)
+  }
     
   return(
 
@@ -154,7 +167,7 @@ function App(){
           <Route path='/payment_page' element={<PaymentPage />}/>
           <Route path='/payment_result' element={<PaymentResult user={user} stageRentals={stageRentals}/>}/>
           <Route path='/review_form' element={<Review afterReviewPost={afterReviewPost}/>}/>
-          <Route path='/instruments_panel' element={<InstrumentsPanel allInstruments={allInstruments} afterInstrumentPost={afterInstrumentPost} afterInstrumentDelete={afterInstrumentDelete}/>}/>
+          <Route path='/instruments_panel' element={<InstrumentsPanel allInstruments={allInstruments} afterInstrumentPost={afterInstrumentPost} afterInstrumentDelete={afterInstrumentDelete} afterInstrumentUpdate={afterInstrumentUpdate}/>}/>
         </Route>
     
       </Routes>

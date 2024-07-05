@@ -26,3 +26,25 @@ class InstrumentByID(Resource):
         except:
             error={'error': 'there was an error deleting this instrument'}
             return error, 422
+        
+    def patch(self, id):
+        data = request.get_json()
+        if data:
+            try:
+                instrument = Instrument.query.filter(Instrument.id==id).first()
+
+                for attr in data:
+                    if attr != 'rentals' and attr != 'reviews':
+                        setattr(instrument, attr, data.get(attr))
+                
+                db.session.add(instrument)
+                db.session.commit()
+
+                instrument_dict = instrument.to_dict()
+                return instrument_dict, 200
+            except:
+                error = {'error': 'there was an error updating this instrument'}
+                return error, 422
+        else:
+            error = {'error': 'there was a problem accessing this instrument in the db'}
+            return error, 400
