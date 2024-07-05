@@ -1,8 +1,9 @@
 import React from 'react';
-import {Card, CardContent, Typography, CardMedia} from '@mui/material'
+import {Card, CardContent, Typography, CardMedia, Button} from '@mui/material'
 
 function AdminInstCard({color, name, description, for_rent, image, model, rent_price, 
-    reviews, sale_price, size, currentRentals, instrumentObj, in_stock}) {
+    reviews, sale_price, size, currentRentals, instrumentObj, in_stock, onDeleteInstr}) {
+    
     return (
         <Card sx={{display: 'flex', justifyContent: 'flex-start', width:'100%'}}>
             <CardMedia 
@@ -16,6 +17,7 @@ function AdminInstCard({color, name, description, for_rent, image, model, rent_p
                 <Typography>{description}</Typography>
                 <Typography>{size}</Typography>
                 <Typography>{color}</Typography>
+                <Button variant='contained' onClick={()=>{onDeleteInstr(instrumentObj.id)}} color='error'>Delete</Button>
 
             </CardContent>
 

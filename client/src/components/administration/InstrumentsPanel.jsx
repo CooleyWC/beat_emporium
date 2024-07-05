@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthProvider'
 import AdminInstCard from '../cards/AdminInstCard';
 import NewInstrument from '../forms/NewInstrument';
 
-function InstrumentsPanel({allInstruments, afterInstrumentPost}) {
+function InstrumentsPanel({allInstruments, afterInstrumentPost, afterInstrumentDelete}) {
 
     const [newInstrumentClick, setNewInstrumentClick] = useState(null)
 
@@ -20,6 +20,19 @@ function InstrumentsPanel({allInstruments, afterInstrumentPost}) {
 
     if(!allInstruments || allInstruments.length === 0){
         return <p>...loading instruments</p>
+    }
+
+    const handleDeleteInstrument = (id) =>{
+        fetch(`/api/instrument_by_id/${id}`, {
+            method: 'DELETE',
+        })
+        .then((res)=>{
+            if(res.ok){
+                afterInstrumentDelete(id)
+            } else {
+                console.log(res.error)
+            }
+        })
     }
 
     const adminInstrCards = allInstruments.map((instrument)=>{
@@ -40,6 +53,7 @@ function InstrumentsPanel({allInstruments, afterInstrumentPost}) {
                 currentRentals={instrument.rentals}
                 instrumentObj={instrument}
                 in_stock={instrument.in_stock}
+                onDeleteInstr={handleDeleteInstrument}
             />
         )
     })
@@ -51,6 +65,8 @@ function InstrumentsPanel({allInstruments, afterInstrumentPost}) {
     const closeAddForm = () =>{
         setNewInstrumentClick(false)
     }
+
+    
         
     return (
         <>

@@ -28,6 +28,7 @@ from resources.instruments import Instruments
 from resources.rentals import Rentals
 from resources.rental_by_id import RentalByID
 from resources.reviews import Reviews
+from resources.instrument_by_id import InstrumentByID
 
 
 @app.route('/create_checkout_session', methods=['POST'])
@@ -87,6 +88,7 @@ api.add_resource(Instruments, '/api/instruments')
 api.add_resource(Rentals, '/api/rentals')
 api.add_resource(RentalByID, '/api/rental_by_id/<int:id>')
 api.add_resource(Reviews, '/api/reviews')
+api.add_resource(InstrumentByID, '/api/instrument_by_id/<int:id>')
 
 if __name__ == "__main__":
   app.run(port=5555, debug=True)

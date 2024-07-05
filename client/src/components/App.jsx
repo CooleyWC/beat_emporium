@@ -131,6 +131,14 @@ function App(){
   const afterInstrumentPost = (newInstr) =>{
     setAllInstruments([...allInstruments, newInstr])
   }
+
+  const afterInstrumentDelete = (id) =>{
+    const instrumentsAfterDelete = allInstruments.filter((instrument)=>{
+      return instrument.id != id
+    })
+
+    setAllInstruments(instrumentsAfterDelete)
+  }
     
   return(
 
@@ -146,7 +154,7 @@ function App(){
           <Route path='/payment_page' element={<PaymentPage />}/>
           <Route path='/payment_result' element={<PaymentResult user={user} stageRentals={stageRentals}/>}/>
           <Route path='/review_form' element={<Review afterReviewPost={afterReviewPost}/>}/>
-          <Route path='/instruments_panel' element={<InstrumentsPanel allInstruments={allInstruments} afterInstrumentPost={afterInstrumentPost}/>}/>
+          <Route path='/instruments_panel' element={<InstrumentsPanel allInstruments={allInstruments} afterInstrumentPost={afterInstrumentPost} afterInstrumentDelete={afterInstrumentDelete}/>}/>
         </Route>
     
       </Routes>
