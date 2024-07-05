@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthProvider'
 import AdminInstCard from '../cards/AdminInstCard';
 import NewInstrument from '../forms/NewInstrument';
 
-function InstrumentsPanel({allInstruments}) {
+function InstrumentsPanel({allInstruments, afterInstrumentPost}) {
 
     const [newInstrumentClick, setNewInstrumentClick] = useState(null)
 
@@ -62,7 +62,7 @@ function InstrumentsPanel({allInstruments}) {
         </Box>
         <Box>
         {newInstrumentClick && (
-            <NewInstrument onNewInstClose={closeAddForm}/>
+            <NewInstrument onNewInstClose={closeAddForm} onAddInstrument={afterInstrumentPost}/>
         )}
         </Box>
         <Box>

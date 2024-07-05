@@ -2,10 +2,11 @@ import React from 'react';
 import {Box, Typography, TextField, Button, Grid, FormControl} from '@mui/material'
 import {useFormik} from 'formik';
 import * as yup from 'yup';
+import { resolveTimeFormat } from '@mui/x-date-pickers/internals/utils/time-utils';
 
 
 
-function NewInstrument({onNewInstClose}) {
+function NewInstrument({onNewInstClose, onAddInstrument}) {
 
     const addInstSchema = yup.object({
         name: yup
@@ -55,7 +56,7 @@ function NewInstrument({onNewInstClose}) {
 
     })
 
-    const submitInstrument = async (values) =>{
+    const submitInstrument = async (values, {resetForm}) =>{
         try {
             const res = await fetch('/api/instruments', {
                 method: 'POST',
@@ -70,6 +71,8 @@ function NewInstrument({onNewInstClose}) {
                 console.log('error', instrumentData.error)
                 return
             } else {
+                onAddInstrument(instrumentData)
+                resetForm()
                 console.log('success', instrumentData)
             }
         } catch {
