@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
-import {Box, Typography, FormControl, InputLabel, Select, MenuItem, TextField, Button} from '@mui/material'
+import {Box, Typography, FormControl, InputLabel, Select, MenuItem, TextField, Button, Switch} from '@mui/material'
 
 function UpdateInstForm({instrumentObj, onUpdateInstr}) {
 
-    const [attrSelect, setAttrSelect] = useState('all')
+    const [attrSelect, setAttrSelect] = useState('--Select an Attribute--')
     const [textInput, setTextInput] = useState('')
 
     const VALID_SELECT_OPTIONS = [
-        'all',
+        '--Select an Attribute--',
         'name',
         'brand',
         'model',
@@ -27,6 +27,18 @@ function UpdateInstForm({instrumentObj, onUpdateInstr}) {
     
     const handleUpdate = (e) =>{
         e.preventDefault()
+
+        if(attrSelect === 'for_rent' && textInput !== 'false' && textInput !== 'true'){
+            alert('for_rent must be a boolean')
+            return
+        }
+
+        if(attrSelect === 'in_stock' && textInput !== 'false' && textInput !== 'true'){
+            alert('for_rent must be a boolean')
+            return
+        }
+        
+
         const updatedInstr = {...instrumentObj, [attrSelect]: textInput}
         onUpdateInstr(instrumentObj.id, updatedInstr)
 
@@ -62,7 +74,7 @@ function UpdateInstForm({instrumentObj, onUpdateInstr}) {
             </FormControl>
         </Box>
         <Box sx={{marginTop: '10px'}}>
-            {attrSelect !== 'all' && attrSelect !== 'in_stock' && attrSelect !== 'for_rent' && (
+            {attrSelect !== '--Select an Attribute--' && (
                 <>
                 <FormControl>
                     <TextField

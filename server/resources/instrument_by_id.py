@@ -32,10 +32,28 @@ class InstrumentByID(Resource):
         if data:
             try:
                 instrument = Instrument.query.filter(Instrument.id==id).first()
-
                 for attr in data:
+                  
                     if attr != 'rentals' and attr != 'reviews':
-                        setattr(instrument, attr, data.get(attr))
+                        if attr == 'rent_price':
+                            parsed_attr = int(data.get(attr))
+                            setattr(instrument, attr, parsed_attr)
+                        if attr == 'sale_price':
+                            parsed_attr = int(data.get(attr))
+                            setattr(instrument, attr, parsed_attr)
+                        if attr == 'for_rent':
+                            if data.get(attr) == 'true':
+                                setattr(instrument, attr, True)
+                            elif data.get(attr) == 'false':
+                                setattr(instrument, attr, False)
+                        if attr == 'in_stock':
+                            if data.get(attr) == 'true':
+                                setattr(instrument, attr, True)
+                            elif data.get(attr) == 'false':
+                                setattr(instrument, attr, False)
+                        if attr != 'rent_price' and attr != 'sale_price' and attr != 'for_rent' and attr != 'in_stock':
+                            setattr(instrument, attr, data.get(attr))
+                    
                 
                 db.session.add(instrument)
                 db.session.commit()

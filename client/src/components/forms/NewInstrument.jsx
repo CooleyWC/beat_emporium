@@ -21,6 +21,7 @@ function NewInstrument({onNewInstClose, onAddInstrument}) {
             .required('Brand is required'),
         model: yup
             .string('Enter instrument model')
+            .min(2, 'Must be at least 2 characters')
             .max(15, 'Must be no longer than 15 characters')
             .required('Model is required'),
         size: yup
@@ -29,15 +30,17 @@ function NewInstrument({onNewInstClose, onAddInstrument}) {
             .required('Size is required'),
         color: yup
             .string('Enter instrument color')
-            .max(10, 'Must be no longer than 10 characters')
+            .min(2, 'Must be longer than 2 characters')
+            .max(15, 'Must be no longer than 10 characters')
             .required('Color is required'),
         description: yup
             .string('Enter instrument model')
             .min(10, 'Must be longer than 10 characters')
-            .max(100, 'Must be no longer than 40 characters')
+            .max(250, 'Must be no longer than 40 characters')
             .required('Description is required'),
         image: yup
             .string('Enter instrument image address')
+            .max(300,'Must be no longer than 300 characters')
             .required('Image is required'),
         for_rent: yup
             .boolean('Must be a boolean'),
