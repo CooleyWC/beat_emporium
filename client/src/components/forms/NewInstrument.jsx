@@ -105,7 +105,7 @@ function NewInstrument({onNewInstClose, onAddInstrument}) {
         <>
         <Box>
             <Typography>New Instrument Form</Typography>
-            <Button variant='contained' onClick={onNewInstClose}>Close</Button>
+            <Button variant='contained' color='error' onClick={onNewInstClose}>Close</Button>
         </Box>
         <Box>
             <form onSubmit={formik.handleSubmit}>
