@@ -19,7 +19,7 @@ function Review({afterReviewPost}) {
         content: yup
             .string('Write your review')
             .min(10, 'Must be at least 10 characters')
-            .max(150, 'Must be no longer than 150 charachters')
+            .max(250, 'Must be no longer than 250 charachters')
             .required('Your review must have content in order to submit')
     })
 

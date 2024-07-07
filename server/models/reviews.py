@@ -22,6 +22,13 @@ class Review(db.Model, SerializerMixin):
     rentals = db.relationship('Rental', back_populates='review')
     instrument = db.relationship('Instrument', back_populates='reviews')
 
+    @validates('content')
+    def validate_content(self, key,  content):
+        if isinstance(content, str) and (10 <= len(content) <=250):
+            return content
+        else:
+            raise ValueError('content must be a string between 10 and 150 characters')
+
 
     
 
