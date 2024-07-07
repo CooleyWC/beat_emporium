@@ -107,9 +107,9 @@ function NewInstrument({onNewInstClose, onAddInstrument}) {
             <Typography>New Instrument Form</Typography>
             <Button variant='contained' color='error' onClick={onNewInstClose}>Close</Button>
         </Box>
-        <Box>
+        <Box sx={{marginBottom: '10px'}}>
             <form onSubmit={formik.handleSubmit}>
-                <Grid container direction='row' justifyContent='center' alignItems='flex_end'>
+                <Grid container direction='row' justifyContent='flex-start' spacing={1}>
                     <Grid item sx={{marginTop: '10px'}}>
                         <FormControl>
                             <TextField
@@ -245,7 +245,7 @@ function NewInstrument({onNewInstClose, onAddInstrument}) {
                             <TextField
                                 multiline
                                 fullWidth
-                                rows={8}
+                                rows={5}
                                 // rowsMax={12}
                                 id='description'
                                 name='description'
@@ -254,14 +254,18 @@ function NewInstrument({onNewInstClose, onAddInstrument}) {
                                 onChange={formik.handleChange}
                                 error={formik.touched.description && Boolean(formik.errors.description)}
                                 helperText={formik.touched.description && formik.errors.description}
+                                sx={{minWidth: '800px'}}
                                 
                             ></TextField>
                         </FormControl>
                     </Grid>
-                    <Grid>
+                    {/* <Grid>
                         <Button type='submit' variant='contained' size='large' sx={{marginTop: '50px'}}>Submit Instrument</Button>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
+                <Box sx={{display: 'flex', justifyContent: 'center'}}>
+                    <Button type='submit' variant='contained' size='large' sx={{marginTop: '10px'}}>Submit Instrument</Button>
+                </Box>
             </form>
         </Box>
         </>

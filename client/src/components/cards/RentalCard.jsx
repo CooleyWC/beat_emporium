@@ -26,7 +26,7 @@ function RentalCard({created_at, instrumentName, instrument_id, return_date, sta
     }, [])
 
     const typeStyle = {
-        paddingLeft: '10px',
+        paddingLeft: '10px'
     }
 
     const paperStyle = {

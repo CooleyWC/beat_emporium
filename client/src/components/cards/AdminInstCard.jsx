@@ -16,7 +16,7 @@ function AdminInstCard({color, name, description, brand, for_rent, image, model,
     }
     
     return (
-        <Card sx={{display: 'flex', justifyContent: 'flex-start', width:'100%'}}>
+        <Card sx={{display: 'flex', justifyContent: 'flex-start', width:'100%', backgroundColor: '#e0e1dd'}}>
             <CardMedia 
                 component='img'
                 image={image}

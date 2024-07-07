@@ -48,7 +48,7 @@ function Instruments({allInstruments, allReviews}) {
 
     return (
         <>
-        <Box sx={{marginTop: '100px'}}>
+        <Box sx={{marginTop: '100px', display: 'flex', justifyContent: 'center'}}>
             {addAlert && (
                 <Alert severity='error'>Please login to add items to your cart</Alert>
             )}

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Card, CardContent, Typography, CardMedia, Button, FormControl, Alert} from '@mui/material'
+import {Card, CardContent, Typography, CardMedia, Button, FormControl, Alert, Box} from '@mui/material'
 import { useAuth } from '../context/AuthProvider';
 import {useCart} from '../context/CartProvider'
 import Dialog from '@mui/material/Dialog';
@@ -128,7 +128,7 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
                 sx={{height: '200px'}}
             />
             <CardContent>
-                <Typography>
+                <Typography sx={{fontSize: '25px'}}>
                     {name}
                 </Typography>
                 <Typography>
@@ -141,12 +141,12 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
                     {description}
                 </Typography>
                 <Typography>
-                    {rent_price}
+                    Rent Price: {rent_price}
                 </Typography>
-                <Typography>
-                    {hasReviews &&<Button onClick={handleReviewClick}>See Reviews</Button>}
+                <Typography sx={{marginBottom: '10px'}}>
+                    {hasReviews &&<Button variant='contained' onClick={handleReviewClick}>See Reviews</Button>}
                 </Typography>
-                {checkIfItemInCart ? <Button onClick={handleRemove}>Remove From Cart</Button>: <Button onClick={handleAdd}>Add To Cart</Button>}
+                {checkIfItemInCart ? <Button variant='contained' color='error' onClick={handleRemove}>Remove From Cart</Button>: <Button variant='contained' onClick={handleAdd}>Add To Cart</Button>}
             </CardContent>
         </Card>
         {/* DatePicker Dialog */}
@@ -238,10 +238,12 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
             {hasReviews && (
                 allInstrumentReviews.map((review)=>{
                     if(review.instrument_id ===instrumentObj.id){
+                  
                     return(
-                        <Typography
-                            key={review.id}
-                            >{review.content}</Typography>
+                        <Card key={review.id} sx={{marginBottom: '10px', paddingBottom: '10px'}}>
+                            <Typography sx={{padding: '10px'}}>Renter: {review.user.first_name} {review.user.last_name}</Typography>
+                            <Typography sx={{marginLeft: '20px'}}>{review.content}</Typography>
+                        </Card>
                     )
                     }
                 })

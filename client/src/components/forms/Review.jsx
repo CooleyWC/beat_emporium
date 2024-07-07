@@ -14,6 +14,14 @@ function Review({afterReviewPost}) {
     if(!reviewData){
         return <p>...loading</p>
     }
+
+    const returnDateObj = reviewData.rentalReturnDate
+    const returnDateStr = returnDateObj.split(' ')
+    const returnStr = returnDateStr[0]
+
+    const handleReturnClick = () =>{
+        navigate('/dashboard')
+    }
   
     const reviewSchema = yup.object({
         content: yup
@@ -65,18 +73,22 @@ function Review({afterReviewPost}) {
 
     return (
         <Box sx={{marginTop: '100px'}}>
+            <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                <Typography sx={{fontSize: '40px'}}>Review</Typography>
+                <Button variant='contained' size='small' onClick={handleReturnClick}>Return to Dashboard</Button>
+            </Box>
             <Grid container direction='column' justifyContent='center' alignItems='center'>
                 <Grid item>
-            <Typography>Review</Typography>
-            <Typography>Instrument: {reviewData.instrumentName}</Typography>
-            <Typography>Rental Return Date: {reviewData.rentalReturnDate}</Typography>
+            <Typography sx={{marginTop: '10px'}}>Instrument: {reviewData.instrumentName}</Typography>
+            <Typography>Rental Return Date: {returnStr}</Typography>
             </Grid>
             <form onSubmit={formik.handleSubmit}>
-                <Grid item >
-                <FormControl>
+                <Grid item sx={{marginTop: '10px'}}>
+                <FormControl >
                     <TextField
-                      
-                        rows={10}
+                        multiline
+                        fullWidth
+                        rows={5}
                         id='content'
                         name='content'
                         label='Write your review here'
@@ -85,6 +97,7 @@ function Review({afterReviewPost}) {
                         onChange={formik.handleChange}
                         error={formik.touched.content && Boolean(formik.errors.content)}
                         helperText={formik.touched.content && formik.errors.content}
+                        sx={{minWidth: '800px'}}
                     >
 
                     </TextField>

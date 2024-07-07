@@ -67,20 +67,22 @@ function Dashboard({handleRentalDelete}) {
 
     return (
         <>
-        <Box sx={{marginTop: '100px'}}>
-            <Typography sx={{fontSize: '20px'}}>Dashboard</Typography>
+        <Box sx={{marginTop: '100px', display: 'flex', justifyContent: 'center'}}>
+            <Typography sx={{fontSize: '55px'}}>Dashboard</Typography>
         </Box>
-        <Box>
+        <Box sx={{display: 'flex', alignItems: 'flex-start'}}>
             <UserProfileCard 
                 key={user.id}
                 first_name={user.first_name}
                 last_name={user.last_name}
                 email={user.email}
                 location={user.location}
+                
+
             />
         </Box>
-        <Box>
-            <Typography sx={{fontSize: '20px'}}>Your Rentals</Typography>
+        <Box sx={{marginTop: '10px', marginBottom: '10px'}}>
+            <Typography sx={{fontSize: '30px'}}>Your Rentals</Typography>
         </Box>
         <Box sx={{width: '100%', borderRadius: '7px'}}>
         <Stack spacing={1}>

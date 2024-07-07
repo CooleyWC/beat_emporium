@@ -3,9 +3,9 @@ import {Card, CardContent, Typography} from '@mui/material'
 
 function UserProfileCard({first_name, last_name, email, location}) {
     return (
-        <Card>
+        <Card sx={{backgroundColor: '#780000', color: '#fdf0d5'}}>
             <CardContent>
-                <Typography>
+                <Typography sx={{fontSize: '50px'}}>
                     {`${first_name} ${last_name}`}
                 </Typography>
                 <Typography>

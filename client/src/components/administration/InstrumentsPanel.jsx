@@ -90,10 +90,10 @@ function InstrumentsPanel({allInstruments, afterInstrumentPost, afterInstrumentD
         
     return (
         <>
-        <Box sx={{marginTop: '150px'}}>
-            <Typography>Instruments Panel</Typography>
+        <Box sx={{marginTop: '150px', display: 'flex', justifyContent: 'center'}}>
+            <Typography sx={{fontSize: '30px'}}>Instruments Panel</Typography>
         </Box>
-        <Box>
+        <Box sx={{marginTop: '10px', marginBottom: '10px'}}>
             <Button variant='contained' onClick={viewAddForm}>Add New Instrument</Button>
         </Box>
         <Box>

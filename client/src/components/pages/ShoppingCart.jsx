@@ -32,9 +32,9 @@ function ShoppingCart() {
 
     return (
      
-        <Box style={{marginTop: '100px'}}>
-            <Typography sx={{fontSize: '20px'}}>Shopping Cart</Typography>
-                {cartItems.length == 0 ? <Typography>No items in cart</Typography> :(
+        <Box style={{marginTop: '10px'}}>
+            <Typography sx={{fontSize: '30px'}}>Shopping Cart</Typography>
+                {cartItems.length == 0 ? <Typography>(no items in cart)</Typography> :(
                 <>
                 <Box>{itemsToDisplay}</Box>
                 <Button variant='contained' onClick={handleCheckoutClick}>Checkout</Button>
