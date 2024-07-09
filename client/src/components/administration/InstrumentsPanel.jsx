@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthProvider'
 import AdminInstCard from '../cards/AdminInstCard';
 import NewInstrument from '../forms/NewInstrument';
 
+
 function InstrumentsPanel({allInstruments, afterInstrumentPost, afterInstrumentDelete, afterInstrumentUpdate}) {
 
     const [newInstrumentClick, setNewInstrumentClick] = useState(null)

@@ -2,10 +2,12 @@ import React, {useState} from 'react';
 import {Box, Typography, Grid, Alert} from '@mui/material';
 // import { useOutletContext } from 'react-router-dom';
 import InstrumentCard from '../cards/InstrumentCard';
+import FilterInstrument from '../forms/FilterInstrument';
 
 function Instruments({allInstruments, allReviews}) {
 
     const [addAlert, setAddAlert] = useState(null)
+    const [instrumentSearch, setinstrumentSearch] = useState('')
     
     if(allInstruments===null || !allInstruments){
         return <p>loading instruments...</p>
@@ -19,9 +21,25 @@ function Instruments({allInstruments, allReviews}) {
         setAddAlert(true)
     }
 
+    const handleInstrumentSearch = (e) => {
+    
+        setinstrumentSearch(e.target.value)
+    } 
+    
+    const instSearchFilter = allInstruments.filter((instrument)=>{
+
+        if(instrumentSearch === ''){
+            return instrument
+        }
+
+        if(instrument.name.toLowerCase().includes(instrumentSearch.toLowerCase())){
+            return instrument
+        }
+    })
+
     const instrumentCards = 
         <Grid container>
-            {allInstruments.map((instrument)=>(
+            {instSearchFilter.map((instrument)=>(
                 <Grid item key={instrument.id} xs={12} sm={6} md={3} lg={3}>
                     <InstrumentCard 
                         brand={instrument.brand}
@@ -57,7 +75,7 @@ function Instruments({allInstruments, allReviews}) {
             </Typography>
         </Box>
         <Box sx={{marginBottom: '10px'}}>
-            <Typography>Filter goes here</Typography>
+            <FilterInstrument onInstSearch={handleInstrumentSearch} instrumentSearch={instrumentSearch}/>
         </Box>
         <Box>
             {instrumentCards}
