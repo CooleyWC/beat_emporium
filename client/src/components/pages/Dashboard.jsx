@@ -7,6 +7,7 @@ import ShoppingCart from '../pages/ShoppingCart';
 import Admin from './Admin';
 import {useReview} from '../context/ReviewProvider'
 import {useNavigate} from 'react-router-dom';
+import UserReviewCard from '../cards/UserReviewCard';
 
 
 function Dashboard({handleRentalDelete}) {
@@ -77,8 +78,6 @@ function Dashboard({handleRentalDelete}) {
                 last_name={user.last_name}
                 email={user.email}
                 location={user.location}
-                
-
             />
         </Box>
         <Box sx={{marginTop: '10px', marginBottom: '10px'}}>
@@ -93,8 +92,22 @@ function Dashboard({handleRentalDelete}) {
             <ShoppingCart />
         </Box>
         <Box>
+            <Typography sx={{fontSize: '30px'}}>Your Reviews</Typography>
+            {user.reviews ? (
+                user.reviews.map((review)=>(
+                    <UserReviewCard
+                        user={user}
+                        review={review} 
+                        key={review.id}
+                    />
+                ))
+
+            ) : <Typography>You have not written any reviews</Typography>}
+        </Box>
+        <Box>
         {user.admin == '1' && <Admin />}
         </Box>
+       
         </>
     );
 }
