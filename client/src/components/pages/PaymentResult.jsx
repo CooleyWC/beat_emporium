@@ -1,38 +1,18 @@
 import React, {useCallback, useState} from 'react';
-
 import { useEffect } from 'react';
-
 import { useNavigate } from 'react-router-dom';
+import {Box, Typography, Button} from '@mui/material'
 
 function PaymentResult({newRentalPost, stageRentals}) {
 
     const [status, setStatus] = useState(null);
     const [customerEmail, setCustomerEmail] = useState('');
-
-    // new
-    const [data, setData] = useState(null)
+    // const [data, setData] = useState(null)
 
     let navigate = useNavigate()
 
-    // const stripeSeshStatus = useCallback(()=>{
-    //     const queryString = window.location.search;
-    //     const urlParams = new URLSearchParams(queryString);
-    //     const sessionId = urlParams.get('session_id')
-    //     fetch(`/session_status?session_id=${sessionId}`)
-    //     .then((res)=>res.json())
-    //     .then((data)=>{
-    //         setStatus(data.status);
-    //         setCustomerEmail(data.customer_email)
-    // })
-    // }, [status])
-
-    // stripeSeshStatus()
-    // console.log('payment result rendered')
-
     useEffect(()=>{
         if(status==='complete'){
-
-            console.log('stage rentals called here')
             stageRentals()
         } 
     }, [status])
@@ -65,18 +45,22 @@ function PaymentResult({newRentalPost, stageRentals}) {
 
     if (status === 'open'){
         return (
-            <section id='pay fail' style={{marginTop: '200px'}}>
-                <p>the payment failed</p>
-            </section>
+            <Box id='pay fail' style={{marginTop: '200px'}}>
+                <Typography>the payment failed</Typography>
+            </Box>
         )
     }
 
     if (status === 'complete'){
         return (
-            <section id='success' style={{marginTop: '200px'}}>
-                <p>{`we appreciate your business - check your email: ${customerEmail} for receipt`}</p>
-                <button onClick={handleDashClick}>Back To Dashboard</button>
-            </section>
+        <>
+            <Box id='success' style={{marginTop: '200px', marginBottom: '50px', display: 'flex', justifyContent: 'center'}}>
+                <Typography sx={{fontSize: '25px'}}>{`Thank You! We appreciate your business! Check your email: ${customerEmail} for receipt`}</Typography>
+            </Box>
+            <Box style={{display: 'flex', justifyContent: 'center'}}>
+                <Button variant='contained' size='large' onClick={handleDashClick}>Back To Dashboard</Button>
+            </Box>
+        </>
         )
     }
 

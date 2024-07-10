@@ -14,12 +14,10 @@ import { useAuth } from './context/AuthProvider'
 import Instruments from './pages/Instruments'
 import InstrumentsPanel from './administration/InstrumentsPanel'
 
-
 function App(){
 
   const {login, user, update} = useAuth()
   const {cartItems, emptyCart} = useCart()
-
   const [allInstruments, setAllInstruments] = useState([])
   const [allReviews, setAllReviews] = useState([])
 
@@ -70,7 +68,6 @@ function App(){
         })
       })
       newRentalPost(rentalObjArr)
-      console.log('newRentalPost', rentalObjArr)
     } else {
       console.log('there was a problem creating rentalObjArr - the rental post will fail')
     }
@@ -110,10 +107,7 @@ function App(){
   
   
   const handleRentalDelete = (id) =>{
-    console.log('from app-delete', id)
-
     const userRentals = user.rentals
-
     const rentalsAfterDelete = userRentals.filter((rental)=>{
       return rental.id !== id
     })
@@ -149,7 +143,6 @@ function App(){
         return instrument
       }
     })
-
     setAllInstruments(updatedInstrumentsArr)
   }
     

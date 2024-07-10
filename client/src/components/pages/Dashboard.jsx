@@ -11,7 +11,7 @@ import UserReviewCard from '../cards/UserReviewCard';
 
 
 function Dashboard({handleRentalDelete}) {
-
+   
     let navigate = useNavigate();
     const {user} = useAuth();
     const {handleReviewData} = useReview();
@@ -23,8 +23,6 @@ function Dashboard({handleRentalDelete}) {
     const userRentals = user.rentals
 
     const handleDelete = (id)=>{
-        console.log('from dashboard delete', id)
-        // delete api
         fetch(`/api/rental_by_id/${id}`, {
             method: 'DELETE'
         })
@@ -93,7 +91,7 @@ function Dashboard({handleRentalDelete}) {
         </Box>
         <Box>
             <Typography sx={{fontSize: '30px'}}>Your Reviews</Typography>
-            {user.reviews ? (
+            {user.reviews.length ? (
                 user.reviews.map((review)=>(
                     <UserReviewCard
                         user={user}
@@ -102,7 +100,7 @@ function Dashboard({handleRentalDelete}) {
                     />
                 ))
 
-            ) : <Typography>You have not written any reviews</Typography>}
+            ) : (<Typography sx={{marginLeft: '10px'}}>(you have not written any reviews)</Typography>)}
         </Box>
         <Box>
         {user.admin == '1' && <Admin />}
