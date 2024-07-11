@@ -38,15 +38,16 @@ function UpdateInstForm({instrumentObj, onUpdateInstr}) {
         }
         const updatedInstr = {...instrumentObj, [attrSelect]: textInput}
         onUpdateInstr(instrumentObj.id, updatedInstr)
-
+        setAttrSelect('--Select an Attribute--')
+        setTextInput('')
     }
 
     return (
         <>
         <form onSubmit={handleUpdate}>
-        <Box>
+        {/* <Box>
             <Typography>Update Select</Typography>
-        </Box>
+        </Box> */}
         <Box sx={{marginTop: '10px'}}>
             <FormControl fullWidth>
                 <InputLabel label='update-detail-select-label'>Update</InputLabel>
@@ -84,7 +85,7 @@ function UpdateInstForm({instrumentObj, onUpdateInstr}) {
 
                     </TextField>
                 </FormControl>
-                <Button type='submit'>Submit</Button>
+                <Button sx={{marginLeft: '10px'}} variant='contained' type='submit'>Submit</Button>
                 </>
             )}
         </Box>

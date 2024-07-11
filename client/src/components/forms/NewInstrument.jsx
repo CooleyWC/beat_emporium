@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Typography, TextField, Button, Grid, FormControl} from '@mui/material'
+import {Box, Typography, TextField, Button, Grid, FormControl, backdropClasses} from '@mui/material'
 import {useFormik} from 'formik';
 import * as yup from 'yup';
 import { resolveTimeFormat } from '@mui/x-date-pickers/internals/utils/time-utils';
@@ -105,7 +105,7 @@ function NewInstrument({onNewInstClose, onAddInstrument}) {
         <>
         <Box>
             <Typography>New Instrument Form</Typography>
-            <Button variant='contained' color='error' onClick={onNewInstClose}>Close</Button>
+            <Button color='error' onClick={onNewInstClose}>Close</Button>
         </Box>
         <Box sx={{marginBottom: '10px'}}>
             <form onSubmit={formik.handleSubmit}>
@@ -259,12 +259,9 @@ function NewInstrument({onNewInstClose, onAddInstrument}) {
                             ></TextField>
                         </FormControl>
                     </Grid>
-                    {/* <Grid>
-                        <Button type='submit' variant='contained' size='large' sx={{marginTop: '50px'}}>Submit Instrument</Button>
-                    </Grid> */}
                 </Grid>
                 <Box sx={{display: 'flex', justifyContent: 'center'}}>
-                    <Button type='submit' variant='contained' size='large' sx={{marginTop: '10px'}}>Submit Instrument</Button>
+                    <Button type='submit' variant='contained' size='large' sx={{marginTop: '10px', backgroundColor: 'green'}}>Submit Instrument</Button>
                 </Box>
             </form>
         </Box>
