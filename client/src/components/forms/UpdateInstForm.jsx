@@ -27,7 +27,6 @@ function UpdateInstForm({instrumentObj, onUpdateInstr}) {
     
     const handleUpdate = (e) =>{
         e.preventDefault()
-
         if(attrSelect === 'for_rent' && textInput !== 'false' && textInput !== 'true'){
             alert('for_rent must be a boolean')
             return
@@ -37,8 +36,6 @@ function UpdateInstForm({instrumentObj, onUpdateInstr}) {
             alert('for_rent must be a boolean')
             return
         }
-        
-
         const updatedInstr = {...instrumentObj, [attrSelect]: textInput}
         onUpdateInstr(instrumentObj.id, updatedInstr)
 

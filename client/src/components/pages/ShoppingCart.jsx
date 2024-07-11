@@ -1,5 +1,4 @@
 import React from 'react';
-// import { useOutletContext } from 'react-router-dom';
 import {useCart} from '../context/CartProvider'
 import { useNavigate } from 'react-router-dom';
 import CartCard from '../cards/CartCard';
@@ -9,8 +8,6 @@ function ShoppingCart() {
 
     const {cartItems, handleRemoveCartItems} = useCart()
     let navigate = useNavigate()
-
-    // console.log('cart items from shopping cart', cartItems)
 
     const itemsToDisplay = cartItems.map((item)=>{
         return ( 

@@ -31,7 +31,8 @@ function RentalCard({created_at, instrumentName, instrument_id, return_date, sta
 
     const paperStyle = {
         completed: {
-            backgroundColor: complete ? "#dee2e6": "#caf0f8",
+            backgroundColor: complete ? "#dee2e6": "#0a9396",
+            color: complete ? "black" : "white",
             display: 'flex',
             justifyContent: 'space-around',
             padding: '30px'
@@ -61,7 +62,7 @@ function RentalCard({created_at, instrumentName, instrument_id, return_date, sta
                 {complete ? 
                 (<Button variant='contained' onClick={()=>onReviewIntent(rentalObj, instrumentObj)}>Review this Instrument</Button>)
                 :
-                <Button variant='contained' onClick={()=>onDeleteRental(rentalId)}>Cancel</Button>
+                <Button variant='contained' color='error' onClick={()=>onDeleteRental(rentalId)}>Cancel</Button>
                 }
             </Box>
         </Paper>

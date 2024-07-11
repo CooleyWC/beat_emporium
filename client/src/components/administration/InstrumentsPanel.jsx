@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Box, Typography, Grid, Stack, Button} from '@mui/material'
+import {Box, Typography, Stack, Button} from '@mui/material'
 import { useAuth } from '../context/AuthProvider'
 import AdminInstCard from '../cards/AdminInstCard';
 import NewInstrument from '../forms/NewInstrument';
@@ -8,7 +8,6 @@ import NewInstrument from '../forms/NewInstrument';
 function InstrumentsPanel({allInstruments, afterInstrumentPost, afterInstrumentDelete, afterInstrumentUpdate}) {
 
     const [newInstrumentClick, setNewInstrumentClick] = useState(null)
-
     const {user} = useAuth()
 
     if(user===null || !user){
@@ -86,13 +85,11 @@ function InstrumentsPanel({allInstruments, afterInstrumentPost, afterInstrumentD
     const closeAddForm = () =>{
         setNewInstrumentClick(false)
     }
-
-    
-        
+ 
     return (
         <>
-        <Box sx={{marginTop: '150px', display: 'flex', justifyContent: 'center'}}>
-            <Typography sx={{fontSize: '30px'}}>Instruments Panel</Typography>
+        <Box sx={{marginTop: '100px', display: 'flex', justifyContent: 'center'}}>
+            <Typography sx={{fontSize: '55px'}}>Instruments Panel</Typography>
         </Box>
         <Box sx={{marginTop: '10px', marginBottom: '10px'}}>
             <Button variant='contained' onClick={viewAddForm}>Add New Instrument</Button>
