@@ -7,7 +7,6 @@ function PaymentResult({newRentalPost, stageRentals}) {
 
     const [status, setStatus] = useState(null);
     const [customerEmail, setCustomerEmail] = useState('');
-    // const [data, setData] = useState(null)
 
     let navigate = useNavigate()
 
@@ -18,7 +17,6 @@ function PaymentResult({newRentalPost, stageRentals}) {
     }, [status])
 
     useEffect(()=>{
-        
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const sessionId = urlParams.get('session_id')

@@ -37,7 +37,9 @@ function ShoppingCart() {
                 {cartItems.length == 0 ? <Typography sx={{marginLeft: '10px'}}>(no items in cart)</Typography> :(
                 <>
                 <Box>{itemsToDisplay}</Box>
-                <Button variant='contained' onClick={handleCheckoutClick}>Checkout</Button>
+                <Box sx={{display: 'flex', justifyContent: 'center'}}>
+                <Button variant='contained' size='large' sx={{backgroundColor: 'green', marginTop: '10px'}} onClick={handleCheckoutClick}>Checkout</Button>
+                </Box>
                 </>
             )}
         </Box>

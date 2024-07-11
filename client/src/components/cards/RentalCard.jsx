@@ -26,22 +26,30 @@ function RentalCard({created_at, instrumentName, instrument_id, return_date, sta
     }, [])
 
     const typeStyle = {
-        paddingLeft: '10px'
+        paddingLeft: '30px'
     }
 
     const paperStyle = {
         completed: {
-            backgroundColor: complete ? "#dee2e6": "#caf0f8"
+            backgroundColor: complete ? "#dee2e6": "#caf0f8",
+            display: 'flex',
+            justifyContent: 'space-around',
+            padding: '30px'
         }
     }
 
     return (
+        <>
+     
         <Paper sx={paperStyle.completed}>
             <Box sx={typeStyle}>
-                <Typography>Receipt Date: {receiptDisplay}</Typography>
+                <Typography>Instrument: {instrumentName}</Typography>
             </Box>
             <Box sx={typeStyle}>
-                <Typography>Instrument: {instrumentName}</Typography>
+                <Typography>Brand: {instrumentObj.brand}</Typography>
+            </Box>
+            <Box sx={typeStyle}>
+                <Typography>Receipt Date: {receiptDisplay}</Typography>
             </Box>
             <Box sx={typeStyle}>
                 <Typography>Rental Start Date: {startDisplay}</Typography>
@@ -49,14 +57,16 @@ function RentalCard({created_at, instrumentName, instrument_id, return_date, sta
             <Box sx={typeStyle}>
                 <Typography>Rental Return Date: {returnDisplay}</Typography>
             </Box>
-            <Box>
+            <Box sx={{alignSelf: 'flex-end'}}>
                 {complete ? 
-                (<Button onClick={()=>onReviewIntent(rentalObj, instrumentObj)}>Review this Instrument</Button>)
+                (<Button variant='contained' onClick={()=>onReviewIntent(rentalObj, instrumentObj)}>Review this Instrument</Button>)
                 :
-                <Button onClick={()=>onDeleteRental(rentalId)}>Cancel</Button>
+                <Button variant='contained' onClick={()=>onDeleteRental(rentalId)}>Cancel</Button>
                 }
             </Box>
         </Paper>
+     
+        </>
     );
 }
 

@@ -19,7 +19,6 @@ function UserReviewCard({review, user}) {
 
     const matchingInstrument = instrumentsArr.filter((instrument)=>{
         if(instrument.id===review.instrument_id){
-            // console.log('instrument name', instrument.name)
             return instrument
         }
     })
@@ -34,7 +33,7 @@ function UserReviewCard({review, user}) {
     const createdStr = createdDate[0]
 
     return (
-        <Card>
+        <Card sx={{backgroundColor: '#dee2e6'}}>
             <CardContent>
                 {matchingInstrument && (
                     <Typography>Instrument: {instrumentNameMatch}</Typography>

@@ -29,18 +29,7 @@ const PaymentPage = () =>{
     )
   })
 
-  // const rentalObjArr = cartItems.map((instrument)=>{
-  //   return({
-  //     "user_id": user.id,
-  //     "instrument_id": instrument.id,
-  //     "created_at": new Date(),
-  //     "start_date": instrument.start_date.$d,
-  //     "return_date": instrument.end_date.$d
-  //   })
-  // })
-
   const fetchClientSecret = useCallback(() => {
-    console.log('fetchClientSecret ran')
      
       return fetch("/create_checkout_session", {
         method: "POST",

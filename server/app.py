@@ -73,7 +73,6 @@ def create_checkout_session():
 
 @app.route('/session_status', methods=['GET'])
 def session_status():
-  print('session status ran')
   session = stripe.checkout.Session.retrieve(request.args.get('session_id'))
 
   return jsonify(status=session.status, customer_email=session.customer_details.email)

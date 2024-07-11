@@ -25,20 +25,20 @@ function CartCard({name, itemObj, image, handleRemoveCartItems, startDate, retur
     }
 
     return (
-        <Card sx={{display: 'flex', justifyContent: 'space-around'}}>
+        <Card sx={{display: 'flex', justifyContent: 'space-around', backgroundColor: '#fdf0d5'}}>
             <CardMedia 
                 component='img'
                 image={image}
-                sx={{maxHeight: '80px', maxWidth: '80px'}}
+                sx={{paddingTop: '25px', maxHeight: '80px', maxWidth: '80px'}}
             />
             <CardContent>
-                <Typography>{name}</Typography>
+                <Typography>Instrument:{name}</Typography>
+                <Typography>Brand: {itemObj.brand}</Typography>
                 <Typography>Start Date: {startString}</Typography>
                 <Typography>Return Date: {returnString}</Typography>
                 <Typography>Total Rental Days: {totalRentalDays} </Typography>
-
             </CardContent>
-            <Button onClick={()=>handleRemoveCartItems(itemObj)}>Remove From Cart</Button>
+            <Button variant='contained' color='error' sx={{marginTop: '25px', maxHeight: '40px'}} onClick={()=>handleRemoveCartItems(itemObj)}>Remove From Cart</Button>
         </Card>
     );
 }
