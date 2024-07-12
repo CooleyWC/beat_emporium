@@ -117,7 +117,7 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
 
     return (
         <>
-        <Card sx={{maxWidth: '400px', minHeight: '600px', maxHeight: '600px'}}>
+        <Card sx={{maxWidth: '400px', minHeight: '600px', maxHeight: '600px', marginBottom: '18px'}}>
             <CardMedia 
                 component='img'
                 image={image}
