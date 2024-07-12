@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Card, CardContent, Typography, CardMedia, Button, FormControl, Alert, Box} from '@mui/material'
+import {Card, CardContent, Typography, CardMedia, Button, FormControl, Box} from '@mui/material'
 import { useAuth } from '../context/AuthProvider';
 import {useCart} from '../context/CartProvider'
 import Dialog from '@mui/material/Dialog';
@@ -11,7 +11,6 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
-// new
 import utc from 'dayjs/plugin/utc';
 
 dayjs.extend(utc);
@@ -74,7 +73,6 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
         setEndInput(tomorrow)
     }
 
-    // this is for blocking out datepicker dates
     const rentalDates = currentRentals.map((rental)=>{
         const dateArr = []
 
@@ -95,11 +93,9 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
             loop = dayjs(newDate)
         }
         return ({dateArr})
-        
     })
 
     const disableDateFunc = (date)=>{
-     
         const testDate = dayjs(date)
         const muiDate = testDate.utc().format('MM/DD/YYYY')
 
@@ -141,12 +137,14 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
                     {description}
                 </Typography>
                 <Typography>
-                    Rent Price: {rent_price}
+                    Rent Price: ${rent_price}
                 </Typography>
-                <Typography sx={{marginBottom: '10px'}}>
-                    {hasReviews &&<Button variant='contained' onClick={handleReviewClick}>See Reviews</Button>}
+                <Box sx={{marginTop: '20px', display: 'flex', flexDirection: 'row'}}>
+                <Typography sx={{}}>
+                    {hasReviews &&<Button sx={{marginRight: '10px'}} variant='contained' onClick={handleReviewClick}>See Reviews</Button>}
                 </Typography>
-                {checkIfItemInCart ? <Button variant='contained' color='error' onClick={handleRemove}>Remove From Cart</Button>: <Button variant='contained' onClick={handleAdd}>Add To Cart</Button>}
+                {checkIfItemInCart ? <Button variant='contained' color='error' onClick={handleRemove}>Remove From Cart</Button>: <Button sx={{backgroundColor: 'green'}} variant='contained' onClick={handleAdd}>Add To Cart</Button>}
+                </Box>
             </CardContent>
         </Card>
         {/* DatePicker Dialog */}
@@ -189,7 +187,6 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
             <DialogContent>
             <DialogContentText sx={{marginBottom: '20px'}}>* default is one day</DialogContentText>
             <DialogContentText sx={{marginBottom: '20px'}}>{`${name}, ${model}`}</DialogContentText>
-
             <FormControl>
                 <DatePicker
                     shouldDisableDate={disableDateFunc}
@@ -234,23 +231,19 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
         <DialogTitle>Reviews</DialogTitle>
         <DialogContent>
             <DialogContentText>{`${name}, ${model}`}</DialogContentText>
-            
             {hasReviews && (
                 allInstrumentReviews.map((review)=>{
                     if(review.instrument_id ===instrumentObj.id){
-                  
-                    return(
-                        <Card key={review.id} sx={{marginBottom: '10px', paddingBottom: '10px'}}>
-                            <Typography sx={{padding: '10px'}}>Renter: {review.user.first_name} {review.user.last_name}</Typography>
-                            <Typography sx={{marginLeft: '20px'}}>{review.content}</Typography>
-                        </Card>
-                    )
-                    }
+                        return(
+                            <Card key={review.id} sx={{marginBottom: '10px', paddingBottom: '10px'}}>
+                                <Typography sx={{padding: '10px'}}>Renter: {review.user.first_name} {review.user.last_name}</Typography>
+                                <Typography sx={{marginLeft: '20px'}}>{review.content}</Typography>
+                            </Card>
+                        )}
                 })
             )}
           
         </DialogContent>
-
         </Dialog>
         </>
     );
