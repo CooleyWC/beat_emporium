@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import {Card, CardContent, Typography, CardMedia, Button} from '@mui/material'
 import UpdateInstForm from '../forms/UpdateInstForm';
 
-function AdminInstCard({color, name, description, brand, for_rent, image, model, rent_price, 
-    reviews, sale_price, size, currentRentals, instrumentObj, in_stock, onDeleteInstr, onUpdateInstr}) {
+function AdminInstCard({color, name, description, brand, image, model, rent_price, 
+    sale_price, size, instrumentObj, in_stock, onDeleteInstr, onUpdateInstr, reviews, for_rent, currentRentals}) {
 
     const [updateOpen, setUpdateOpen] = useState(false)
 
