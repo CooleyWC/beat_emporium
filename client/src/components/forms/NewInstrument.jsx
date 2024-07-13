@@ -1,10 +1,7 @@
 import React from 'react';
-import {Box, Typography, TextField, Button, Grid, FormControl, backdropClasses} from '@mui/material'
+import {Box, Typography, TextField, Button, Grid, FormControl} from '@mui/material'
 import {useFormik} from 'formik';
 import * as yup from 'yup';
-import { resolveTimeFormat } from '@mui/x-date-pickers/internals/utils/time-utils';
-
-
 
 function NewInstrument({onNewInstClose, onAddInstrument}) {
 
@@ -47,12 +44,10 @@ function NewInstrument({onNewInstClose, onAddInstrument}) {
         rent_price: yup
             .number('Enter a number')
             .positive('The number must be positive')
-            // .integer('Must be an integer')
             .min(1),
         sale_price: yup
             .number('Enter a number')
             .positive('The number must be positive')
-            // .integer('Must be an integer')
             .min(1),
         in_stock: yup
             .boolean('Must be a boolean')
@@ -76,7 +71,6 @@ function NewInstrument({onNewInstClose, onAddInstrument}) {
             } else {
                 onAddInstrument(instrumentData)
                 resetForm()
-                console.log('success', instrumentData)
             }
         } catch {
             console.log('error')

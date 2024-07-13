@@ -1,9 +1,9 @@
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {Box, Typography, Button} from '@mui/material'
 
-function PaymentResult({newRentalPost, stageRentals}) {
+function PaymentResult({stageRentals}) {
 
     const [status, setStatus] = useState(null);
     const [customerEmail, setCustomerEmail] = useState('');

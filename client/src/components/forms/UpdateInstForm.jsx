@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Box, Typography, FormControl, InputLabel, Select, MenuItem, TextField, Button, Switch} from '@mui/material'
+import {Box, FormControl, InputLabel, Select, MenuItem, TextField, Button} from '@mui/material'
 
 function UpdateInstForm({instrumentObj, onUpdateInstr}) {
 
@@ -152,7 +152,6 @@ function UpdateInstForm({instrumentObj, onUpdateInstr}) {
                         value={textInput}
                         onChange={(e)=>setTextInput(e.target.value)}
                     >
-
                     </TextField>
                 </FormControl>
                 <Button sx={{marginLeft: '10px'}} variant='contained' type='submit'>Submit</Button>
