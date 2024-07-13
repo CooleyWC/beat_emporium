@@ -20,14 +20,12 @@ export const ReviewProvider = ({children})=>{
 
     const emptyReviewData = () => {
       setReviewData('')
-    //   localStorage.clear()
     }
 
     const handleReviewData = (obj)=>{
         setReviewData(obj)
       }
     
-
     return (
         <ReviewContext.Provider value={{reviewData, emptyReviewData, handleReviewData}}>
             {children}
