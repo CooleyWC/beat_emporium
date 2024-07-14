@@ -103,6 +103,12 @@ function App(){
         ...prevUserData, rentals: [...prevUserData.rentals, rental]
       }))
     }
+
+    fetch('/api/instruments')
+    .then(res=>res.json())
+    .then(instrumentsData=>{
+      setAllInstruments(instrumentsData)
+    })
     }
   
   
@@ -115,11 +121,19 @@ function App(){
     update(prevUserData=>({
       ...prevUserData, rentals: [...rentalsAfterDelete]
     }))
+    fetch('/api/instruments')
+    .then(res=>res.json())
+    .then(instrumentsData=>{
+      setAllInstruments(instrumentsData)
+    })
   }
 
   const afterReviewPost = (newReview) =>{
 
     setAllReviews([...allReviews, newReview])
+    update(prevUserData=>({
+      ...prevUserData, reviews: [...prevUserData.reviews, newReview]
+    }))
   } 
 
   const afterInstrumentPost = (newInstr) =>{
