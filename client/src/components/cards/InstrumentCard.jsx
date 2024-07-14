@@ -94,6 +94,37 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
         }
         return ({dateArr})
     })
+    
+    //check selected dates
+    const dateRangeCheck = () =>{
+
+        let selectedArr = []
+        const end = dayjs(endInput)
+        let loop = dayjs(startInput)
+
+        while(loop<=end){
+            selectedArr.push(loop.utc())
+            let newDate = loop.add(1, 'day')
+            loop = dayjs(newDate)
+        }
+
+        let checkResult = null
+        const copyOfRentalDates = rentalDates
+        for(let date of selectedArr){
+            let dateStr=date.utc().format('MM/DD/YYYY')
+
+            for(let dateObj of copyOfRentalDates){
+                const dateObjArr = dateObj.dateArr
+                for(let rentalDateCheck of dateObjArr){
+                    const rentalDateStr = rentalDateCheck.utc().format('MM/DD/YYYY')
+                    if(dateStr===rentalDateStr){
+                        checkResult = 'whoa!'
+                    }
+                }
+            }
+        }
+        return checkResult
+    }
 
     const disableDateFunc = (date)=>{
         const testDate = dayjs(date)
@@ -157,9 +188,15 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
                 onSubmit: (e)=>{
                     e.preventDefault()
                     if(!startInput || !endInput){
-                        alert('Whoa! - you have to select both a start date and end date')
+                        alert('You have to select both a start date and end date')
                         return
                     }
+                    // check selected dates
+                    if(dateRangeCheck() != null){
+                        alert('There are conflicts with your selected dates.')
+                        return
+                    }
+                   
                     const instrumentWithDates = {
                         "id": instrumentObj.id,
                         "brand": brand,

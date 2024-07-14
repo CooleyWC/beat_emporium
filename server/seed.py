@@ -45,22 +45,24 @@ if __name__ == "__main__":
 
     print('adding rentals...')
 
-    rental_1 = Rental(user_id=1, instrument_id=1, created_at=datetime(2024,3,1,10,10,10), start_date=date(2024, 7, 14), return_date=date(2024, 7, 20))
-    rental_2 = Rental(user_id=2, instrument_id=2, created_at=datetime(2024,5,10,11,1,0), start_date=date(2024, 7, 14), return_date=date(2024, 7, 22))
+    rental_1 = Rental(user_id=1, instrument_id=1, created_at=datetime(2024,3,1,10,10,10), start_date=date(2024, 2, 14), return_date=date(2024, 3, 20))
+    rental_2 = Rental(user_id=2, instrument_id=2, created_at=datetime(2024,5,10,11,1,0), start_date=date(2024, 6, 10), return_date=date(2024, 6, 22))
     rental_3 = Rental(user_id=3, instrument_id=3, created_at=datetime(2024,6,3,11,5,0), start_date=date(2024, 7, 27), return_date=date(2024, 8, 10))
-    rental_4 = Rental(user_id=2, instrument_id=4, created_at=datetime(2024,5,11,10,1,0), start_date=date(2024, 6, 14), return_date=date(2024, 7, 23))
-    rental_5 = Rental(user_id=4, instrument_id=1, created_at=datetime(2023,5,11,10,1,0), start_date=date(2023, 6, 14), return_date=date(2023, 7, 23))
+    rental_4 = Rental(user_id=2, instrument_id=4, created_at=datetime(2024,5,11,10,1,0), start_date=date(2024, 6, 14), return_date=date(2024, 7, 10))
+    rental_5 = Rental(user_id=4, instrument_id=1, created_at=datetime(2023,5,11,10,1,0), start_date=date(2023, 6, 14), return_date=date(2023, 7, 25))
     rental_6 = Rental(user_id=4, instrument_id=2, created_at=datetime(2024,1,11,10,1,0), start_date=date(2024, 1, 14), return_date=date(2024, 1, 25))
+    rental_7 = Rental(user_id=3, instrument_id=1, created_at=datetime(2024,7,11,10,1,0), start_date=date(2024, 8, 1), return_date=date(2024, 8, 11))
+    rental_8 = Rental(user_id=1, instrument_id=3, created_at=datetime(2024,6,11,10,1,0), start_date=date(2024, 8, 20), return_date=date(2024, 9, 7))
 
 
-    db.session.add_all([rental_1, rental_2, rental_3, rental_4, rental_5, rental_6])
+    db.session.add_all([rental_1, rental_2, rental_3, rental_4, rental_5, rental_6, rental_7, rental_8])
     db.session.commit()
 
     print('adding reviews')
 
-    review_1 = Review(user_id=1, instrument_id=1, rental_id=1, created_at=datetime(2024,8,10,10,10,0), content=fake.paragraph(nb_sentences=5))
-    review_2 = Review(user_id=2, instrument_id=2, rental_id=2, created_at=datetime(2024,8,10,10,10,0), content=fake.paragraph(nb_sentences=5))
-    review_3 = Review(user_id=2, instrument_id=4, rental_id=4, created_at=datetime(2024,9,10,10,10,0), content=fake.paragraph(nb_sentences=5))
+    review_1 = Review(user_id=1, instrument_id=1, rental_id=1, created_at=datetime(2024,3,21,10,10,0), content=fake.paragraph(nb_sentences=5))
+    review_2 = Review(user_id=2, instrument_id=2, rental_id=2, created_at=datetime(2024,6,24,10,10,0), content=fake.paragraph(nb_sentences=5))
+    review_3 = Review(user_id=2, instrument_id=4, rental_id=4, created_at=datetime(2024,7,11,10,10,0), content=fake.paragraph(nb_sentences=4))
     review_4 = Review(user_id=4, instrument_id=1, rental_id=5, created_at=datetime(2023,9,10,10,10,0), content=fake.paragraph(nb_sentences=5))
 
 
