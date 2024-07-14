@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Typography, TextField, FormControl} from '@mui/material'
+import {Box, TextField, FormControl} from '@mui/material'
 
 function FilterInstrument({onInstSearch, instrumentSearch}) {
     return (

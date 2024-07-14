@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Typography, Card, CardContent} from '@mui/material'
+import {Typography, Card, CardContent} from '@mui/material'
 
 function UserReviewCard({review, user}) {
 
@@ -11,12 +11,10 @@ function UserReviewCard({review, user}) {
         return <p>...loading user</p>
     }
  
-
     const instrumentsArr = user.instruments.map((instrument)=>{
         return instrument
     })
     
-
     const matchingInstrument = instrumentsArr.filter((instrument)=>{
         if(instrument.id===review.instrument_id){
             return instrument

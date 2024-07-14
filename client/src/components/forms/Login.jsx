@@ -7,7 +7,6 @@ import {useAuth} from '../context/AuthProvider';
 import {useNavigate} from 'react-router-dom';
 import {NavLink} from 'react-router-dom';
 
-
 function Login() {
 
     const {login} = useAuth()
@@ -21,7 +20,6 @@ function Login() {
             .required('Email is required'),
         password: yup
             .string('Enter your password')
-            // maybe add more validations here
             .min(8, 'Password should be a minimum of 8 characters')
             .required('Password is required')
     })

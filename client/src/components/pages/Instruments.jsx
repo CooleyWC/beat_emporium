@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {Box, Typography, Grid, Alert} from '@mui/material';
-// import { useOutletContext } from 'react-router-dom';
 import InstrumentCard from '../cards/InstrumentCard';
 import FilterInstrument from '../forms/FilterInstrument';
 

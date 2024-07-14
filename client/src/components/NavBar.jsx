@@ -3,9 +3,6 @@ import {Link, NavLink, Outlet} from 'react-router-dom';
 import {AppBar, Container, Typography, Toolbar, IconButton, Button, Box, Menu, MenuItem} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useAuth } from './context/AuthProvider';
-import {useState} from 'react'
-// find a way to replace the 'payment page' text with the icon
-// import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const isUser = [
     {
@@ -15,11 +12,7 @@ const isUser = [
     {
         page: 'Dashboard',
         route: '/dashboard',
-    },
-    // {
-    //     page: 'PaymentPage',
-    //     route: 'payment_page',
-    // }
+    }
 ]
 
 const noUser = [
@@ -35,10 +28,7 @@ const noUser = [
 
 function NavBar() {
 
-    const [newUsers, setNewUsers] = useState([])
-
     const {user, logout} = useAuth();
-
     const [anchorElNav, setAnchorElNav] = React.useState(null)
 
     const handleOpenNavMenu = (e)=>{
@@ -58,7 +48,6 @@ function NavBar() {
                 console.log('logout failed')
             }
             logout()
-            console.log('successful logout')
         } catch (error){
             console.log(error.message)
             return error

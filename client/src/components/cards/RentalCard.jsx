@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Paper, Typography, Box, Grid, Button } from '@mui/material';
+import { Paper, Typography, Box, Button } from '@mui/material';
 
 function RentalCard({created_at, instrumentName, instrument_id, return_date, start_date, rentalId, onDeleteRental, onReviewIntent, rentalObj, instrumentObj}) {
 
@@ -41,7 +41,6 @@ function RentalCard({created_at, instrumentName, instrument_id, return_date, sta
 
     return (
         <>
-     
         <Paper sx={paperStyle.completed}>
             <Box sx={typeStyle}>
                 <Typography>Instrument: {instrumentName}</Typography>
@@ -66,7 +65,6 @@ function RentalCard({created_at, instrumentName, instrument_id, return_date, sta
                 }
             </Box>
         </Paper>
-     
         </>
     );
 }

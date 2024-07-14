@@ -240,7 +240,6 @@ function NewInstrument({onNewInstClose, onAddInstrument}) {
                                 multiline
                                 fullWidth
                                 rows={5}
-                                // rowsMax={12}
                                 id='description'
                                 name='description'
                                 label='description'

@@ -95,13 +95,13 @@ function InstrumentsPanel({allInstruments, afterInstrumentPost, afterInstrumentD
             <Button variant='contained' onClick={viewAddForm}>Add New Instrument</Button>
         </Box>
         <Box>
-        {newInstrumentClick && (
-            <NewInstrument onNewInstClose={closeAddForm} onAddInstrument={afterInstrumentPost}/>
-        )}
+            {newInstrumentClick && (
+                <NewInstrument onNewInstClose={closeAddForm} onAddInstrument={afterInstrumentPost}/>
+            )}
         </Box>
         <Box>
             <Stack spacing={1}>
-            {adminInstrCards}
+                {adminInstrCards}
             </Stack>
         </Box>
         </>
