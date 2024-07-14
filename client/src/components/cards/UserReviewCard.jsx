@@ -33,7 +33,7 @@ function UserReviewCard({review, user}) {
     const createdStr = createdDate[0]
 
     return (
-        <Card sx={{backgroundColor: '#dee2e6'}}>
+        <Card sx={{backgroundColor: '#dee2e6', marginBottom: '10px'}}>
             <CardContent>
                 {matchingInstrument && (
                     <Typography>Instrument: {instrumentNameMatch}</Typography>
