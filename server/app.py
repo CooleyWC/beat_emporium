@@ -68,7 +68,6 @@ def create_checkout_session():
     return_url = PAYMENT_RESULT_URL + '?session_id={CHECKOUT_SESSION_ID}',
     )
 
-  # added rental data
   return jsonify(clientSecret=session.client_secret)
 
 @app.route('/session_status', methods=['GET'])
