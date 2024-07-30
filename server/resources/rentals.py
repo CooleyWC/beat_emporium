@@ -24,7 +24,6 @@ class Rentals(Resource):
     
     instrument_ids = [instrument['instrument_id'] for instrument in data]
     matching_instrument_rentals = [rental.to_dict() for rental in Rental.query.all() if rental.instrument_id in instrument_ids]
-    # maybe end_date instead of start_date below
     matching_rentals = [rental for rental in matching_instrument_rentals if rental['start_date'] > todays_date_str]
     
     stored_rental_dict = {}
@@ -37,23 +36,16 @@ class Rentals(Resource):
 
       start_attr = rental['start_date']
       end_attr = rental['return_date']
-      # print('start_attr', start_attr)
-      # print('end_attr', end_attr)
       
       date_format = '%Y-%m-%d %H:%M:%S'
 
       start_date_obj = datetime.strptime(start_attr, date_format)
       end_date_obj = datetime.strptime(end_attr, date_format)
-    
-      # print(start_date_obj)
-      # print(end_date_obj)
+
       while start_date_obj <= end_date_obj:
-        # print('stored_rental_dict', stored_rental_dict)
-        # print('sr-start_date_obj', start_date_obj)
         start_str = str(start_date_obj)
         start_arr = start_str.split(' ')
         start_result = start_arr[0]
-        # print('sr-start_result', start_result)
 
         instrument_id = rental['instrument_id']
       
@@ -124,8 +116,7 @@ class Rentals(Resource):
         error = {"error": "there or conflicts with the rental dates you entered", "conflicting_dates": error_dict}
    
         return error, 422
-  
-    # data=request.get_json()
+
     rentals_return = []
     
     for rental in data:
@@ -140,16 +131,10 @@ class Rentals(Resource):
           if attr == 'start_date':
             start_str = parser.parse(rental.get(attr))
             start_obj=start_str
-          
-
-          # change these to ifs not elifs
           elif attr == 'return_date':
             return_str = parser.parse(rental.get(attr))
             return_obj=return_str
-        
-            
           elif attr == 'created_at':
-        
             created_str=parser.parse(rental.get(attr))
             created_obj=created_str
         
@@ -170,4 +155,3 @@ class Rentals(Resource):
         return error, 422
     return rentals_return, 200
 
-  # print('another error')
