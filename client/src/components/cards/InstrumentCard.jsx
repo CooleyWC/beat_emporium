@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
 import {Card, CardContent, Typography, CardMedia, Button, FormControl, Box} from '@mui/material'
 import { useAuth } from '../context/AuthProvider';
 import {useCart} from '../context/CartProvider'
@@ -18,6 +19,8 @@ dayjs.extend(utc);
 
 function InstrumentCard({brand, color, name, description, for_rent, image, model, 
     rent_price, reviews, sale_price, size, instrumentObj, currentRentals, in_stock, allInstrumentReviews, onAddBeforeUser}) {
+
+    let navigate = useNavigate()
    
     const today = dayjs().utc()
     const tomorrow = dayjs().utc().add(1, 'day')
@@ -146,9 +149,15 @@ function InstrumentCard({brand, color, name, description, for_rent, image, model
         handleRevOpen()
     }
 
+    const handleParam = () =>{
+        const instId = instrumentObj.id
+        navigate(`/instrument/${instId}`)
+    }
+
     return (
         <>
         <Card sx={{maxWidth: '400px', minHeight: '600px', maxHeight: '600px', marginBottom: '18px'}}>
+            <Button onClick={handleParam}>View Details</Button>
             <CardMedia 
                 component='img'
                 image={image}

@@ -13,6 +13,7 @@ import Review from './forms/Review'
 import { useAuth } from './context/AuthProvider'
 import Instruments from './pages/Instruments'
 import InstrumentsPanel from './administration/InstrumentsPanel'
+import InstrumentDetails from './pages/InstrumentDetails'
 
 function App(){
 
@@ -167,6 +168,7 @@ function App(){
         <Route path='/' errorElement={<ErrorPage />} element={<NavBar />}>
           <Route index element={<Home />}/>
           <Route path='instruments' element={<Instruments allInstruments={allInstruments} allReviews={allReviews}/>}/>
+          <Route path='/instrument/:id' element={<InstrumentDetails/>} />
           <Route path='*' element={<ErrorPage/>}/>
           <Route path='/login' element={<Login />}/>
           <Route path='/signup' element={<Signup />}/>
