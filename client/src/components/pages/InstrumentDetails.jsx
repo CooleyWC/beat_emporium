@@ -2,6 +2,7 @@ import React from 'react';
 import {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {useNavigate} from 'react-router-dom';
+import ReviewCard from '../cards/ReviewCard';
 import {Card, CardContent, Typography, CardMedia, Button, FormControl, Box, Grid} from '@mui/material'
 import { useAuth } from '../context/AuthProvider';
 import {useCart} from '../context/CartProvider'
@@ -207,24 +208,16 @@ function InstrumentDetails() {
             </Card>
             {/* for reviews */}
             <Box>
-                {/* create a separate Card Component */}
                 {revOpen && <Button type='text' onClick={handleRevClose}>Close Reviews</Button>}
                 {revOpen &&(
                     instrumentData.reviews.map((review)=>{
-                        console.log('review', review)
                         return(
-                            <div key={review.id}>
-                            <Card
+                            <ReviewCard 
                                 key={review.id}
-                            >
-                                <CardContent>
-                                    <Typography>Author: {review.user.first_name}</Typography>
-                                    <Typography>Review Date: {review.created_at}</Typography>
-                                    <Typography sx={{paddingTop: '10px', paddingLeft: '20px'}}>{review.content}</Typography>
-                                </CardContent>
-                            </Card>
-                            </div>
-                        )
+                                author={review.user.first_name}
+                                reviewDate={review.created_at}
+                                reviewContent={review.content}
+                            />)
                     })
                 )}
             </Box>
