@@ -3,17 +3,18 @@ import {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {useNavigate} from 'react-router-dom';
 import ReviewCard from '../cards/ReviewCard';
+import DatePickerDialog from '../forms/DatePickerDialog';
 import {Card, CardContent, Typography, CardMedia, Button, FormControl, Box, Grid} from '@mui/material'
 import { useAuth } from '../context/AuthProvider';
 import {useCart} from '../context/CartProvider'
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+// import Dialog from '@mui/material/Dialog';
+// import DialogActions from '@mui/material/DialogActions';
+// import DialogContent from '@mui/material/DialogContent';
+// import DialogContentText from '@mui/material/DialogContentText';
+// import DialogTitle from '@mui/material/DialogTitle';
+// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 
@@ -24,16 +25,17 @@ function InstrumentDetails() {
     const params = useParams();
     const instId = params.id
     const [instrumentData, setInstrumentData] = useState({})
+    // check if currentRentals is necesary
     const [currentRentals, setCurrentRentals] = useState([])
-    const today = dayjs().utc()
-    const tomorrow = dayjs().utc().add(1, 'day')
+    // const today = dayjs().utc()
+    // const tomorrow = dayjs().utc().add(1, 'day')
 
     const [open, setOpen] = useState(false);
     const [revOpen, setRevOpen] = useState(false);
 
-    const [startInput, setStartInput] = useState(today)
-    const [endInput, setEndInput] = useState(tomorrow)
-    const [dateError, setDateError] = useState(null)
+    // const [startInput, setStartInput] = useState(today)
+    // const [endInput, setEndInput] = useState(tomorrow)
+    // const [dateError, setDateError] = useState(null)
     const [hasReviews, setHasReviews] = useState(0)
 
 
@@ -79,7 +81,7 @@ function InstrumentDetails() {
     const {cartItems, handleCartItems, handleRemoveCartItems} = useCart()
 
     const checkIfItemInCart = cartItems.find((item)=>{
-        return item.id === instrumentObj.id
+        return item.id === instrumentData.id
     })
 
     const handleAdd = ()=>{
@@ -91,79 +93,79 @@ function InstrumentDetails() {
     }
 
     const handleRemove = ()=>{
-        handleRemoveCartItems(instrumentObj)
-        setStartInput(today)
-        setEndInput(tomorrow)
+        handleRemoveCartItems(instrumentData)
+        // setStartInput(today)
+        // setEndInput(tomorrow)
     }
 
-    const rentalDates = currentRentals.map((rental)=>{
-        const dateArr = []
+    // const rentalDates = currentRentals.map((rental)=>{
+    //     const dateArr = []
 
-        const rentalStartArr = rental.start_date.split(' ')
-        const startStr = rentalStartArr[0]
+    //     const rentalStartArr = rental.start_date.split(' ')
+    //     const startStr = rentalStartArr[0]
 
-        const rentalEndArr = rental.return_date.split(' ')
-        const endStr = rentalEndArr[0]
+    //     const rentalEndArr = rental.return_date.split(' ')
+    //     const endStr = rentalEndArr[0]
 
-        const start = dayjs(startStr)
-        const end = dayjs(endStr)
+    //     const start = dayjs(startStr)
+    //     const end = dayjs(endStr)
 
-        let loop = dayjs(start)
+    //     let loop = dayjs(start)
 
-        while (loop<=end){
-            dateArr.push(loop.utc())
-            let newDate = loop.add(1, 'day')
-            loop = dayjs(newDate)
-        }
-        return ({dateArr})
-    })
+    //     while (loop<=end){
+    //         dateArr.push(loop.utc())
+    //         let newDate = loop.add(1, 'day')
+    //         loop = dayjs(newDate)
+    //     }
+    //     return ({dateArr})
+    // })
 
     //check selected dates
-    const dateRangeCheck = () =>{
+    // const dateRangeCheck = () =>{
 
-        let selectedArr = []
-        const end = dayjs(endInput)
-        let loop = dayjs(startInput)
+    //     let selectedArr = []
+    //     const end = dayjs(endInput)
+    //     let loop = dayjs(startInput)
 
-        while(loop<=end){
-            selectedArr.push(loop.utc())
-            let newDate = loop.add(1, 'day')
-            loop = dayjs(newDate)
-        }
+    //     while(loop<=end){
+    //         selectedArr.push(loop.utc())
+    //         let newDate = loop.add(1, 'day')
+    //         loop = dayjs(newDate)
+    //     }
 
-        let checkResult = null
-        const copyOfRentalDates = rentalDates
-        for(let date of selectedArr){
-            let dateStr=date.utc().format('MM/DD/YYYY')
+    //     let checkResult = null
+    //     const copyOfRentalDates = rentalDates
+    //     for(let date of selectedArr){
+    //         let dateStr=date.utc().format('MM/DD/YYYY')
 
-            for(let dateObj of copyOfRentalDates){
-                const dateObjArr = dateObj.dateArr
-                for(let rentalDateCheck of dateObjArr){
-                    const rentalDateStr = rentalDateCheck.utc().format('MM/DD/YYYY')
-                    if(dateStr===rentalDateStr){
-                        checkResult = 'whoa!'
-                    }
-                }
-            }
-        }
-        return checkResult
-    }
+    //         for(let dateObj of copyOfRentalDates){
+    //             const dateObjArr = dateObj.dateArr
+    //             for(let rentalDateCheck of dateObjArr){
+    //                 const rentalDateStr = rentalDateCheck.utc().format('MM/DD/YYYY')
+    //                 if(dateStr===rentalDateStr){
+    //                     checkResult = 'whoa!'
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     return checkResult
+    // }
 
-    const disableDateFunc = (date)=>{
-        const testDate = dayjs(date)
-        const muiDate = testDate.utc().format('MM/DD/YYYY')
+    // const disableDateFunc = (date)=>{
+    //     const testDate = dayjs(date)
+    //     const muiDate = testDate.utc().format('MM/DD/YYYY')
 
-        for(let dateObj of rentalDates){
-            const arrayOfDates = dateObj.dateArr
+    //     for(let dateObj of rentalDates){
+    //         const arrayOfDates = dateObj.dateArr
 
-            for(let dateToCheck of arrayOfDates){
-                const dateCheck = dateToCheck.utc().format('MM/DD/YYYY')
-                if(muiDate === dateCheck){
-                    return true
-                }
-            }
-        }
-    }
+    //         for(let dateToCheck of arrayOfDates){
+    //             const dateCheck = dateToCheck.utc().format('MM/DD/YYYY')
+    //             if(muiDate === dateCheck){
+    //                 return true
+    //             }
+    //         }
+    //     }
+    // }
 
     // const handleReviewClick = ()=>{
     //     handleRevOpen()
@@ -221,6 +223,16 @@ function InstrumentDetails() {
                     })
                 )}
             </Box>
+            {/* send open, currentRentals, instrumentDataObj, instrumentName, instrumentModel */}
+            {open && instrumentData && (<DatePickerDialog 
+                open={open} 
+                handleClose={handleClose}
+                currentRentals={instrumentData.rentals}
+                instrumentObj={instrumentData}
+                name={instrumentData.name}
+                model={instrumentData.model}
+                />
+                )}
         </Box>
     );
 }
