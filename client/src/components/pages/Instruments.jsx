@@ -5,7 +5,7 @@ import FilterInstrument from '../forms/FilterInstrument';
 
 function Instruments({allInstruments, allReviews}) {
 
-    const [addAlert, setAddAlert] = useState(null)
+    // const [addAlert, setAddAlert] = useState(null)
     const [instrumentSearch, setinstrumentSearch] = useState('')
     
     if(allInstruments===null || !allInstruments){
@@ -66,9 +66,9 @@ function Instruments({allInstruments, allReviews}) {
     return (
         <>
         <Box sx={{marginTop: '100px', display: 'flex', justifyContent: 'center'}}>
-            {addAlert && (
+            {/* {addAlert && (
                 <Alert severity='error'>Please login to add items to your cart</Alert>
-            )}
+            )} */}
             <Typography sx={{fontSize: '50px'}}>
                 Instruments
             </Typography>
