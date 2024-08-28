@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Card, CardContent, Typography, CardMedia, Button, FormControl, Box} from '@mui/material'
+import {Typography, Button, FormControl} from '@mui/material'
 import {useCart} from '../context/CartProvider'
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -12,8 +12,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 
-
-// send open, currentRentals, instrumentDataObj, instrumentName, instrumentModel
+dayjs.extend(utc);
 
 function DatePickerDialog({open, handleClose, currentRentals, instrumentObj, name, model}) {
 
@@ -94,14 +93,6 @@ function DatePickerDialog({open, handleClose, currentRentals, instrumentObj, nam
             }
         }
     }
-
-    
-    // const handleRemove = ()=>{
-    //     handleRemoveCartItems(instrumentData)
-    //     setStartInput(today)
-    //     setEndInput(tomorrow)
-    // }
-
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
