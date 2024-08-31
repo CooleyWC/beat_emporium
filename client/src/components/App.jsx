@@ -173,6 +173,8 @@ function App(){
           <Route path='/login' element={<Login />}/>
           <Route path='/signup' element={<Signup />}/>
           <Route path='/dashboard' element={<Dashboard handleRentalDelete={handleRentalDelete}/>}/>
+          {/* new */}
+          <Route path='dashboard/:section' element={<Dashboard/>} />
           <Route path='/payment_page' element={<PaymentPage />}/>
           <Route path='/payment_result' element={<PaymentResult user={user} stageRentals={stageRentals}/>}/>
           <Route path='/review_form' element={<Review afterReviewPost={afterReviewPost}/>}/>
