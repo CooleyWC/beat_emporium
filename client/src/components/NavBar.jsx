@@ -56,7 +56,8 @@ function NavBar() {
 
     return (
         <>
-        <AppBar position='fixed' sx={{backgroundColor: '#001d3d'}}>
+        {/* addition here 8-29-24 */}
+        <AppBar position='fixed' sx={{backgroundColor: '#001d3d', zIndex: (theme)=>theme.zIndex.drawer + 1}}>
             <Container maxWidth='xl'>
                 <Toolbar disableGutters>
                     <Typography

@@ -173,6 +173,8 @@ function App(){
           <Route path='/login' element={<Login />}/>
           <Route path='/signup' element={<Signup />}/>
           <Route path='/dashboard' element={<Dashboard handleRentalDelete={handleRentalDelete}/>}/>
+          {/* new - is this bad practice to have the route below be the same element as the regular dashboard? */}
+          <Route path='dashboard/:section' element={<Dashboard handleRentalDelete={handleRentalDelete}/>} />
           <Route path='/payment_page' element={<PaymentPage />}/>
           <Route path='/payment_result' element={<PaymentResult user={user} stageRentals={stageRentals}/>}/>
           <Route path='/review_form' element={<Review afterReviewPost={afterReviewPost}/>}/>

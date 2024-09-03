@@ -1,5 +1,6 @@
-import React from 'react';
-import {Box, Typography, Stack} from '@mui/material'
+import React, {useState} from 'react';
+import {Box, Typography, Stack, Button} from '@mui/material'
+import { useParams } from 'react-router-dom';
 import UserProfileCard from '../cards/UserProfileCard';
 import { useAuth } from '../context/AuthProvider';
 import RentalCard from '../cards/RentalCard';
@@ -8,16 +9,38 @@ import Admin from './Admin';
 import {useReview} from '../context/ReviewProvider'
 import {useNavigate} from 'react-router-dom';
 import UserReviewCard from '../cards/UserReviewCard';
+import DashDrawer from '../DashDrawer';
+import { useEffect } from 'react';
+
+
+// get the drawer to disappear on small screen - probably need to access the window
+// dashboard content pushes out of the way of the drawer
+// when the drawer disappears for mobile, conditionally add buttons or select drop down for menu
 
 
 function Dashboard({handleRentalDelete}) {
-   
+
     let navigate = useNavigate();
+    const drawerWidth = 250
+
+    const {section} = useParams();
+    const [drawerOpen, setDrawerOpen] = useState(false);
     const {user} = useAuth();
     const {handleReviewData} = useReview();
+    const [isAdmin, setIsAdmin] = useState(false)
 
     if(user===null || !user){
         return <p>loading...</p>
+    }
+
+    useEffect(()=>{
+       if(user.admin == '1'){
+        setIsAdmin(true)
+    } 
+    }, [])
+
+    const toggleDrawer = () => {
+        setDrawerOpen(!drawerOpen);
     }
 
     const userRentals = user.rentals
@@ -46,66 +69,149 @@ function Dashboard({handleRentalDelete}) {
         navigate('/review_form')
     }
 
-    const userRentalsMap = userRentals.map((rental)=>{
-        return (
-            <RentalCard 
-                key={rental.id}
-                rentalObj={rental}
-                instrumentObj={rental.instrument}
-                rentalId={rental.id}
-                created_at={rental.created_at}
-                instrumentName={rental.instrument.name}
-                instrument_id={rental.instrument.id}
-                return_date={rental.return_date}
-                start_date={rental.start_date}
-                onDeleteRental={handleDelete}
-                onReviewIntent={reviewIntent}
-            />
-        )
-    })
+    const prevRentalsMap = userRentals.map((rental)=>{
 
+        const todayDate = new Date()
+        const returnObj = new Date(rental.return_date)
+        if(todayDate > returnObj){
+            return (
+                <RentalCard 
+                    key={rental.id}
+                    rentalObj={rental}
+                    instrumentObj={rental.instrument}
+                    rentalId={rental.id}
+                    created_at={rental.created_at}
+                    instrumentName={rental.instrument.name}
+                    instrument_id={rental.instrument.id}
+                    return_date={rental.return_date}
+                    start_date={rental.start_date}
+                    onDeleteRental={handleDelete}
+                    onReviewIntent={reviewIntent}
+                />
+            )
+        }
+        return null
+    })
+    // this ensures that undefined will not be returned
+    // and allows for the conditional check to see if there are elements or not
+    .filter(Boolean)
+
+        const upcomingRentalsMap = userRentals.map((rental)=>{
+
+            const todayDate = new Date()
+            const returnObj = new Date(rental.return_date)
+            if(todayDate < returnObj){
+                return (
+                    <RentalCard 
+                        key={rental.id}
+                        rentalObj={rental}
+                        instrumentObj={rental.instrument}
+                        rentalId={rental.id}
+                        created_at={rental.created_at}
+                        instrumentName={rental.instrument.name}
+                        instrument_id={rental.instrument.id}
+                        return_date={rental.return_date}
+                        start_date={rental.start_date}
+                        onDeleteRental={handleDelete}
+                        onReviewIntent={reviewIntent}
+                    />
+                )
+            }
+            return null
+        })
+        .filter(Boolean)
+    
     return (
         <>
-        <Box sx={{marginTop: '100px', display: 'flex', justifyContent: 'center'}}>
-            <Typography sx={{fontSize: '55px'}}>Dashboard</Typography>
-        </Box>
-        <Box sx={{display: 'flex', alignItems: 'flex-start'}}>
-            <UserProfileCard 
-                key={user.id}
-                first_name={user.first_name}
-                last_name={user.last_name}
-                email={user.email}
-                location={user.location}
-            />
-        </Box>
-        <Box sx={{marginTop: '10px', marginBottom: '10px'}}>
-            <Typography sx={{fontSize: '30px'}}>Your Rentals</Typography>
-        </Box>
-        <Box sx={{width: '100%', borderRadius: '7px'}}>
-        <Stack spacing={1}>
-            {userRentalsMap}
-        </Stack>
-        </Box>
-        <Box>
-            <ShoppingCart />
-        </Box>
-        <Box>
-            <Typography sx={{fontSize: '30px'}}>Your Reviews</Typography>
-            {user.reviews.length ? (
-                user.reviews.map((review)=>(
-                    <UserReviewCard
-                        user={user}
-                        review={review} 
-                        key={review.id}
-                    />
-                ))
+        <Box sx={{display: 'flex'}}>
+            {/* side drawer */}
+            <Box sx={{width: {sm: drawerWidth}, flexShrink: {sm: 0}, display: {xs: 'none', sm: 'block'} }}>
+                <DashDrawer  
+                    isAdmin={isAdmin}
+                    drawerOpen={drawerOpen} 
+                    toggleDrawer={toggleDrawer}
+                />
+            </Box>
+            {/* content */}
+            <Box
+                sx={{
+                    display: 'flex', 
+                    justifyContent: 'center', 
+                    flexGrow: 1, 
+                    p:3, 
+                    width: {sm: `calc(100% - ${drawerWidth}px)`}, 
+                    marginLeft: {xs:0, sm: `${drawerWidth}px`}, 
+                    marginTop: '100px',
+                    marginLeft: 'auto',
+                    marginRight: 'auto'
+                }}
+            >
+                <Button sx={{display: {xs: 'block', sm: 'none'}}}>Click Me</Button>
+                {(!section || section==='user_profile') && (
+                    <UserProfileCard 
+                    key={user.id}
+                    first_name={user.first_name}
+                    last_name={user.last_name}
+                    email={user.email}
+                    location={user.location}
+                />
+                )}
+                {section === 'previous_rentals' && (
+                    <Box sx={{width: '100%', borderRadius: '7px'}}>
 
-            ) : (<Typography sx={{marginLeft: '10px'}}>(you have not written any reviews)</Typography>)}
-        </Box>
-        <Box>
-        {user.admin == '1' && <Admin />}
-        </Box>
-       
+                        {prevRentalsMap.length > 0 ? (
+                            <Stack spacing={1}>
+                                {prevRentalsMap}
+                            </Stack>
+                        ): (
+                            <Typography>No previous rentals found.</Typography>
+                        )}
+
+                    </Box>
+                    )}
+                {section === 'upcoming_rentals' && (
+                    <Box sx={{width: '100%', borderRadius: '7px'}}>
+                        {upcomingRentalsMap.length > 0 ? (
+                            <Stack spacing={1}>
+                                {upcomingRentalsMap}
+                            </Stack>
+                        ): (
+                            <Typography>No upcoming rentals found.</Typography>
+                        )}
+                        
+                    </Box>
+                    )}    
+                {(section === 'user_reviews') && (
+                    <Box sx={{width: '100%', borderRadius: '7px'}}>
+                        {user.reviews.length > 0 ? (
+                            user.reviews.map((review)=>(
+                                <UserReviewCard
+                                user={user}
+                                review={review} 
+                                key={review.id}
+                            />
+                        ))
+                    ) : (
+                        <Typography>
+                            No Reviews Found
+                        </Typography>
+                    )}
+                    </Box>
+                )}
+                {(section === 'shopping_cart') && (
+                    <Box>
+                        <ShoppingCart />
+                    </Box>
+                    
+                )}
+                {(section === 'admin') && (
+                    <Box>
+                        <Admin />
+                    </Box>
+                    
+                )}
+            </Box>
+        </Box>  
         </>
     );
 }
