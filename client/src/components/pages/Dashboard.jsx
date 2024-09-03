@@ -10,6 +10,7 @@ import {useReview} from '../context/ReviewProvider'
 import {useNavigate} from 'react-router-dom';
 import UserReviewCard from '../cards/UserReviewCard';
 import DashDrawer from '../DashDrawer';
+import { useEffect } from 'react';
 
 
 // get the drawer to disappear on small screen - probably need to access the window
@@ -19,21 +20,24 @@ import DashDrawer from '../DashDrawer';
 
 function Dashboard({handleRentalDelete}) {
 
-    // const todayDate = new Date()
+    let navigate = useNavigate();
+    const drawerWidth = 250
 
     const {section} = useParams();
-
     const [drawerOpen, setDrawerOpen] = useState(false);
-   
-    let navigate = useNavigate();
     const {user} = useAuth();
     const {handleReviewData} = useReview();
-
-    const drawerWidth = 250
+    const [isAdmin, setIsAdmin] = useState(false)
 
     if(user===null || !user){
         return <p>loading...</p>
     }
+
+    useEffect(()=>{
+       if(user.admin == '1'){
+        setIsAdmin(true)
+    } 
+    }, [])
 
     const toggleDrawer = () => {
         setDrawerOpen(!drawerOpen);
@@ -123,6 +127,7 @@ function Dashboard({handleRentalDelete}) {
             {/* side drawer */}
             <Box sx={{width: {sm: drawerWidth}, flexShrink: {sm: 0}, display: {xs: 'none', sm: 'block'} }}>
                 <DashDrawer  
+                    isAdmin={isAdmin}
                     drawerOpen={drawerOpen} 
                     toggleDrawer={toggleDrawer}
                 />
@@ -139,8 +144,6 @@ function Dashboard({handleRentalDelete}) {
                     marginTop: '100px',
                     marginLeft: 'auto',
                     marginRight: 'auto'
-
-                
                 }}
             >
                 <Button sx={{display: {xs: 'block', sm: 'none'}}}>Click Me</Button>
@@ -201,49 +204,14 @@ function Dashboard({handleRentalDelete}) {
                     </Box>
                     
                 )}
+                {(section === 'admin') && (
+                    <Box>
+                        <Admin />
+                    </Box>
+                    
+                )}
             </Box>
-            
-        </Box>
-        {/* <Box sx={{marginTop: '100px', display: 'flex', justifyContent: 'center'}}>
-            <Typography sx={{fontSize: '55px'}}>Dashboard</Typography>
-        </Box>
-        <Box sx={{display: 'flex', alignItems: 'flex-start'}}>
-            <UserProfileCard 
-                key={user.id}
-                first_name={user.first_name}
-                last_name={user.last_name}
-                email={user.email}
-                location={user.location}
-            />
-        </Box>
-        <Box sx={{marginTop: '10px', marginBottom: '10px'}}>
-            <Typography sx={{fontSize: '30px'}}>Your Rentals</Typography>
-        </Box>
-        <Box sx={{width: '100%', borderRadius: '7px'}}>
-        <Stack spacing={1}>
-            {userRentalsMap}
-        </Stack>
-        </Box>
-        <Box>
-            <ShoppingCart />
-        </Box>
-        <Box>
-            <Typography sx={{fontSize: '30px'}}>Your Reviews</Typography>
-            {user.reviews.length ? (
-                user.reviews.map((review)=>(
-                    <UserReviewCard
-                        user={user}
-                        review={review} 
-                        key={review.id}
-                    />
-                ))
-
-            ) : (<Typography sx={{marginLeft: '10px'}}>(you have not written any reviews)</Typography>)}
-        </Box>
-        <Box>
-        {user.admin == '1' && <Admin />}
-        </Box> */}
-        
+        </Box>  
         </>
     );
 }

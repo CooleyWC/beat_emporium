@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Box} from '@mui/material'
 
-function DashDrawer({drawerOpen, toggleDrawer}) {
+function DashDrawer({drawerOpen, toggleDrawer, isAdmin}) {
 
     let navigate = useNavigate();
 
@@ -69,6 +69,19 @@ function DashDrawer({drawerOpen, toggleDrawer}) {
                             </ListItemText>
                         </ListItemButton>
                     </ListItem>
+                    {isAdmin && (
+                        <ListItem>
+                        <ListItemButton>
+                            <ListItemText
+                            onClick={()=>{
+                                navigate('/dashboard/admin')
+                                }}
+                            >
+                               Admin
+                            </ListItemText>
+                        </ListItemButton>
+                    </ListItem>
+                    )}
                 </List>
             </Box>
         </Drawer>
