@@ -58,6 +58,17 @@ function DashDrawer({drawerOpen, toggleDrawer}) {
                             </ListItemText>
                         </ListItemButton>
                     </ListItem>
+                    <ListItem>
+                        <ListItemButton>
+                            <ListItemText
+                            onClick={()=>{
+                                navigate('/dashboard/shopping_cart')
+                                }}
+                            >
+                                Shopping Cart
+                            </ListItemText>
+                        </ListItemButton>
+                    </ListItem>
                 </List>
             </Box>
         </Drawer>

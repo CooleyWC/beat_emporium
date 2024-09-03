@@ -19,6 +19,8 @@ import DashDrawer from '../DashDrawer';
 
 function Dashboard({handleRentalDelete}) {
 
+    // const todayDate = new Date()
+
     const {section} = useParams();
 
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -63,24 +65,58 @@ function Dashboard({handleRentalDelete}) {
         navigate('/review_form')
     }
 
-    const userRentalsMap = userRentals.map((rental)=>{
-        return (
-            <RentalCard 
-                key={rental.id}
-                rentalObj={rental}
-                instrumentObj={rental.instrument}
-                rentalId={rental.id}
-                created_at={rental.created_at}
-                instrumentName={rental.instrument.name}
-                instrument_id={rental.instrument.id}
-                return_date={rental.return_date}
-                start_date={rental.start_date}
-                onDeleteRental={handleDelete}
-                onReviewIntent={reviewIntent}
-            />
-        )
-    })
+    const prevRentalsMap = userRentals.map((rental)=>{
 
+        const todayDate = new Date()
+        const returnObj = new Date(rental.return_date)
+        if(todayDate > returnObj){
+            return (
+                <RentalCard 
+                    key={rental.id}
+                    rentalObj={rental}
+                    instrumentObj={rental.instrument}
+                    rentalId={rental.id}
+                    created_at={rental.created_at}
+                    instrumentName={rental.instrument.name}
+                    instrument_id={rental.instrument.id}
+                    return_date={rental.return_date}
+                    start_date={rental.start_date}
+                    onDeleteRental={handleDelete}
+                    onReviewIntent={reviewIntent}
+                />
+            )
+        }
+        return null
+    })
+    // this ensures that undefined will not be returned
+    // and allows for the conditional check to see if there are elements or not
+    .filter(Boolean)
+
+        const upcomingRentalsMap = userRentals.map((rental)=>{
+
+            const todayDate = new Date()
+            const returnObj = new Date(rental.return_date)
+            if(todayDate < returnObj){
+                return (
+                    <RentalCard 
+                        key={rental.id}
+                        rentalObj={rental}
+                        instrumentObj={rental.instrument}
+                        rentalId={rental.id}
+                        created_at={rental.created_at}
+                        instrumentName={rental.instrument.name}
+                        instrument_id={rental.instrument.id}
+                        return_date={rental.return_date}
+                        start_date={rental.start_date}
+                        onDeleteRental={handleDelete}
+                        onReviewIntent={reviewIntent}
+                    />
+                )
+            }
+            return null
+        })
+        .filter(Boolean)
+    
     return (
         <>
         <Box sx={{display: 'flex'}}>
@@ -117,21 +153,53 @@ function Dashboard({handleRentalDelete}) {
                     location={user.location}
                 />
                 )}
-                {section === 'upcoming_rentals' && (
+                {section === 'previous_rentals' && (
                     <Box sx={{width: '100%', borderRadius: '7px'}}>
-                        <Stack spacing={1}>
-                            {userRentalsMap}
-                        </Stack>
+
+                        {prevRentalsMap.length > 0 ? (
+                            <Stack spacing={1}>
+                                {prevRentalsMap}
+                            </Stack>
+                        ): (
+                            <Typography>No previous rentals found.</Typography>
+                        )}
+
                     </Box>
                     )}
-                {(section === 'user_reviews' && user.reviews.length>0) && (
-                    user.reviews.map((review)=>(
-                        <UserReviewCard
-                        user={user}
-                        review={review} 
-                        key={review.id}
-                    />
-                    ))
+                {section === 'upcoming_rentals' && (
+                    <Box sx={{width: '100%', borderRadius: '7px'}}>
+                        {upcomingRentalsMap.length > 0 ? (
+                            <Stack spacing={1}>
+                                {upcomingRentalsMap}
+                            </Stack>
+                        ): (
+                            <Typography>No upcoming rentals found.</Typography>
+                        )}
+                        
+                    </Box>
+                    )}    
+                {(section === 'user_reviews') && (
+                    <Box sx={{width: '100%', borderRadius: '7px'}}>
+                        {user.reviews.length > 0 ? (
+                            user.reviews.map((review)=>(
+                                <UserReviewCard
+                                user={user}
+                                review={review} 
+                                key={review.id}
+                            />
+                        ))
+                    ) : (
+                        <Typography>
+                            No Reviews Found
+                        </Typography>
+                    )}
+                    </Box>
+                )}
+                {(section === 'shopping_cart') && (
+                    <Box>
+                        <ShoppingCart />
+                    </Box>
+                    
                 )}
             </Box>
             
