@@ -1,15 +1,16 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import {Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Box} from '@mui/material'
+import {Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Box, useMediaQuery, useTheme} from '@mui/material'
 
 function DashDrawer({drawerOpen, toggleDrawer, isAdmin}) {
 
     let navigate = useNavigate();
 
     const drawerWidth = 250
+    
 
     return (
-        <Drawer  variant='permanent' anchor='left' open={drawerOpen}  onClose={()=>toggleDrawer()} sx={{
+        <Drawer  variant='permanent' anchor='left' open={drawerOpen}  sx={{
             display: { xs: 'none', sm: 'block' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}>

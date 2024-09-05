@@ -29,15 +29,18 @@ function Dashboard({handleRentalDelete}) {
     const {handleReviewData} = useReview();
     const [isAdmin, setIsAdmin] = useState(false)
 
+
+    useEffect(()=>{
+       if(user && user.admin === '1'){
+            setIsAdmin(true)
+        } else {
+            setIsAdmin(false)
+        } 
+    }, [user, isAdmin])
+
     if(user===null || !user){
         return <p>loading...</p>
     }
-
-    useEffect(()=>{
-       if(user.admin == '1'){
-        setIsAdmin(true)
-    } 
-    }, [])
 
     const toggleDrawer = () => {
         setDrawerOpen(!drawerOpen);
@@ -132,17 +135,17 @@ function Dashboard({handleRentalDelete}) {
                     toggleDrawer={toggleDrawer}
                 />
             </Box>
-            {/* content */}
+            {/* medium and larger screen content */}
             <Box
                 sx={{
-                    display: 'flex', 
+                    display: {xs: 'none', sm: 'flex'}, 
                     justifyContent: 'center', 
                     flexGrow: 1, 
                     p:3, 
                     width: {sm: `calc(100% - ${drawerWidth}px)`}, 
-                    marginLeft: {xs:0, sm: `${drawerWidth}px`}, 
+                    marginLeft: {xs:0, sm: `${drawerWidth}px + auto`}, 
                     marginTop: '100px',
-                    marginLeft: 'auto',
+                    // marginLeft: 'auto',
                     marginRight: 'auto'
                 }}
             >
