@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Box, Typography, Stack, Button} from '@mui/material'
+import {Box, Typography, Stack} from '@mui/material'
 import { useParams } from 'react-router-dom';
 import UserProfileCard from '../cards/UserProfileCard';
 import { useAuth } from '../context/AuthProvider';
@@ -12,12 +12,6 @@ import UserReviewCard from '../cards/UserReviewCard';
 import DashDrawer from '../DashDrawer';
 import { useEffect } from 'react';
 
-
-// get the drawer to disappear on small screen - probably need to access the window
-// dashboard content pushes out of the way of the drawer
-// when the drawer disappears for mobile, conditionally add buttons or select drop down for menu
-
-
 function Dashboard({handleRentalDelete}) {
 
     let navigate = useNavigate();
@@ -29,15 +23,18 @@ function Dashboard({handleRentalDelete}) {
     const {handleReviewData} = useReview();
     const [isAdmin, setIsAdmin] = useState(false)
 
+
+    useEffect(()=>{
+       if(user && user.admin === '1'){
+            setIsAdmin(true)
+        } else {
+            setIsAdmin(false)
+        } 
+    }, [user, isAdmin])
+
     if(user===null || !user){
         return <p>loading...</p>
     }
-
-    useEffect(()=>{
-       if(user.admin == '1'){
-        setIsAdmin(true)
-    } 
-    }, [])
 
     const toggleDrawer = () => {
         setDrawerOpen(!drawerOpen);
@@ -123,30 +120,32 @@ function Dashboard({handleRentalDelete}) {
     
     return (
         <>
-        <Box sx={{display: 'flex'}}>
+        <Box sx={{
+            display: 'flex',
+            flexDirection: {xs: 'column', sm: 'row'}
+            }}>
             {/* side drawer */}
-            <Box sx={{width: {sm: drawerWidth}, flexShrink: {sm: 0}, display: {xs: 'none', sm: 'block'} }}>
+            <Box sx={{
+                width: {xs: '100%', sm: drawerWidth}
+                }}>
                 <DashDrawer  
                     isAdmin={isAdmin}
                     drawerOpen={drawerOpen} 
                     toggleDrawer={toggleDrawer}
                 />
             </Box>
-            {/* content */}
             <Box
                 sx={{
                     display: 'flex', 
-                    justifyContent: 'center', 
+                    justifyContent: 'center',
                     flexGrow: 1, 
+                    alignItems: 'center',
                     p:3, 
                     width: {sm: `calc(100% - ${drawerWidth}px)`}, 
-                    marginLeft: {xs:0, sm: `${drawerWidth}px`}, 
-                    marginTop: '100px',
-                    marginLeft: 'auto',
-                    marginRight: 'auto'
+                    marginLeft: {xs:0}, 
+                    marginTop: {xs: '450px', sm: '100px'}
                 }}
             >
-                <Button sx={{display: {xs: 'block', sm: 'none'}}}>Click Me</Button>
                 {(!section || section==='user_profile') && (
                     <UserProfileCard 
                     key={user.id}
@@ -158,7 +157,6 @@ function Dashboard({handleRentalDelete}) {
                 )}
                 {section === 'previous_rentals' && (
                     <Box sx={{width: '100%', borderRadius: '7px'}}>
-
                         {prevRentalsMap.length > 0 ? (
                             <Stack spacing={1}>
                                 {prevRentalsMap}
@@ -166,7 +164,6 @@ function Dashboard({handleRentalDelete}) {
                         ): (
                             <Typography>No previous rentals found.</Typography>
                         )}
-
                     </Box>
                     )}
                 {section === 'upcoming_rentals' && (
@@ -178,7 +175,6 @@ function Dashboard({handleRentalDelete}) {
                         ): (
                             <Typography>No upcoming rentals found.</Typography>
                         )}
-                        
                     </Box>
                     )}    
                 {(section === 'user_reviews') && (
@@ -202,13 +198,11 @@ function Dashboard({handleRentalDelete}) {
                     <Box>
                         <ShoppingCart />
                     </Box>
-                    
                 )}
                 {(section === 'admin') && (
                     <Box>
                         <Admin />
-                    </Box>
-                    
+                    </Box>   
                 )}
             </Box>
         </Box>  

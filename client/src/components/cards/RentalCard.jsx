@@ -29,20 +29,21 @@ function RentalCard({created_at, instrumentName, instrument_id, return_date, sta
         paddingLeft: '30px'
     }
 
-    const paperStyle = {
-        completed: {
-            backgroundColor: complete ? "#dee2e6": "#0a9396",
-            color: complete ? "black" : "white",
-            display: 'flex',
-            justifyContent: 'space-around',
-            padding: '30px'
-        }
-    }
-
     return (
         <>
-        <Paper sx={paperStyle.completed}>
-            <Box sx={typeStyle}>
+        <Paper sx={{
+            backgroundColor: complete ? "#dee2e6": "#0a9396",
+            color: complete ? "black" : "white",
+            display: {
+                xs: 'grid',
+                md: 'flex'
+            },
+            justifyContent: {
+                md: 'space-between'
+            },
+            padding: '30px'
+        }}>
+           <Box sx={typeStyle}>
                 <Typography>Instrument: {instrumentName}</Typography>
             </Box>
             <Box sx={typeStyle}>
