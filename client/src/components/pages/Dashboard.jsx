@@ -13,10 +13,6 @@ import DashDrawer from '../DashDrawer';
 import { useEffect } from 'react';
 
 
-// get the drawer to disappear on small screen - probably need to access the window
-// dashboard content pushes out of the way of the drawer
-// when the drawer disappears for mobile, conditionally add buttons or select drop down for menu
-
 
 function Dashboard({handleRentalDelete}) {
 
@@ -126,9 +122,17 @@ function Dashboard({handleRentalDelete}) {
     
     return (
         <>
-        <Box sx={{display: 'flex'}}>
+        <Box sx={{
+            display: 'flex',
+            flexDirection: {xs: 'column', sm: 'row'}
+
+            }}>
             {/* side drawer */}
-            <Box sx={{width: {sm: drawerWidth}, flexShrink: {sm: 0}, display: {xs: 'none', sm: 'block'} }}>
+            <Box sx={{
+                width: {xs: '100%', sm: drawerWidth}, 
+                // flexShrink: {sm: 0}, 
+                // display: {sm: 'block'} 
+                }}>
                 <DashDrawer  
                     isAdmin={isAdmin}
                     drawerOpen={drawerOpen} 
@@ -138,18 +142,18 @@ function Dashboard({handleRentalDelete}) {
             {/* medium and larger screen content */}
             <Box
                 sx={{
-                    display: {xs: 'none', sm: 'flex'}, 
-                    justifyContent: 'center', 
+                    display: 'flex', 
+                    justifyContent: 'center',
                     flexGrow: 1, 
+                    alignItems: 'center',
                     p:3, 
                     width: {sm: `calc(100% - ${drawerWidth}px)`}, 
-                    marginLeft: {xs:0, sm: `${drawerWidth}px + auto`}, 
-                    marginTop: '100px',
-                    // marginLeft: 'auto',
-                    marginRight: 'auto'
+                    marginLeft: {xs:0}, 
+                    // new
+                    marginTop: {xs: '450px', sm: '100px'},
+                    // marginRight: 'auto'
                 }}
             >
-                <Button sx={{display: {xs: 'block', sm: 'none'}}}>Click Me</Button>
                 {(!section || section==='user_profile') && (
                     <UserProfileCard 
                     key={user.id}

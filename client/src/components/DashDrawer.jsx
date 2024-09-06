@@ -7,13 +7,21 @@ function DashDrawer({drawerOpen, toggleDrawer, isAdmin}) {
     let navigate = useNavigate();
 
     const drawerWidth = 250
-    
+
+
+    const theme = useTheme()
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
     return (
-        <Drawer  variant='permanent' anchor='left' open={drawerOpen}  sx={{
-            display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}>
+        <Drawer  
+            variant='permanent' 
+            anchor= {isMobile ? 'top' : 'left'}
+            open={drawerOpen} 
+            onClose={()=>toggleDrawer}  
+            sx={{
+                display: { sm: 'block' },
+                '& .MuiDrawer-paper': { boxSizing: 'border-box', width: {xs: '100%', sm: drawerWidth} },
+            }}>
             <Box sx={{ width: drawerWidth }}  role='presentation'>
                 <List sx={{marginTop: '75px'}}>
                     <ListItem>
