@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Box, Typography, Stack, Button} from '@mui/material'
+import {Box, Typography, Stack} from '@mui/material'
 import { useParams } from 'react-router-dom';
 import UserProfileCard from '../cards/UserProfileCard';
 import { useAuth } from '../context/AuthProvider';
@@ -11,8 +11,6 @@ import {useNavigate} from 'react-router-dom';
 import UserReviewCard from '../cards/UserReviewCard';
 import DashDrawer from '../DashDrawer';
 import { useEffect } from 'react';
-
-
 
 function Dashboard({handleRentalDelete}) {
 
@@ -125,13 +123,10 @@ function Dashboard({handleRentalDelete}) {
         <Box sx={{
             display: 'flex',
             flexDirection: {xs: 'column', sm: 'row'}
-
             }}>
             {/* side drawer */}
             <Box sx={{
-                width: {xs: '100%', sm: drawerWidth}, 
-                // flexShrink: {sm: 0}, 
-                // display: {sm: 'block'} 
+                width: {xs: '100%', sm: drawerWidth}
                 }}>
                 <DashDrawer  
                     isAdmin={isAdmin}
@@ -139,7 +134,6 @@ function Dashboard({handleRentalDelete}) {
                     toggleDrawer={toggleDrawer}
                 />
             </Box>
-            {/* medium and larger screen content */}
             <Box
                 sx={{
                     display: 'flex', 
@@ -149,9 +143,7 @@ function Dashboard({handleRentalDelete}) {
                     p:3, 
                     width: {sm: `calc(100% - ${drawerWidth}px)`}, 
                     marginLeft: {xs:0}, 
-                    // new
-                    marginTop: {xs: '450px', sm: '100px'},
-                    // marginRight: 'auto'
+                    marginTop: {xs: '450px', sm: '100px'}
                 }}
             >
                 {(!section || section==='user_profile') && (
@@ -165,7 +157,6 @@ function Dashboard({handleRentalDelete}) {
                 )}
                 {section === 'previous_rentals' && (
                     <Box sx={{width: '100%', borderRadius: '7px'}}>
-
                         {prevRentalsMap.length > 0 ? (
                             <Stack spacing={1}>
                                 {prevRentalsMap}
@@ -173,7 +164,6 @@ function Dashboard({handleRentalDelete}) {
                         ): (
                             <Typography>No previous rentals found.</Typography>
                         )}
-
                     </Box>
                     )}
                 {section === 'upcoming_rentals' && (
@@ -185,7 +175,6 @@ function Dashboard({handleRentalDelete}) {
                         ): (
                             <Typography>No upcoming rentals found.</Typography>
                         )}
-                        
                     </Box>
                     )}    
                 {(section === 'user_reviews') && (
@@ -209,13 +198,11 @@ function Dashboard({handleRentalDelete}) {
                     <Box>
                         <ShoppingCart />
                     </Box>
-                    
                 )}
                 {(section === 'admin') && (
                     <Box>
                         <Admin />
-                    </Box>
-                    
+                    </Box>   
                 )}
             </Box>
         </Box>  
