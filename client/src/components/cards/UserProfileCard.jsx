@@ -1,19 +1,41 @@
 import React from 'react';
-import {Card, CardContent, Typography} from '@mui/material'
+import {Card, CardContent, Typography, Box} from '@mui/material'
 
-function UserProfileCard({first_name, last_name, email, location}) {
+function UserProfileCard({first_name, last_name, email, location, user}) {
+    // console.log('user', user)
+
+    const instrumentNames = user.instruments?.map((instrument)=>{
+        return instrument.name
+    })
+   
+
     return (
-        <Card sx={{backgroundColor: '#780000', color: '#fdf0d5'}}>
+        <Card sx={{backgroundColor: '#d0dfe8', color: 'black', padding: '5%'}}>
             <CardContent>
-                <Typography sx={{fontSize: '50px'}}>
-                    {`${first_name} ${last_name}`}
+                <Typography sx={{fontSize: '70px'}}>
+                   {`${first_name} ${last_name}`}
                 </Typography>
-                <Typography>
-                    {email}
+                <Typography sx={{fontSize: '20px'}}>
+                    Email: {email}
                 </Typography>
-                <Typography>
-                    {location}
+                <Typography sx={{fontSize: '20px'}}>
+                    Location: {location}
                 </Typography>
+                <Typography sx={{fontSize: '20px'}}>
+                    Instruments You Have Rented:
+                </Typography>
+                <Box>
+                {instrumentNames.map(name=>(
+                    <Typography
+                        key={name}
+                        sx={{paddingLeft: '5%'}}
+                    >
+                        {name}
+                    </Typography>
+                ))}
+                </Box>
+              
+            
             </CardContent>
         </Card>
     );
