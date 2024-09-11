@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Typography, Button, FormControl} from '@mui/material'
+import {Typography, Button, FormControl, sliderClasses} from '@mui/material'
 import {useCart} from '../context/CartProvider'
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -14,7 +14,7 @@ import utc from 'dayjs/plugin/utc';
 
 dayjs.extend(utc);
 
-function DatePickerDialog({open, handleClose, currentRentals, instrumentObj, name, model}) {
+function DatePickerDialog({open, handleClose, currentRentals, instrumentObj, name, model, numOfRentalDates, handleNumOfRentalDates}) {
 
     const today = dayjs().utc()
     const tomorrow = dayjs().utc().add(1, 'day')
@@ -24,6 +24,7 @@ function DatePickerDialog({open, handleClose, currentRentals, instrumentObj, nam
     const [startInput, setStartInput] = useState(today)
     const [endInput, setEndInput] = useState(tomorrow)
     const [dateError, setDateError] = useState(null)
+    
 
 
     const rentalDates = currentRentals.map((rental)=>{
@@ -75,6 +76,7 @@ function DatePickerDialog({open, handleClose, currentRentals, instrumentObj, nam
                 }
             }
         }
+        handleNumOfRentalDates(selectedArr.length)
         return checkResult
     }
 
@@ -112,7 +114,20 @@ function DatePickerDialog({open, handleClose, currentRentals, instrumentObj, nam
                         alert('There are conflicts with your selected dates.')
                         return
                     }
-                   
+
+                    let selectedArr = []
+                    const end = dayjs(endInput)
+                    let loop = dayjs(startInput)
+
+                    while(loop<=end){
+                        selectedArr.push(loop.utc())
+                        let newDate = loop.add(1, 'day')
+                        loop = dayjs(newDate)
+                    }
+
+                    const numOfDates = selectedArr.length
+                    handleNumOfRentalDates(numOfDates)
+
                     const instrumentWithDates = {
                         "id": instrumentObj.id,
                         "brand": instrumentObj.brand,
@@ -129,8 +144,11 @@ function DatePickerDialog({open, handleClose, currentRentals, instrumentObj, nam
                         "sale_price": instrumentObj.sale_price,
                         "size": instrumentObj.size,
                         "start_date": startInput.utc().format(),
-                        "end_date": endInput.utc().format()
+                        "end_date": endInput.utc().format(),
+                        // new
+                        "num_of_rental_dates": numOfDates
                     }
+                    console.log('instr with dates', instrumentWithDates)
                     handleCartItems(instrumentWithDates)
                     handleClose()
                 }
@@ -163,9 +181,11 @@ function DatePickerDialog({open, handleClose, currentRentals, instrumentObj, nam
             </DialogContent>
             <DialogActions>
                 <Button onClick={()=>{
+                    handleNumOfRentalDates(0)
                     handleClose()
                     setStartInput(today)
                     setEndInput(tomorrow)
+              
                     }}>Cancel</Button>
                 {dateError === null ? 
                 (<Button type='submit'>Complete Add To Cart</Button>)

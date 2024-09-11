@@ -23,7 +23,8 @@ const PaymentPage = () =>{
   
   const cartIds = cartItems.map((item)=>{
     return (
-      {"id": item.id}
+      // new
+      {"id": item.id, "num_of_rental_dates": item.num_of_rental_dates}
     )
   })
 

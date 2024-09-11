@@ -168,7 +168,7 @@ function App(){
         <Route path='/' errorElement={<ErrorPage />} element={<NavBar />}>
           <Route index element={<Home />}/>
           <Route path='instruments' element={<Instruments allInstruments={allInstruments} allReviews={allReviews}/>}/>
-          <Route path='/instrument/:id' element={<InstrumentDetails/>} />
+          <Route path='/instrument/:id' element={<InstrumentDetails />} />
           <Route path='*' element={<ErrorPage/>}/>
           <Route path='/login' element={<Login />}/>
           <Route path='/signup' element={<Signup />}/>

@@ -36,6 +36,7 @@ from resources.instrument_by_id import InstrumentByID
 @app.route('/create_checkout_session', methods=['POST'])
 def create_checkout_session():
   data = request.get_json()['items']
+  print(data)
 
   requested_ids = [item['id'] for item in data]
 
@@ -48,8 +49,12 @@ def create_checkout_session():
       requested_instruments.append(instrument)
 
   line_items_list = []
+
+  rental_dates_map = {item['id']: item['num_of_rental_dates'] for item in data}
   
   for instrument in requested_instruments:
+
+    qty_of_rental = rental_dates_map.get(instrument['id'], 1)
 
     line_item_obj = {
       'price_data': {
@@ -59,7 +64,7 @@ def create_checkout_session():
         },
         'unit_amount': int(instrument['rent_price']*100),
       },
-      'quantity': 1,
+      'quantity': qty_of_rental,
     }
     line_items_list.append(line_item_obj)
 
