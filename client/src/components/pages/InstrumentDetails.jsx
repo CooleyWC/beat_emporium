@@ -20,6 +20,14 @@ function InstrumentDetails() {
     const [hasReviews, setHasReviews] = useState(0)
     const [addAlert, setAddAlert] = useState(null)
 
+    const [numOfRentalDates, setNumOfRentalDates] = useState(0)
+
+    console.log('numORents', numOfRentalDates)
+
+    const handleNumOfRentalDates = (num)=>{
+        setNumOfRentalDates(num)
+    }
+
 
     useEffect(()=>{
         fetch(`/api/instrument_by_id/${instId}`)
@@ -41,6 +49,8 @@ function InstrumentDetails() {
         }
         
     }, [instrumentData])
+
+    
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -102,6 +112,9 @@ function InstrumentDetails() {
                             <Typography>{instrumentData.color}</Typography>
                             <Typography>{instrumentData.description}</Typography>
                             <Typography>Rent Price: ${instrumentData.rent_price}</Typography>
+                            {/* {numOfRentalDates > 0 && (
+                                <Typography>Number of Rental Days Selected: {numOfRentalDates}</Typography>
+                            )} */}
                             {checkIfItemInCart ? <Button variant='contained' color='error' onClick={handleRemove}>Remove From Cart</Button>: <Button sx={{backgroundColor: 'green'}} variant='contained' onClick={handleAdd}>Add To Cart</Button>}
                         </CardContent>
                     </Grid>
@@ -132,6 +145,8 @@ function InstrumentDetails() {
                 instrumentObj={instrumentData}
                 name={instrumentData.name}
                 model={instrumentData.model}
+                handleNumOfRentalDates={handleNumOfRentalDates}
+                numOfRentalDates={numOfRentalDates}
                 />
                 )}
         </Box>

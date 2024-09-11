@@ -36,6 +36,7 @@ from resources.instrument_by_id import InstrumentByID
 @app.route('/create_checkout_session', methods=['POST'])
 def create_checkout_session():
   data = request.get_json()['items']
+  print(data)
 
   requested_ids = [item['id'] for item in data]
 
