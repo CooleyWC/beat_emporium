@@ -22,8 +22,6 @@ function InstrumentDetails() {
 
     const [numOfRentalDates, setNumOfRentalDates] = useState(0)
 
-    console.log('numORents', numOfRentalDates)
-
     const handleNumOfRentalDates = (num)=>{
         setNumOfRentalDates(num)
     }
