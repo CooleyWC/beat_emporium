@@ -28,19 +28,17 @@ function ShoppingCart() {
     }
 
     return (
-     
         <Box style={{marginTop: '10px'}}>
-            <Typography sx={{fontSize: '30px'}}>Shopping Cart</Typography>
+            <Typography sx={{fontSize: '30px', textAlign: 'center', marginBottom: '20px'}}>Shopping Cart</Typography>
                 {cartItems.length == 0 ? <Typography sx={{marginLeft: '10px'}}>(no items in cart)</Typography> :(
                 <>
-                <Box>{itemsToDisplay}</Box>
-                <Box sx={{display: 'flex', justifyContent: 'center'}}>
-                <Button variant='contained' size='large' sx={{backgroundColor: 'green', marginTop: '10px'}} onClick={handleCheckoutClick}>Checkout</Button>
-                </Box>
+                    <Box>{itemsToDisplay}</Box>
+                    <Box sx={{display: 'flex', justifyContent: 'center'}}>
+                        <Button variant='contained' size='large' sx={{backgroundColor: 'green', marginTop: '10px'}} onClick={handleCheckoutClick}>Checkout</Button>
+                    </Box>
                 </>
             )}
         </Box>
-   
     );
 }
 

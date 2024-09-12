@@ -196,7 +196,7 @@ function Dashboard({handleRentalDelete}) {
                     </Box>
                 )}
                 {(section === 'shopping_cart') && (
-                    <Box>
+                    <Box sx={{width: '100%'}}>
                         <ShoppingCart />
                     </Box>
                 )}
