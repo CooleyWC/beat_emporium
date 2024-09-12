@@ -3,6 +3,8 @@ import {Link, NavLink, Outlet} from 'react-router-dom';
 import {AppBar, Container, Typography, Toolbar, IconButton, Button, Box, Menu, MenuItem} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useAuth } from './context/AuthProvider';
+// new
+import { useCart} from './context/CartProvider'
 
 const isUser = [
     {
@@ -29,7 +31,9 @@ const noUser = [
 function NavBar() {
 
     const {user, logout} = useAuth();
+    const {emptyCart} = useCart();
     const [anchorElNav, setAnchorElNav] = React.useState(null)
+    
 
     const handleOpenNavMenu = (e)=>{
         setAnchorElNav(e.currentTarget);
@@ -47,6 +51,7 @@ function NavBar() {
             if (!res.ok){
                 console.log('logout failed')
             }
+            emptyCart()
             logout()
         } catch (error){
             console.log(error.message)
