@@ -30,11 +30,12 @@ function CartCard({name, itemObj, image, handleRemoveCartItems, startDate, retur
     }
 
     return (
-        <Card sx={{backgroundColor: '#e7ecef', padding: '20px'}}>
+        <Card sx={{backgroundColor: '#e7ecef', padding: '20px', marginBottom: '20px'}}>
             <Box sx={{
                 display: {sm: 'flex', xs: 'grid'},
                 justifyContent: {sm: 'flex-start', xs: 'center'},
-                alignItems: {sm: 'flex-start',xs: 'center'}
+                alignItems: {sm: 'flex-start',xs: 'center'},
+                gap: {sm: '20px', xs: '10px'}
              }}>
                 <CardMedia 
                     component='img'
