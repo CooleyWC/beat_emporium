@@ -126,6 +126,8 @@ function DatePickerDialog({open, handleClose, currentRentals, instrumentObj, nam
                     }
 
                     const numOfDates = selectedArr.length
+                    // place the date check here using a try/catch
+                    // post request
                     handleNumOfRentalDates(numOfDates)
 
                     const instrumentWithDates = {
