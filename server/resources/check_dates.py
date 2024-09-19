@@ -19,8 +19,8 @@ class CheckDates(Resource):
 
     data=request.get_json()
 
-    if type(data) == dict:
-      data = list(data)
+    if isinstance(data, dict):
+      data = [data]
     
     instrument_ids = [instrument['instrument_id'] for instrument in data]
     matching_instrument_rentals = [rental.to_dict() for rental in Rental.query.all() if rental.instrument_id in instrument_ids]
@@ -60,18 +60,14 @@ class CheckDates(Resource):
           start_date_obj += timedelta(days=1)
           stored_rental_dict[rental['instrument_id']] = date_list
     
-  
     # new rentals
     incoming_rentals = [rental for rental in data]
-    print(incoming_rentals)
-   
+  
     for rental in incoming_rentals:
       date_list = []
       
       start_attr = rental['start_date']
-      print('start_attr', start_attr)
       end_attr = rental['return_date']
-      print('return_attr', end_attr)
 
       split_start = start_attr.split('T')
       split_end = end_attr.split('T')
@@ -106,51 +102,11 @@ class CheckDates(Resource):
               error_dict[key] = sub_value_arr
   
     result = None
-    
-    for value in error_dict.values():
-      if len(value) == 0:
-        result = {'conflict': False, "message": "No conflicts. Dates are available."}
-        return result, 200
- 
-      else:
+
+    if any(values for values in error_dict.values()):
         error = {"conflict": True, "message": " Uh oh - You got conflicting dates", "conflicting_dates": error_dict}
         return error, 422
-
-    # rentals_return = []
+    else:
+        result = {'conflict': False, "message": "No conflicts. Dates are available."}
+        return result, 200
     
-    # for rental in data:
-    
-    #   try:
-    #     start_obj = ''
-    #     return_obj = ''
-    #     created_obj = ''
-
-    #     for attr in rental:
-
-    #       if attr == 'start_date':
-    #         start_str = parser.parse(rental.get(attr))
-    #         start_obj=start_str
-    #       elif attr == 'return_date':
-    #         return_str = parser.parse(rental.get(attr))
-    #         return_obj=return_str
-    #       elif attr == 'created_at':
-    #         created_str=parser.parse(rental.get(attr))
-    #         created_obj=created_str
-        
-    #     rental_to_save = Rental(
-    #       user_id = rental.get('user_id'),
-    #       instrument_id = rental.get('instrument_id'),
-    #       created_at = created_obj,
-    #       start_date = start_obj,
-    #       return_date = return_obj,
-    #     )
-
-    #     db.session.add(rental_to_save)
-    #     db.session.commit()
-
-    #     rentals_return.append(rental_to_save.to_dict())
-    #   except:
-    #     error = {'error': 'there was a problem creating the rental(s)'}
-    #     return error, 422
-    # return rentals_return, 200
-

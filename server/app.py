@@ -5,7 +5,6 @@ from flask import Flask, jsonify, request, make_response, redirect
 
 import stripe
 
-# test
 
 stripe_keys = {
   'secret_key': os.environ['STRIPE_SECRET_KEY'],

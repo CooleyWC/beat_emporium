@@ -103,7 +103,7 @@ function DatePickerDialog({open, handleClose, currentRentals, instrumentObj, nam
             onClose={handleClose}
             PaperProps={{
                 component: 'form',
-                onSubmit: (e)=>{
+                onSubmit: async (e)=>{
                     e.preventDefault()
                     if(!startInput || !endInput){
                         alert('You have to select both a start date and end date')
@@ -126,33 +126,81 @@ function DatePickerDialog({open, handleClose, currentRentals, instrumentObj, nam
                     }
 
                     const numOfDates = selectedArr.length
+                    // new
                     // place the date check here using a try/catch
                     // post request
-                    handleNumOfRentalDates(numOfDates)
 
-                    const instrumentWithDates = {
-                        "id": instrumentObj.id,
-                        "brand": instrumentObj.brand,
-                        "color": instrumentObj.color,
-                        "description": instrumentObj.description,
-                        "for_rent": instrumentObj.for_rent,
-                        "image": instrumentObj.image,
-                        "in_stock": instrumentObj.in_stock,
-                        "model": instrumentObj.model,
-                        "name": instrumentObj.name,
-                        "rent_price": instrumentObj.rent_price,
-                        "reviews": instrumentObj.reviews,
-                        "rentals": currentRentals,
-                        "sale_price": instrumentObj.sale_price,
-                        "size": instrumentObj.size,
-                        "start_date": startInput.utc().format(),
-                        "end_date": endInput.utc().format(),
-                        // new
-                        "num_of_rental_dates": numOfDates
+                    try {
+                        const response = await fetch('/api/check_dates', {
+                            method: 'POST',
+                            headers: {
+                                'Content-type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                instrument_id: instrumentObj.id,
+                                start_date: startInput.utc().format(),
+                                return_date: endInput.utc().format(),
+                            })
+                        })
+                        const result = await response.json()
+                        if(result.conflict){
+                            alert(result.message, result.conflicting_dates)
+                            return
+                        }
+                        handleNumOfRentalDates(numOfDates)
+
+                        const instrumentWithDates = {
+                            "id": instrumentObj.id,
+                            "brand": instrumentObj.brand,
+                            "color": instrumentObj.color,
+                            "description": instrumentObj.description,
+                            "for_rent": instrumentObj.for_rent,
+                            "image": instrumentObj.image,
+                            "in_stock": instrumentObj.in_stock,
+                            "model": instrumentObj.model,
+                            "name": instrumentObj.name,
+                            "rent_price": instrumentObj.rent_price,
+                            "reviews": instrumentObj.reviews,
+                            "rentals": currentRentals,
+                            "sale_price": instrumentObj.sale_price,
+                            "size": instrumentObj.size,
+                            "start_date": startInput.utc().format(),
+                            "end_date": endInput.utc().format(),
+                            "num_of_rental_dates": numOfDates
+                        }
+                        console.log('instr with dates', instrumentWithDates)
+                        handleCartItems(instrumentWithDates)
+                        handleClose()
+
+                    } catch (error) {
+                        console.error('Error on date check', error)
+                        alert('There was an error checking date availability')
                     }
-                    console.log('instr with dates', instrumentWithDates)
-                    handleCartItems(instrumentWithDates)
-                    handleClose()
+
+                    // handleNumOfRentalDates(numOfDates)
+
+                    // const instrumentWithDates = {
+                    //     "id": instrumentObj.id,
+                    //     "brand": instrumentObj.brand,
+                    //     "color": instrumentObj.color,
+                    //     "description": instrumentObj.description,
+                    //     "for_rent": instrumentObj.for_rent,
+                    //     "image": instrumentObj.image,
+                    //     "in_stock": instrumentObj.in_stock,
+                    //     "model": instrumentObj.model,
+                    //     "name": instrumentObj.name,
+                    //     "rent_price": instrumentObj.rent_price,
+                    //     "reviews": instrumentObj.reviews,
+                    //     "rentals": currentRentals,
+                    //     "sale_price": instrumentObj.sale_price,
+                    //     "size": instrumentObj.size,
+                    //     "start_date": startInput.utc().format(),
+                    //     "end_date": endInput.utc().format(),
+                    //     "num_of_rental_dates": numOfDates
+                    // }
+                    // console.log('instr with dates', instrumentWithDates)
+                    // handleCartItems(instrumentWithDates)
+                    // handleClose()
                 }
             }}
         >
