@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Typography, Button, FormControl, sliderClasses} from '@mui/material'
+import {Typography, Button, FormControl} from '@mui/material'
 import {useCart} from '../context/CartProvider'
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -19,14 +19,12 @@ function DatePickerDialog({open, handleClose, currentRentals, instrumentObj, nam
     const today = dayjs().utc()
     const tomorrow = dayjs().utc().add(1, 'day')
 
-    const {cartItems, handleCartItems, handleRemoveCartItems} = useCart()
+    const {handleCartItems} = useCart()
 
     const [startInput, setStartInput] = useState(today)
     const [endInput, setEndInput] = useState(tomorrow)
     const [dateError, setDateError] = useState(null)
     
-
-
     const rentalDates = currentRentals.map((rental)=>{
         const dateArr = []
 
@@ -126,9 +124,6 @@ function DatePickerDialog({open, handleClose, currentRentals, instrumentObj, nam
                     }
 
                     const numOfDates = selectedArr.length
-                    // new
-                    // place the date check here using a try/catch
-                    // post request
 
                     try {
                         const response = await fetch('/api/check_dates', {
@@ -176,31 +171,6 @@ function DatePickerDialog({open, handleClose, currentRentals, instrumentObj, nam
                         console.error('Error on date check', error)
                         alert('There was an error checking date availability')
                     }
-
-                    // handleNumOfRentalDates(numOfDates)
-
-                    // const instrumentWithDates = {
-                    //     "id": instrumentObj.id,
-                    //     "brand": instrumentObj.brand,
-                    //     "color": instrumentObj.color,
-                    //     "description": instrumentObj.description,
-                    //     "for_rent": instrumentObj.for_rent,
-                    //     "image": instrumentObj.image,
-                    //     "in_stock": instrumentObj.in_stock,
-                    //     "model": instrumentObj.model,
-                    //     "name": instrumentObj.name,
-                    //     "rent_price": instrumentObj.rent_price,
-                    //     "reviews": instrumentObj.reviews,
-                    //     "rentals": currentRentals,
-                    //     "sale_price": instrumentObj.sale_price,
-                    //     "size": instrumentObj.size,
-                    //     "start_date": startInput.utc().format(),
-                    //     "end_date": endInput.utc().format(),
-                    //     "num_of_rental_dates": numOfDates
-                    // }
-                    // console.log('instr with dates', instrumentWithDates)
-                    // handleCartItems(instrumentWithDates)
-                    // handleClose()
                 }
             }}
         >

@@ -13,7 +13,6 @@ function FilterInstrument({onInstSearch, instrumentSearch}) {
                  value={instrumentSearch}
                  sx={{minWidth: '235px'}}
                 >
-
                 </TextField>
             </FormControl>
        </Box>
