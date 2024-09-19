@@ -88,7 +88,6 @@ function App(){
             .then(data=>{
               handleNewRental(data)
               emptyCart()
-           
             })
           } else {
             res.json()
