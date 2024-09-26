@@ -47,12 +47,12 @@ if __name__ == "__main__":
 
     rental_1 = Rental(user_id=1, instrument_id=1, created_at=datetime(2024,3,1,10,10,10), start_date=date(2024, 2, 14), return_date=date(2024, 3, 20))
     rental_2 = Rental(user_id=2, instrument_id=2, created_at=datetime(2024,5,10,11,1,0), start_date=date(2024, 6, 10), return_date=date(2024, 6, 22))
-    rental_3 = Rental(user_id=3, instrument_id=3, created_at=datetime(2024,6,3,11,5,0), start_date=date(2024, 7, 27), return_date=date(2024, 8, 10))
+    rental_3 = Rental(user_id=3, instrument_id=3, created_at=datetime(2024,6,3,11,5,0), start_date=date(2024, 11, 9), return_date=date(2024, 11, 11))
     rental_4 = Rental(user_id=2, instrument_id=4, created_at=datetime(2024,5,11,10,1,0), start_date=date(2024, 6, 14), return_date=date(2024, 7, 10))
     rental_5 = Rental(user_id=4, instrument_id=1, created_at=datetime(2023,5,11,10,1,0), start_date=date(2023, 6, 14), return_date=date(2023, 7, 25))
-    rental_6 = Rental(user_id=4, instrument_id=2, created_at=datetime(2024,1,11,10,1,0), start_date=date(2024, 1, 14), return_date=date(2024, 1, 25))
-    rental_7 = Rental(user_id=3, instrument_id=1, created_at=datetime(2024,7,11,10,1,0), start_date=date(2024, 8, 1), return_date=date(2024, 8, 11))
-    rental_8 = Rental(user_id=1, instrument_id=3, created_at=datetime(2024,6,11,10,1,0), start_date=date(2024, 8, 20), return_date=date(2024, 9, 7))
+    rental_6 = Rental(user_id=4, instrument_id=2, created_at=datetime(2024,1,11,10,1,0), start_date=date(2024, 11, 14), return_date=date(2024, 11, 25))
+    rental_7 = Rental(user_id=3, instrument_id=1, created_at=datetime(2024,7,11,10,1,0), start_date=date(2024, 12, 1), return_date=date(2024, 12, 11))
+    rental_8 = Rental(user_id=1, instrument_id=3, created_at=datetime(2024,6,11,10,1,0), start_date=date(2024, 10, 20), return_date=date(2024, 11, 7))
 
 
     db.session.add_all([rental_1, rental_2, rental_3, rental_4, rental_5, rental_6, rental_7, rental_8])
