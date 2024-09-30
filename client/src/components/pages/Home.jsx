@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Typography, Card, CardMedia} from '@mui/material'
+import {Box} from '@mui/material'
 
 function Home() {
     return (
@@ -11,16 +11,16 @@ function Home() {
                 width: '100%'
             }}
         >
-        <Box
-            component='img'
-            alt='beat emporium logo'
-            src='/public/images/beat_emporium_logo_9-27.png'
-            sx={{
-                paddingTop: {xs: 5},
-                maxWidth: {xs: 400}
-            }}
-        >
-        </Box>
+            <Box
+                component='img'
+                alt='beat emporium logo'
+                src='/public/images/cbe_logo-2.png'
+                sx={{
+                    paddingTop: {xs: 5, md: 10},
+                    maxWidth: {xs: 500 }
+                }}
+            >
+            </Box>
         </Box>
     );
 }
