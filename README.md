@@ -4,7 +4,7 @@
 
 This application allows users to rent percussion instruments.
 
-<img src='/client/public/readme_images/landing_page.png'>
+<img src='/client/public/readme_images/home.png'>
 
 ## Usage
 
