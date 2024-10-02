@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Paper, Typography, Box, Button } from '@mui/material';
+import { Paper, Typography, Box, Button, Divider} from '@mui/material';
 
 function RentalCard({created_at, instrumentName, instrument_id, return_date, start_date, rentalId, onDeleteRental, onReviewIntent, rentalObj, instrumentObj}) {
 
@@ -58,7 +58,17 @@ function RentalCard({created_at, instrumentName, instrument_id, return_date, sta
             <Box sx={typeStyle}>
                 <Typography>Rental Return Date: {returnDisplay}</Typography>
             </Box>
-            <Box sx={{alignSelf: 'flex-end'}}>
+            <Divider />
+            <Box 
+                sx={{
+                    display: 'flex',
+                    justifyContent: {xs: 'flex-end'},
+                    gridColumn: {xs: '1/-1', md: 'auto'},
+      
+
+
+                }}
+            >
                 {complete ? 
                 (<Button variant='contained' onClick={()=>onReviewIntent(rentalObj, instrumentObj)}>Review this Instrument</Button>)
                 :
