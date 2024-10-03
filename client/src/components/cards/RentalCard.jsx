@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Paper, Typography, Box, Button, Divider} from '@mui/material';
 
-function RentalCard({created_at, instrumentName, instrument_id, return_date, start_date, rentalId, onDeleteRental, onReviewIntent, rentalObj, instrumentObj}) {
+function RentalCard({created_at, instrumentName, return_date, start_date, rentalId, onDeleteRental, onReviewIntent, rentalObj, instrumentObj}) {
 
     const todayDate = new Date()
 
@@ -26,7 +26,11 @@ function RentalCard({created_at, instrumentName, instrument_id, return_date, sta
     }, [])
 
     const typeStyle = {
-        paddingLeft: '30px'
+        paddingLeft: '1.5rem',
+        flex: 1,
+        display: 'flex',
+        alignItems: 'flex-start',
+    
     }
 
     return (
@@ -41,8 +45,9 @@ function RentalCard({created_at, instrumentName, instrument_id, return_date, sta
             justifyContent: {
                 md: 'space-between'
             },
-            padding: '30px'
+            padding: '2rem'
         }}>
+        <Box sx={{width: '100%', display: 'flex', alignItems: {md: 'center'}, flexDirection: {xs: 'column', md: 'row'}, justifyContent: {md: 'space-between'}}} >
            <Box sx={typeStyle}>
                 <Typography>Instrument: {instrumentName}</Typography>
             </Box>
@@ -58,21 +63,24 @@ function RentalCard({created_at, instrumentName, instrument_id, return_date, sta
             <Box sx={typeStyle}>
                 <Typography>Rental Return Date: {returnDisplay}</Typography>
             </Box>
-            <Divider />
+            </Box>
+            <Divider sx={{
+                borderColor: '#606060',
+                display: {xs: 'block', md: 'none'},
+                margin: '1.5rem 0'
+                }}/>
             <Box 
                 sx={{
                     display: 'flex',
-                    justifyContent: {xs: 'flex-end'},
+                    justifyContent: {xs: 'center', md: 'flex-end'},
                     gridColumn: {xs: '1/-1', md: 'auto'},
-      
-
-
+                    paddingLeft: '1rem'
                 }}
             >
                 {complete ? 
-                (<Button variant='contained' onClick={()=>onReviewIntent(rentalObj, instrumentObj)}>Review this Instrument</Button>)
+                (<Button variant='contained' sx={{alignSelf: 'start'}} onClick={()=>onReviewIntent(rentalObj, instrumentObj)}>Review this Instrument</Button>)
                 :
-                <Button variant='contained' color='error' onClick={()=>onDeleteRental(rentalId)}>Cancel</Button>
+                <Button variant='contained' color='error' sx={{alignSelf: 'start'}} onClick={()=>onDeleteRental(rentalId)}>Cancel</Button>
                 }
             </Box>
         </Paper>
