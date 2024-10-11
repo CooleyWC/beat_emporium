@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Card, CardContent, Typography, CardMedia, Button} from '@mui/material'
+import {Card, CardContent, Typography, CardMedia, Button, Grid} from '@mui/material'
 import UpdateInstForm from '../forms/UpdateInstForm';
 
 function AdminInstCard({color, name, description, brand, image, model, rent_price, 
@@ -16,29 +16,57 @@ function AdminInstCard({color, name, description, brand, image, model, rent_pric
     }
 
     const typeStyle = {
-        paddingLeft: '50px'
+        // paddingLeft: '50px'
     }
     
     return (
         <Card sx={{ width:'100%', backgroundColor: '#dee2e6'}}>
+            <Grid container>
+                <Grid item xs={12} md={4}>
             <CardMedia 
                 component='img'
                 image={image}
-                sx={{paddingTop: '20px', paddingLeft: '20px', maxHeight: '100px', maxWidth: '200px', alignSelf: 'flex-start'}}
+                sx={{padding: '2rem', 
+                    height: 'auto', 
+                    maxWidth: '300px', 
+                    objectFit: 'contain'
+                }}
             />
-            <CardContent sx={{display: 'flex', justifyContent: 'flex-start'}}>
-                <Typography sx={typeStyle}>Name: {name}</Typography>
-                <Typography sx={typeStyle}>Brand: {brand}</Typography>
-                <Typography sx={typeStyle}>Model: {model} </Typography> 
-                <Typography sx={typeStyle}>Size: {size}</Typography>
-                <Typography sx={typeStyle}>Color: {color}</Typography>
-                <Typography sx={typeStyle}>Rent Price: {rent_price}</Typography>
-                <Typography sx={typeStyle}>Sale Price: {sale_price}</Typography>
-                <Typography sx={typeStyle}>In Stock: {in_stock ? 'Yes': 'No'}</Typography>
+            </Grid>
+            <Grid item xs={12} md={8}>
+            <CardContent>
+                <Grid container spacing={2} sx={{padding: '1rem'}}>
+                    <Grid item xs={12} sm={6} md={3}>
+                        <Typography>Name: {name}</Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3}>
+                        <Typography>Brand: {brand}</Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3}>
+                        <Typography>Model: {model}</Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3}>
+                        <Typography>Size: {size}</Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3}>
+                        <Typography>Color: {color}</Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3}>
+                        <Typography>Rent Price: {rent_price}</Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3}>
+                        <Typography>Sale Price: {sale_price}</Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3}>
+                        <Typography>In Stock: {in_stock ? 'Yes': 'No'}</Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={12}>
+                        <Typography sx={typeStyle}>Description: {description}</Typography>
+                    </Grid>
+                </Grid>
             </CardContent>
-            <CardContent sx={{display: 'flex', justifyContent: 'flex-start'}}>
-                <Typography sx={typeStyle}>Description: {description}</Typography>
-            </CardContent>
+            </Grid>
+            </Grid>
             <CardContent sx={{display: 'flex', justifyContent: 'flex-end'}}>
                 <Button variant='contained' sx={{alignSelf: 'flex-end'}} onClick={()=>{onDeleteInstr(instrumentObj.id)}} color='error'>Delete</Button>
                     {updateOpen ? (<Button color='error' sx={{maxHeight: '50px'}} onClick={handleUpdateClose}>Close Update</Button>) : (<Button variant='contained' onClick={handleUpdateClick} sx={{marginRight: '10px', marginLeft: '10px'}}>Update</Button>)}
