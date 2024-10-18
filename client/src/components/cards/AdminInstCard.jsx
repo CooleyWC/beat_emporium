@@ -3,7 +3,7 @@ import {Card, CardContent, Typography, CardMedia, Button, Grid} from '@mui/mater
 import UpdateInstForm from '../forms/UpdateInstForm';
 
 function AdminInstCard({color, name, description, brand, image, model, rent_price, 
-    sale_price, size, instrumentObj, in_stock, onDeleteInstr, onUpdateInstr, reviews, for_rent, currentRentals}) {
+    sale_price, size, instrumentObj, in_stock, onDeleteInstr, onUpdateInstr}) {
 
     const [updateOpen, setUpdateOpen] = useState(false)
 
@@ -16,7 +16,7 @@ function AdminInstCard({color, name, description, brand, image, model, rent_pric
     }
 
     const typeStyle = {
-        // paddingLeft: '50px'
+        fontSize: {sm: '1.1rem', md: '1.2rem', lg: '1.3rem'}
     }
     
     return (
@@ -35,39 +35,39 @@ function AdminInstCard({color, name, description, brand, image, model, rent_pric
             </Grid>
             <Grid item xs={12} md={8}>
             <CardContent>
-                <Grid container spacing={2} sx={{padding: '1rem'}}>
+                <Grid container spacing={2} sx={{padding: '1rem', paddingRight: {lg: '5rem'}}}>
                     <Grid item xs={12} sm={6} md={3}>
-                        <Typography>Name: {name}</Typography>
+                        <Typography sx={typeStyle}>Name: {name}</Typography>
                     </Grid>
                     <Grid item xs={12} sm={6} md={3}>
-                        <Typography>Brand: {brand}</Typography>
+                        <Typography sx={typeStyle}>Brand: {brand}</Typography>
                     </Grid>
                     <Grid item xs={12} sm={6} md={3}>
-                        <Typography>Model: {model}</Typography>
+                        <Typography sx={typeStyle}>Model: {model}</Typography>
                     </Grid>
                     <Grid item xs={12} sm={6} md={3}>
-                        <Typography>Size: {size}</Typography>
+                        <Typography sx={typeStyle}>Size: {size}</Typography>
                     </Grid>
                     <Grid item xs={12} sm={6} md={3}>
-                        <Typography>Color: {color}</Typography>
+                        <Typography sx={typeStyle}>Color: {color}</Typography>
                     </Grid>
                     <Grid item xs={12} sm={6} md={3}>
-                        <Typography>Rent Price: {rent_price}</Typography>
+                        <Typography sx={typeStyle}>Rent Price: {rent_price}</Typography>
                     </Grid>
                     <Grid item xs={12} sm={6} md={3}>
-                        <Typography>Sale Price: {sale_price}</Typography>
+                        <Typography sx={typeStyle}>Sale Price: {sale_price}</Typography>
                     </Grid>
                     <Grid item xs={12} sm={6} md={3}>
-                        <Typography>In Stock: {in_stock ? 'Yes': 'No'}</Typography>
+                        <Typography sx={typeStyle}>In Stock: {in_stock ? 'Yes': 'No'}</Typography>
                     </Grid>
-                    <Grid item xs={12} sm={12} md={12}>
-                        <Typography sx={typeStyle}>Description: {description}</Typography>
+                    <Grid item xs={12} sm={12} md={12} >
+                        <Typography sx={{fontSize: {sm: '1.1rem', md: '1.2rem', lg: '1.3rem'}, paddingTop: '3rem'}}>Description: {description}</Typography>
                     </Grid>
                 </Grid>
             </CardContent>
             </Grid>
             </Grid>
-            <CardContent sx={{display: 'flex', justifyContent: 'flex-end'}}>
+            <CardContent sx={{display: 'flex', justifyContent: 'flex-end', paddingRight: {lg: '5rem'}}}>
                 <Button variant='contained' sx={{alignSelf: 'flex-end'}} onClick={()=>{onDeleteInstr(instrumentObj.id)}} color='error'>Delete</Button>
                     {updateOpen ? (<Button color='error' sx={{maxHeight: '50px'}} onClick={handleUpdateClose}>Close Update</Button>) : (<Button variant='contained' onClick={handleUpdateClick} sx={{marginRight: '10px', marginLeft: '10px'}}>Update</Button>)}
                     {updateOpen && (
