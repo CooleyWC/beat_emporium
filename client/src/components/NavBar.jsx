@@ -3,7 +3,6 @@ import {Link, NavLink, Outlet} from 'react-router-dom';
 import {AppBar, Container, Typography, Toolbar, IconButton, Button, Box, Menu, MenuItem} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useAuth } from './context/AuthProvider';
-// new
 import { useCart} from './context/CartProvider'
 
 const isUser = [

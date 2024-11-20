@@ -1,13 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import {Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Box, useMediaQuery, useTheme} from '@mui/material'
+import {Drawer, List, ListItem, ListItemButton, ListItemText, Box, useMediaQuery, useTheme} from '@mui/material'
 
 function DashDrawer({drawerOpen, toggleDrawer, isAdmin}) {
 
     let navigate = useNavigate();
 
     const drawerWidth = 250
-
 
     const theme = useTheme()
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
