@@ -37,9 +37,13 @@ function Instruments({allInstruments, allReviews}) {
     })
 
     const instrumentCards = 
-        <Grid container>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
             {instSearchFilter.map((instrument)=>(
-                <Grid item key={instrument.id} xs={12} sm={6} md={3} lg={3}>
+                <Grid item key={instrument.id} xs={12} sm={6} md={3} lg={3}
+                    sx={{
+                        maxWidth: {xs:400},
+                        margin:{xs:'0 auto'}}}
+                >
                     <InstrumentCard 
                         brand={instrument.brand}
                         color={instrument.color}
