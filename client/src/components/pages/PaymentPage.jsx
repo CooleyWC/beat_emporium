@@ -7,7 +7,7 @@ import {
 import {Box} from '@mui/material'
 import { useCart } from '../context/CartProvider';
 
-const stripePromise = loadStripe('pk_test_51PIh6FRooiRlSIbzyMN3RxjtLClLzzjm4d0L2Ne7QjysYBIYx1lNYpVe2lWFgSL3UF2aj97ZkMufZRVTpzhWeZiF009APCTydE');
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 const PaymentPage = () =>{
 
@@ -23,7 +23,6 @@ const PaymentPage = () =>{
   
   const cartIds = cartItems.map((item)=>{
     return (
-      // new
       {"id": item.id, "num_of_rental_dates": item.num_of_rental_dates}
     )
   })
