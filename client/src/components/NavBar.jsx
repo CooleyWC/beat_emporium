@@ -2,8 +2,10 @@ import React from 'react';
 import {Link, NavLink, Outlet} from 'react-router-dom';
 import {AppBar, Container, Typography, Toolbar, IconButton, Button, Box, Menu, MenuItem} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useAuth } from './context/AuthProvider';
 import { useCart} from './context/CartProvider'
+import {useNavigate} from 'react-router-dom';
 
 const isUser = [
     {
@@ -32,6 +34,8 @@ function NavBar() {
     const {user, logout} = useAuth();
     const {emptyCart} = useCart();
     const [anchorElNav, setAnchorElNav] = React.useState(null)
+
+    let navigate = useNavigate()
     
 
     const handleOpenNavMenu = (e)=>{
@@ -58,6 +62,10 @@ function NavBar() {
         }
     }
 
+    const handleShoppingCartClick = () => {
+        navigate('/dashboard/shopping_cart')
+    }
+
     return (
         <>
         {/* addition here 8-29-24 */}
@@ -80,6 +88,7 @@ function NavBar() {
                     >
                         Cooley's Beat Emporium
                     </Typography>
+                    
 
                     <Box sx={{flexGrow:1, display: {xs: 'flex', md: 'none'}}}>
                         <IconButton
@@ -104,7 +113,11 @@ function NavBar() {
                             onClose={handleCloseNavMenu}
                             sx={{display: {xs: 'block', md: 'none'},}}
                         >
+                            {user && (
+                                <ShoppingCartIcon />
+                            )}
                             {user?(
+                           
                                 isUser.map(({page, route})=>(
                                     <MenuItem
                                         key={page}
@@ -115,7 +128,8 @@ function NavBar() {
                                         {page}
                                     </MenuItem>
                                 ))
-                                )
+                         
+                            )
                                 : (
                                     noUser.map(({page, route})=>(
                                         <MenuItem
@@ -199,6 +213,18 @@ function NavBar() {
                                 </Button>
                             ))
                         )}
+                        {user && (
+                                <ShoppingCartIcon 
+                                    sx={{my:2, fontSize: '1.8rem',
+                                        '&: hover': {
+                                        backgroundColor: 'white',
+                                        color: 'black',
+                                        cursor: 'pointer'
+                                    }
+                                    }}
+                                    onClick={handleShoppingCartClick}
+                                />
+                            )}
                         {user && (
                             <Button
                                 component={NavLink}
