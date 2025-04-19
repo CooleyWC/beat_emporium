@@ -20,7 +20,7 @@ function AdminInstCard({color, name, description, brand, image, model, rent_pric
     }
     
     return (
-        <Card sx={{ width:'100%', backgroundColor: '#dee2e6'}}>
+        <Card sx={{ width:'100%', backgroundColor: '#f8f9fa'}}>
             <Grid container>
                 <Grid item xs={12} md={4}>
             <CardMedia 
