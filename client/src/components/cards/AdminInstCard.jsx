@@ -67,9 +67,11 @@ function AdminInstCard({color, name, description, brand, image, model, rent_pric
             </CardContent>
             </Grid>
             </Grid>
-            <CardContent sx={{display: 'flex', justifyContent: 'flex-end', paddingRight: {lg: '5rem'}}}>
-                <Button variant='contained' sx={{alignSelf: 'flex-end'}} onClick={()=>{onDeleteInstr(instrumentObj.id)}} color='error'>Delete</Button>
-                    {updateOpen ? (<Button color='error' sx={{maxHeight: '50px'}} onClick={handleUpdateClose}>Close Update</Button>) : (<Button variant='contained' onClick={handleUpdateClick} sx={{marginRight: '10px', marginLeft: '10px'}}>Update</Button>)}
+            <CardContent sx={{display: 'flex', gap: '.5em', flexDirection: {xs: 'column', sm: 'row'},  justifyContent: 'flex-end', paddingRight: {lg: '5rem'}}}>
+                <Button variant='contained' sx={{maxHeight: '3rem', maxWidth: '50%'}}  onClick={()=>{onDeleteInstr(instrumentObj.id)}} color='error'>Delete</Button>
+                    {updateOpen ? (<Button color='error' sx={{border: '1px solid red', maxHeight: '3rem', maxWidth: '50%'}} onClick={handleUpdateClose}>Close Update</Button>) 
+                    : 
+                    (<Button variant='contained' onClick={handleUpdateClick} sx={{maxHeight: '3rem', maxWidth: '50%'}}>Update</Button>)}
                     {updateOpen && (
                     <UpdateInstForm instrumentObj={instrumentObj} onUpdateInstr={onUpdateInstr}/>
                 )}
