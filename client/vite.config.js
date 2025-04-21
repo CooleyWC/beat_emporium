@@ -12,21 +12,26 @@ export default defineConfig({
   },
   globals: true,
   setupFiles: './tests/setup.js',
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    emptyOutDir: true
+  },
   server: {
-   proxy: {
-    '/api': {
-      target: 'http://localhost:5555',
-      changeOrigin: true,
-      // rewrite: (path) => path.replace(/^\/api/, ''),
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5555',
+        changeOrigin: true,
+        // rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+      '/create_checkout_session': {
+        target: 'http://localhost:5555',
+        changeOrigin: true,
+      },
+      '/session_status': {
+        target: 'http://localhost:5555',
+        changeOrigin: true,
+      }
     },
-    '/create_checkout_session': {
-      target: 'http://localhost:5555',
-      changeOrigin: true,
-    },
-    '/session_status': {
-      target: 'http://localhost:5555',
-      changeOrigin: true,
-    }
-   },
   }
 })

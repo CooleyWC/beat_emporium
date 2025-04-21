@@ -9,18 +9,19 @@
       "use": "@vercel/static-build",
       "config": {
         "buildCommand": "cd client && npm install && npm run build",
-        "outputDirectory": "client/dist"
+        "outputDirectory": "client/dist",
+        "installCommand": "cd client && npm install"
       }
     }
   ],
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "server/app.py"
+      "destination": "/server/app.py"
     },
     {
       "source": "/(.*)",
-      "destination": "client/dist/$1"
+      "destination": "/client/dist/$1"
     }
   ]
 } 
