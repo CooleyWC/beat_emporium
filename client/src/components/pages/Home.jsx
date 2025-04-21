@@ -14,7 +14,7 @@ function Home() {
             <Box
                 component='img'
                 alt='beat emporium logo'
-                src='/public/images/cbe_logo-2.png'
+                src='/images/cbe_logo-2.png'
                 sx={{
                     paddingTop: {xs: 5, md: 10},
                     maxWidth: {xs: 500 }

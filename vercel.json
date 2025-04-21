@@ -1,0 +1,13 @@
+{
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index.py" }
+  ],
+  "builds": [
+    { "src": "client/**", "use": "@vercel/static" },
+    { "src": "server/**/*.py", "use": "@vercel/python" }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "server/app.py" },
+    { "src": "/(.*)", "dest": "client/dist/$1" }
+  ]
+} 
