@@ -1,13 +1,26 @@
 {
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/index.py" }
-  ],
   "builds": [
-    { "src": "client/**", "use": "@vercel/static" },
-    { "src": "server/**/*.py", "use": "@vercel/python" }
+    {
+      "src": "server/app.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "client/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "buildCommand": "cd client && npm install && npm run build",
+        "outputDirectory": "client/dist"
+      }
+    }
   ],
-  "routes": [
-    { "src": "/api/(.*)", "dest": "server/app.py" },
-    { "src": "/(.*)", "dest": "client/dist/$1" }
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "server/app.py"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "client/dist/$1"
+    }
   ]
 } 

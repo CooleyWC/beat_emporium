@@ -2,4 +2,4 @@ from server.app import app
 
 def handler(request):
     """Handle requests in a serverless context."""
-    return app.handle_request(request) 
+    return app.wsgi_app 
