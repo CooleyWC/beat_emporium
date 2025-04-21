@@ -1,9 +1,21 @@
 {
   "version": 2,
-  "buildCommand": "cd client && npm install && npm run build",
-  "outputDirectory": "client/dist",
-  "framework": "vite",
+  "builds": [
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "client/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "buildCommand": "cd client && npm install && npm run build",
+        "outputDirectory": "client/dist"
+      }
+    }
+  ],
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/server/app.py" }
+    { "source": "/api/(.*)", "destination": "/api/index.py" },
+    { "source": "/(.*)", "destination": "/client/dist/$1" }
   ]
 } 
