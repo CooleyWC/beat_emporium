@@ -96,5 +96,3 @@ api.add_resource(Reviews, '/api/reviews')
 api.add_resource(InstrumentByID, '/api/instrument_by_id/<int:id>')
 api.add_resource(CheckDates, '/api/check_dates')
 
-if __name__ == "__main__":
-  app.run(port=5555, debug=True)
