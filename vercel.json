@@ -10,6 +10,14 @@
     {
       "src": "/api/(.*)",
       "dest": "run.py"
+    },
+    {
+      "src": "/create_checkout_session",
+      "dest": "run.py"
+    },
+    {
+      "src": "/session_status",
+      "dest": "run.py"
     }
   ]
 } 
