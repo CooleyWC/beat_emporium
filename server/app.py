@@ -13,7 +13,7 @@ stripe_keys = {
 
 stripe.api_key = stripe_keys['secret_key']
 
-PAYMENT_RESULT_URL = 'http://127.0.0.1:5173/payment_result'
+PAYMENT_RESULT_URL = os.environ.get('VITE_APP_URL', 'http://127.0.0.1:5173') + '/payment_result'
 
 from models.users import User
 from models.rentals import Rental
