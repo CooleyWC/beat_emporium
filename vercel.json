@@ -17,16 +17,8 @@
       "dest": "server/run.py"
     },
     {
-      "src": "/create_checkout_session",
-      "dest": "server/run.py"
-    },
-    {
-      "src": "/session_status",
-      "dest": "server/run.py"
-    },
-    {
-      "src": "/((?!api/).*)",
-      "dest": "/client/dist/index.html"
+      "src": "/(.*)",
+      "dest": "/client/dist/$1"
     }
   ]
 } 
