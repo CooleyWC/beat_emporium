@@ -2,22 +2,31 @@
   "version": 2,
   "builds": [
     {
-      "src": "run.py",
+      "src": "server/run.py",
       "use": "@vercel/python"
+    },
+    {
+      "src": "client/package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dist" }
     }
-  ], 
+  ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "run.py"
+      "dest": "server/run.py"
     },
     {
       "src": "/create_checkout_session",
-      "dest": "run.py"
+      "dest": "server/run.py"
     },
     {
       "src": "/session_status",
-      "dest": "run.py"
+      "dest": "server/run.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "client/dist/$1"
     }
   ]
 } 
