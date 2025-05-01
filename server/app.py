@@ -96,3 +96,11 @@ api.add_resource(Reviews, '/api/reviews')
 api.add_resource(InstrumentByID, '/api/instrument_by_id/<int:id>')
 api.add_resource(CheckDates, '/api/check_dates')
 
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def serve(path):
+    return app.send_static_file('index.html')
+
+if __name__ == '__main__':
+    app.run()
+
