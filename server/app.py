@@ -1,6 +1,7 @@
 from config import app, api, db, os
 from flask_restful import Resource
-from flask import Flask, jsonify, request, make_response, redirect, send_from_directory
+
+from flask import Flask, jsonify, request, make_response, redirect
 
 import stripe
 
@@ -31,21 +32,6 @@ from resources.reviews import Reviews
 from resources.instrument_by_id import InstrumentByID
 from resources.check_dates import CheckDates
 
-app = Flask(
-    __name__,
-    static_url_path='',
-    static_folder='../client/build',
-    template_folder='../client/build'
-)
-
-# Serve React App
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def serve(path):
-    if path != "" and os.path.exists(app.static_folder + '/' + path):
-        return send_from_directory(app.static_folder, path)
-    else:
-        return send_from_directory(app.static_folder, 'index.html')
 
 @app.route('/create_checkout_session', methods=['POST'])
 def create_checkout_session():

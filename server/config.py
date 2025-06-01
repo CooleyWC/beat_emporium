@@ -8,10 +8,7 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 
-print("Current working directory:", os.getcwd())  # Debug print
-# Load the .env file from the server directory
-load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
-print("All environment variables:", dict(os.environ))  # Debug print
+load_dotenv()
 
 naming_convention = {
     "ix": "ix_%(column_0_label)s",
@@ -23,12 +20,7 @@ naming_convention = {
 
 metadata = MetaData(naming_convention=naming_convention)
 
-app = Flask(
-    __name__,
-    static_url_path='',
-    static_folder='../client/build',
-    template_folder='../client/build'
-)
+app = Flask(__name__)
 app.secret_key = os.getenv("FLASK_SECRET_KEY")
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URI")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
