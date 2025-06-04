@@ -3,4 +3,5 @@
 **/__pycache__/
 *.pyc
 
-.env.dvelopment
+.env.development
+.env.production
